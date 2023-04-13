@@ -14,20 +14,15 @@ class DBClient {
   static async connect() {
     const { ENV } = process.env;
     const DEFAULT_URI = 'mongodb://127.0.0.1:27017/course_finder';
-    switch (ENV) {
-      case 'dev':
-        await mongoose.connect(process.env.DB_DEV_URI);
-        break;
-      case 'test':
-        await mongoose.connect(process.env.DB_TEST_URI);
-        break;
-      case 'prod':
-        await mongoose.connect(process.env.DB_PROD_URI);
-        break;
-      default:
-        await mongoose.connect(DEFAULT_URI);
-        break;
-    }
+    const DEV_URI = process.env.DB_DEV_URI;
+    const TEST_URI = process.env.DB_TEST_URI;
+    const PROD_URI = process.env.DB_PROD_URI;
+    let connectionUri;
+    if (ENV === 'dev' && DEV_URI) connectionUri = DEV_URI;
+    else if (ENV === 'test' && TEST_URI) connectionUri = TEST_URI;
+    else if (ENV === 'prod' && PROD_URI) connectionUri = PROD_URI;
+    else connectionUri = DEFAULT_URI;
+    await mongoose.connect(connectionUri);
   }
 
   /**

@@ -9,20 +9,16 @@ class RedisClient {
    */
   constructor() {
     const { ENV } = process.env;
-    switch (ENV) {
-      case 'dev':
-        this.client = createClient({ url: process.env.REDIS_DEV_URI });
-        break;
-      case 'test':
-        this.client = createClient({ url: process.env.REDIS_TEST_URI });
-        break;
-      case 'prod':
-        this.client = createClient({ url: process.env.REDIS_PROD_URI });
-        break;
-      default:
-        this.client = createClient();
-        break;
-    }
+    const DEFAULT_URI = 'redis://127.0.0.1:6379/0';
+    const DEV_URI = process.env.REDIS_DEV_URI;
+    const TEST_URI = process.env.REDIS_TEST_URI;
+    const PROD_URI = process.env.REDIS_PROD_URI;
+    let connectionUri;
+    if (ENV === 'dev' && DEV_URI) connectionUri = DEV_URI;
+    else if (ENV === 'test' && TEST_URI) connectionUri = TEST_URI;
+    else if (ENV === 'prod' && PROD_URI) connectionUri = PROD_URI;
+    else connectionUri = DEFAULT_URI;
+    this.client = createClient({ url: connectionUri });
     this.client.on('error', (error) => {
       console.error(error.message);
     });
