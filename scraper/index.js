@@ -1,5 +1,5 @@
 import Browser from './browser';
-import ScrapperController from './controller';
+import ScraperController from './controller';
 
 async function main() {
   const MIN_WAIT = 1000 * 60 * 60 * 24 * 4;
@@ -30,7 +30,7 @@ async function main() {
   let udacityScrapper;
   let udemyScrapper;
   try {
-    courseraScrapper = new ScrapperController(
+    courseraScrapper = new ScraperController(
       await Browser.launchBrowser(),
       COURSERA_ENV.url,
       COURSERA_ENV.provider,
@@ -38,7 +38,7 @@ async function main() {
       COURSERA_ENV.courseLinkSelector,
       COURSERA_ENV.nextSelector,
     );
-    udacityScrapper = new ScrapperController(
+    udacityScrapper = new ScraperController(
       await Browser.launchBrowser(),
       UDACITY_ENV.url,
       UDACITY_ENV.provider,
@@ -46,7 +46,7 @@ async function main() {
       UDACITY_ENV.courseLinkSelector,
       UDACITY_ENV.nextSelector,
     );
-    udemyScrapper = new ScrapperController(
+    udemyScrapper = new ScraperController(
       await Browser.launchBrowser(),
       UDEMY_ENV.url,
       UDEMY_ENV.provider,
@@ -59,9 +59,9 @@ async function main() {
   }
 
   try {
-    await Promise.all([courseraScrapper.scrapeData(),
-      udacityScrapper.scrapeData(),
-      udemyScrapper.scrapeData()]);
+    await Promise.all([courseraScrapper.scraper(),
+      udacityScrapper.scraper(),
+      udemyScrapper.scraper()]);
   } catch (error) {
     console.log(error.message);
   }

@@ -1,7 +1,7 @@
 import parser from './utils/parser';
 
 // Course scrapper
-class CourseScrapper {
+class CourseScraper {
   /**
    * Navigates to specific url
    * @param {object} browser - chromium browser instance
@@ -50,9 +50,9 @@ class CourseScrapper {
   }
 
   /**
-   *
+   * Navigates to next page
    * @param {object} page - browser page object
-   * @param {*} nextSelector - next selector for page
+   * @param {string} nextSelector - next selector for page
    * @returns {object} - next page
    */
   static async goToNext(page, nextSelector) {
@@ -63,4 +63,4 @@ class CourseScrapper {
   }
 }
 
-export default CourseScrapper;
+export default CourseScraper;

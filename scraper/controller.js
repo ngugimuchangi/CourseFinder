@@ -1,36 +1,31 @@
-import CourseScrapper from './scrapper';
+import CourseScraper from './scrapper';
 import CourseUtil from './utils/courseUtilities';
-
+/* necessary due to minimize browser resource consumption */
+/* eslint no-await-in-loop: 0 */ // --> OFF
 /**
-   * getsData from pages
+   * Retrieves course data from pages
+   * @param {object} browser - chromium browser instance
    * @param {object} page - page object
+   * @param {string} courseSectionSelector - selector for course section
+   * @param {string} courseLinkSelector - selector for course link
    */
-async function getData(page) {
-  const courseLinks = await CourseScrapper.getCourseLinks(
+async function getData(browser, page, courseSectionSelector, courseLinkSelector) {
+  const courseLinks = await CourseScraper.getCourseLinks(
     page,
-    this.courseSectionSelector,
-    this.courseLinkSelector,
+    courseSectionSelector,
+    courseLinkSelector,
   );
-  const coursePages = [];
   const courseDataPromises = [];
-  const addCoursePromises = [];
   for (const link of courseLinks) {
-    // necessary due to minimize browser resource consumption
-    // eslint-disable-next-line no-await-in-loop
-    coursePages.push(await CourseScrapper.goToPage(link));
-  }
-  for (const coursePage of coursePages) {
-    courseDataPromises.push(CourseScrapper.getCourseData(coursePage));
+    const coursePage = await CourseScraper.goToPage(browser, link);
+    courseDataPromises.push(CourseScraper.getCourseData(coursePage));
   }
   const courseData = await Promise.all(courseDataPromises);
-  for (const data of courseData) {
-    addCoursePromises.push(CourseUtil.addCourse(data));
-  }
-  await Promise.all(addCoursePromises);
+  return courseData;
 }
 
 // Scrapper controller
-class ScrapperController {
+class ScraperController {
   /**
    * Initializes class with new browser objects
    * @param {object} browser - chromium browser instance
@@ -57,25 +52,36 @@ class ScrapperController {
   }
 
   /**
-   * Scrapping controller
+   * Scraping controller
    */
-  async scrapeData() {
-    const page = await CourseScrapper.goToPage(this.browser, this.url);
-    await getData(page);
-    while (this.nextSelector && page.$eval(this.nextSelector)) {
+  async scraper() {
+    const page = await CourseScraper.goToPage(this.browser, this.url);
+    let addCoursePromises;
+    let courseData;
+    let next = true;
+    while (next) {
       try {
-        // necessary due to minimize browser resource consumption
-        // eslint-disable-next-line no-await-in-loop
-        await CourseScrapper.goToNext(page, this.nextSelector);
-        // eslint-disable-next-line no-await-in-loop
-        await getData(page);
+        addCoursePromises = [];
+        courseData = await getData(
+          this.browser,
+          page,
+          this.courseSectionSelector,
+          this.courseLinkSelector,
+        );
+        for (const data of courseData) {
+          addCoursePromises.push(CourseUtil.addCourse(data, this.provider));
+        }
+        await Promise.all(addCoursePromises);
       } catch (error) {
         console.error(error.message);
       }
+      if (this.nextSelector && page.$eval(this.nextSelector)) {
+        await CourseScraper.goToNext(page, this.nextSelector);
+      } else next = false;
     }
     await page.close();
     await this.browser.close();
   }
 }
 
-export default ScrapperController;
+export default ScraperController;
