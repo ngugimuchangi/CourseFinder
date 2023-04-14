@@ -73,8 +73,8 @@ class ScrapperController {
         console.error(error.message);
       }
     }
-    page.close();
-    this.browser.close();
+    await page.close();
+    await this.browser.close();
   }
 }
 
