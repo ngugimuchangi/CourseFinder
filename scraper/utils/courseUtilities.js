@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import Course from '../../models/course';
 import ClassifyCourse from './classify';
 
@@ -35,12 +36,23 @@ class CourseUtil {
   }
 
   /**
-   * Adds new course to database
-   * @param {course} course
+   * Creates new course document and saves it to the database
+   * @param {object} courseData course data from parsed meta tags
+   * @param {*} provider - course provider
    */
-  static async addCourse(course) {
+  static async addCourse(courseData, provider) {
+    const course = courseData;
+    if (await Course.findOne({ url: course.url })) return;
+    const categoryId = await this.classifyCourse(course);
+    course.categoryId = Types.ObjectId.isValid(categoryId) ? new Types.ObjectId(categoryId)
+      : categoryId;
+    course.provider = provider;
     const newCourse = new Course(course);
-    await newCourse.save();
+    try {
+      await newCourse.save();
+    } catch (error) {
+      console.error(`Failed to save new course => : ${error.message}`);
+    }
   }
 }
 export default CourseUtil;

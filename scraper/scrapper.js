@@ -1,7 +1,4 @@
-import { Types } from 'mongoose';
 import parser from './utils/parser';
-import Course from '../models/course';
-import CourseUtil from './utils/courseUtilities';
 
 // Course scrapper
 class CourseScrapper {
@@ -50,25 +47,6 @@ class CourseScrapper {
     }
     await coursePage.close();
     return courseData;
-  }
-
-  /**
-   * Creates new course document and saves it to the database
-   * @param {object} courseData course data from parsed meta tags
-   * @param {*} provider - course provider
-   */
-  static async addCourse(courseData, provider) {
-    const course = courseData;
-    const categoryId = await CourseUtil.classifyCourse(course);
-    course.categoryId = Types.ObjectId.isValid(categoryId) ? new Types.ObjectId(categoryId)
-      : categoryId;
-    course.provider = provider;
-    const newCourse = new Course(course);
-    try {
-      await newCourse.save();
-    } catch (error) {
-      console.error(`Failed to save new course => : ${error.message}`);
-    }
   }
 
   /**
