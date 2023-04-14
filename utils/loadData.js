@@ -15,8 +15,8 @@ class LoadDataFromFile {
     }
     const saveDocuments = [];
     try {
-      const data = fs.readFileSync(file);
-      for (const category of data.split('\n')) {
+      const data = fs.readFileSync(file).split('\n').splice(1);
+      for (const category of data) {
         const newCategory = new Category(category);
         saveDocuments.push(newCategory.save());
       }
@@ -37,20 +37,20 @@ class LoadDataFromFile {
     }
     const saveDocuments = [];
     async function saveSubcategory(subcategory) {
-      const [title, categoryTitle, keywords] = subcategory.split();
+      const [title, categoryTitle, keywords] = subcategory.split(',');
       const category = await Category.findOne({ title: categoryTitle });
       if (category) {
         const newSubcategory = new Subcategory({
           title,
           category: category._id,
-          keywords: keywords.split(';'),
+          keywords: keywords.split(','),
         });
         await saveDocuments.push(newSubcategory.save());
       }
     }
     try {
-      const data = fs.readFileSync(file);
-      for (const subcategory of data.split('\n')) {
+      const data = fs.readFileSync(file).split('\n').splice(1);
+      for (const subcategory of data) {
         saveDocuments.push(saveSubcategory(subcategory));
       }
       await Promise.all(saveDocuments);
