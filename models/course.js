@@ -24,6 +24,7 @@ const courseSchema = new Schema(
       required: true,
       default: process.env.DEFAULT_IMAGE,
     },
+    subcategory: String,
     category: {
       type: SchemaTypes.ObjectId,
       ref: 'Categories',
