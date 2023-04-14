@@ -3,7 +3,7 @@ import Subcategory from '../../models/subcategory';
 
 // Classification class
 class ClassifyCourse {
-  static CLASSIFIER_DOC = process.env || 'course_classifier.json';
+  static CLASSIFIER_DOC = process.env.CLASSIFIER_DOC || 'course_classifier.json';
 
   /**
    * Trains course classifier
