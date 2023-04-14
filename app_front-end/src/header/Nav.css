@@ -1,0 +1,19 @@
+.Navigation {
+        width: 100%;
+        display: flex;
+        height: 10vh;
+        align-items: center;
+        background-color: black;
+        flex-direction: row;
+        justify-content: flex-end;
+}
+
+.Navigation-links {
+        padding-right: 8rem;
+}
+
+.Navigation-link {
+        text-decoration: none;
+        padding-right: 1.2rem;
+        color: #ffffff;
+}
