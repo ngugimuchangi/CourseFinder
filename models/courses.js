@@ -22,6 +22,7 @@ const courseSchema = new Schema(
     imgUrl: {
       type: String,
       required: true,
+      default: process.env.DEFAULT_IMAGE,
     },
     category: {
       type: SchemaTypes.ObjectId,

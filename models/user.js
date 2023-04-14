@@ -1,5 +1,5 @@
 import { Schema, SchemaTypes, model } from 'mongoose';
-import { sha256 } from 'js-sha256';
+import bcrypt from 'bcrypt';
 
 const userSchema = new Schema(
   {
@@ -27,9 +27,12 @@ const userSchema = new Schema(
   {
     methods: {
       hashPassword() {
-        this.password = sha256(this.password);
-      } 
-    }
+        this.password = bcrypt.hashSync(this.password, 8);
+      },
+      isValidPassword(password) {
+        return bcrypt.compareSync(password, this.password);
+      },
+    },
   },
   { timestamps: true },
 );
