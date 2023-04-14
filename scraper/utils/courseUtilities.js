@@ -1,4 +1,4 @@
-import Course from '../../models/courses';
+import Course from '../../models/course';
 import ClassifyCourse from './classify';
 
 class CourseUtil {

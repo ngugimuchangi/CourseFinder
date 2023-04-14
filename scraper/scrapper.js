@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import parser from './utils/parser';
-import Course from '../models/courses';
+import Course from '../models/course';
 import CourseUtil from './utils/courseUtilities';
 
 // Course scrapper
