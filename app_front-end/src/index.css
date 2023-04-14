@@ -1,10 +1,12 @@
 body {
   margin: 0;
-  font-family: "Dm-sans", sans-serif;
+  font-family: 'Dm-Sans', 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: "Dm-sans", sans-serif;
+a,
+ul,
+li {
+  text-decoration: none;
 }
