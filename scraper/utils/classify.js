@@ -1,5 +1,5 @@
 import { BayesClassifier } from 'natural';
-import Subcategory from '../../models/subcategories';
+import Subcategory from '../../models/subcategory';
 
 // Classification class
 class ClassifyCourse {
@@ -34,7 +34,7 @@ class ClassifyCourse {
     } catch (error) {
       console.error(`Loading classification failed => : ${error.message}`);
     }
-    return classifier.classify(token);
+    return classifier.classify(token.toLowerCase());
   }
 }
 
