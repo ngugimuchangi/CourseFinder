@@ -11,6 +11,9 @@ const subcategoriesSchema = new Schema(
       required: true,
       ref: 'Categories',
     },
+    keywords: [{
+      type: String,
+    }],
   },
   { timestamps: true },
 );
