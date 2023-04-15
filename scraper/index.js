@@ -1,5 +1,8 @@
 import Browser from './browser';
 import ScraperController from './controller';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 async function main() {
   const MIN_WAIT = 1000 * 60 * 60 * 24 * 4;
