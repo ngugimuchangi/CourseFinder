@@ -1,0 +1,15 @@
+.landing {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+}
+.landing-bg_img {
+        top: -18rem;
+        left: -30rem;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-image: url(./landing-page.png);
+        background-repeat: no-repeat;
+}
