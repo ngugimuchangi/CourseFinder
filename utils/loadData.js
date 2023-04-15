@@ -15,7 +15,7 @@ class LoadDataFromFile {
     }
     const saveDocuments = [];
     try {
-      const data = fs.readFileSync(file).split('\n').splice(1);
+      const data = fs.readFileSync(file).split('\n').slice(1);
       for (const category of data) {
         const newCategory = new Category(category);
         saveDocuments.push(newCategory.save());
@@ -49,7 +49,7 @@ class LoadDataFromFile {
       }
     }
     try {
-      const data = fs.readFileSync(file).split('\n').splice(1);
+      const data = fs.readFileSync(file).split('\n').slice(1);
       for (const subcategory of data) {
         saveDocuments.push(saveSubcategory(subcategory));
       }
