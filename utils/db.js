@@ -32,6 +32,13 @@ class DBClient {
     if (status === 1) return true;
     return false;
   }
+
+  /**
+   * Close database connection
+   */
+  static async close() {
+    await mongoose.connection.close();
+  }
 }
 
 export default DBClient;
