@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import proxyChain from 'proxy-chain';
 
 // Browser class
 class Browser {
@@ -7,10 +8,18 @@ class Browser {
    * @returns {object} - chromium browser instance
    */
   static async launchBrowser() {
+    const { PROXY_URL } = process.env;
+    const { PROXY_USERNAME } = process.env;
+    const { PROXY_PASSWORD } = process.env;
+    const OLD_PROXY = `${PROXY_USERNAME}:${PROXY_PASSWORD}@${PROXY_URL}`;
+    const NEW_PROXY = proxyChain.anonymizeProxy(OLD_PROXY);
     let browser;
     const browserOptions = {
       headless: true,
-      args: ['--disable-setuid-sandbox'],
+      args: [
+        '--disable-setuid-sandbox',
+        `--proxy-server=${NEW_PROXY}`,
+      ],
       ignoreHTTPSErrors: true,
       defaultViewport: null,
     };
