@@ -25,12 +25,13 @@ class CourseUtil {
    * @returns {string} - id for subcategory linked to course
    */
   static async classifyCourse(course) {
-    const { description } = course;
+    const { title, description } = course;
+    const token = `${title} ${description}`;
     let categoryId;
     try {
-      categoryId = await ClassifyCourse.getCourseCategory(description);
+      categoryId = await ClassifyCourse.getCourseCategory(token);
     } catch (error) {
-      throw new Error(`Course classification failed => : ${error.message}`);
+      throw new Error(`Course classification failed => :\n${error}`);
     }
     return categoryId;
   }
@@ -44,7 +45,7 @@ class CourseUtil {
     const course = courseData;
     if (await Course.findOne({ url: course.url })) return;
     const categoryId = await this.classifyCourse(course);
-    course.categoryId = Types.ObjectId.isValid(categoryId) ? new Types.ObjectId(categoryId)
+    course.category = Types.ObjectId.isValid(categoryId) ? new Types.ObjectId(categoryId)
       : categoryId;
     course.provider = provider;
     const newCourse = new Course(course);
