@@ -1,4 +1,5 @@
 import ClassifyCourse from './classify';
-
-// Train classifiers;
-ClassifyCourse.trainClassifier();
+// Train classifier
+(async () => {
+  await ClassifyCourse.trainClassifier();
+})();
