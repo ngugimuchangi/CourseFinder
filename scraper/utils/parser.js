@@ -2,10 +2,10 @@
 class Parser {
   /**
    * Parses meta tags for course data based on open graph protocol
-   * @param {Array} metaInfo - list of meta tag objects
+   * @param {Array} coursePage - list of meta tag objects
    * @returns {object} - parsed course data
    */
-  static metaParser(metaInfo) {
+  static async metaParser(coursePage) {
     const courseData = {
       title: null,
       provider: null,
@@ -13,23 +13,13 @@ class Parser {
       url: null,
       imageUrl: null,
     };
-    for (const metaTag of metaInfo) {
-      switch (metaTag.property = 'og:description') {
-        case 'og:title':
-          courseData.title = metaTag.content;
-          break;
-        case 'og:description':
-          courseData.description = metaTag.content;
-          break;
-        case 'og:url':
-          courseData.description = metaTag.content;
-          break;
-        case 'og:image':
-          courseData.imageUrl = metaTag.content;
-          break;
-        default:
-          break;
-      }
+    try {
+      courseData.title = await coursePage.$eval("meta[property='og:title']", (meta) => meta.content);
+      courseData.description = await coursePage.$eval("meta[property='og:description']", (meta) => meta.content);
+      courseData.url = await coursePage.$eval("meta[property='og:url']", (meta) => meta.content);
+      courseData.imageUrl = await coursePage.$eval("meta[property='og:image']", (meta) => meta.content);
+    } catch (error) {
+      throw new Error(`Parsing meta tags failed => : ${error}`);
     }
     return courseData;
   }
