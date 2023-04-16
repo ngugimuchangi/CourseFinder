@@ -1,4 +1,4 @@
-import parser from './utils/parser';
+import Parser from './utils/parser';
 
 // Course scrapper
 class CourseScraper {
@@ -23,11 +23,16 @@ class CourseScraper {
    */
 
   static async getCourseLinks(page, courseSection, courseLinkELement) {
-    await page.waitForSelector(courseSection);
-    const courseLinks = await page.$$eval(courseLinkELement, (aTags) => {
-      const links = aTags.map((aTag) => aTag.href);
-      return links;
-    });
+    let courseLinks;
+    try {
+      await page.waitForSelector(courseSection);
+      courseLinks = await page.$$eval(courseLinkELement, (aTags) => {
+        const links = aTags.map((aTag) => aTag.href);
+        return links;
+      });
+    } catch (error) {
+      throw new Error(`Getting course links failed => : \n${error}`);
+    }
     return courseLinks;
   }
 
@@ -41,9 +46,9 @@ class CourseScraper {
     let courseData;
     try {
       const metaTags = coursePage.$$eval(ogMetaTagElement);
-      courseData = parser.metaParser(metaTags);
+      courseData = Parser.metaParser(metaTags);
     } catch (error) {
-      console.error(error.message);
+      throw new Error(`Getting course data failed => : \n${error}`);
     }
     await coursePage.close();
     return courseData;
@@ -56,10 +61,12 @@ class CourseScraper {
    * @returns {object} - next page
    */
   static async goToNext(page, nextSelector) {
-    const nextPaginationElement = page.$eval(nextSelector);
-    if (nextPaginationElement);
-    await page.click(nextPaginationElement);
-    return page;
+    try {
+      const nextPaginationElement = page.$eval(nextSelector);
+      if (nextPaginationElement) await page.click(nextPaginationElement);
+    } catch (error) {
+      throw new Error(`Navigating to next page failed => :\n${error}`);
+    }
   }
 }
 

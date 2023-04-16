@@ -9,24 +9,20 @@ class Browser {
    */
   static async launchBrowser() {
     const { PROXY_URL } = process.env;
-    const { PROXY_USERNAME } = process.env;
-    const { PROXY_PASSWORD } = process.env;
-    const OLD_PROXY = `${PROXY_USERNAME}:${PROXY_PASSWORD}@${PROXY_URL}`;
-    const NEW_PROXY = proxyChain.anonymizeProxy(OLD_PROXY);
+    console.log(PROXY_URL);
+    const NEW_PROXY_URL = await proxyChain.anonymizeProxy(PROXY_URL);
+    console.log(typeof NEW_PROXY_URL);
     let browser;
     const browserOptions = {
       headless: true,
-      args: [
-        '--disable-setuid-sandbox',
-        `--proxy-server=${NEW_PROXY}`,
-      ],
+      args: [`--proxy-server=${NEW_PROXY_URL}`],
       ignoreHTTPSErrors: true,
       defaultViewport: null,
     };
     try {
       browser = await puppeteer.launch(browserOptions);
     } catch (error) {
-      console.error(`Failed to start browser => : ${error.message}`);
+      throw new Error(`Failed to start browser => : ${error.message}`);
     }
     return browser;
   }
