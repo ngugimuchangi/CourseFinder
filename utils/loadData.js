@@ -59,8 +59,14 @@ class LoadDataFromFile {
     }
   }
 }
+/**
+ * Populates database with categories and subcategories from csv files
+ */
+async function loadCategories() {
+  const categoriesFile = './categories.csv';
+  const subCategoriesFile = './subcategories.csv';
+  await LoadDataFromFile.addCategories(categoriesFile);
+  await LoadDataFromFile.addSubcategories(subCategoriesFile);
+}
 
-const categoriesFile = '../files/categories.csv';
-const subCategoriesFile = '../files/subcategories.csv';
-LoadDataFromFile.addCategories(categoriesFile);
-LoadDataFromFile.addSubcategories(subCategoriesFile);
+loadCategories();
