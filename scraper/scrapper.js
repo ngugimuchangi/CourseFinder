@@ -6,32 +6,38 @@ class CourseScraper {
    * Navigates to specific url
    * @param {object} browser - chromium browser instance
    * @param {string} url - url for page to load
+   * @param {string} courseSection - selector for successful ajax call
    * @returns {object} - page object
    */
-  static async goToPage(browser, url) {
-    const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'domcontentloaded' });
+  static async goToPage(browser, url, courseSection) {
+    let page;
+    const username = process.env.PROXY_USERNAME;
+    const password = process.env.PROXY_PASSWORD;
+    try {
+      page = await browser.newPage();
+      await page.authenticate({ username, password });
+      await page.goto(url);
+      await page.waitForTimeout(5000);
+      if (courseSection) await page.waitForSelector(courseSection);
+    } catch (error) {
+      throw new Error(`Navigating to url: ${url} failed => :\n${error}`);
+    }
     return page;
   }
 
   /**
    * Gets list of free course links
    * @param {object} page - browser page object
-   * @param {string} courseSection - selector for successful ajax call
-   * @param {string} courseLinkELement  - selector for course items
+   * @param {string} courseLinkSelector  - selector for course items
    * @returns {Array} - array of course links
    */
 
-  static async getCourseLinks(page, courseSection, courseLinkELement) {
+  static async getCourseLinks(page, courseLinkSelector) {
     let courseLinks;
     try {
-      await page.waitForSelector(courseSection);
-      courseLinks = await page.$$eval(courseLinkELement, (aTags) => {
-        const links = aTags.map((aTag) => aTag.href);
-        return links;
-      });
+      courseLinks = await page.$$eval(courseLinkSelector, (aTags) => aTags.map((a) => a.href));
     } catch (error) {
-      throw new Error(`Getting course links failed => : \n${error}`);
+      throw new Error(`Getting course links failed => : ${error}`);
     }
     return courseLinks;
   }
@@ -42,13 +48,11 @@ class CourseScraper {
    * @returns {object} course data
    */
   static async getCourseData(coursePage) {
-    const ogMetaTagElement = 'meta[property=og:*]';
     let courseData;
     try {
-      const metaTags = coursePage.$$eval(ogMetaTagElement);
-      courseData = Parser.metaParser(metaTags);
+      courseData = await Parser.metaParser(coursePage);
     } catch (error) {
-      throw new Error(`Getting course data failed => : \n${error}`);
+      throw new Error(`Getting course data failed => : ${error}`);
     }
     await coursePage.close();
     return courseData;
@@ -62,8 +66,12 @@ class CourseScraper {
    */
   static async goToNext(page, nextSelector) {
     try {
-      const nextPaginationElement = page.$eval(nextSelector);
-      if (nextPaginationElement) await page.click(nextPaginationElement);
+      await Promise.all([
+        page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
+        page.click(nextSelector),
+      ]);
+      // Needs refactoring
+      await page.waitForSelector(nextSelector);
     } catch (error) {
       throw new Error(`Navigating to next page failed => :\n${error}`);
     }

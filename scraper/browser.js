@@ -1,7 +1,9 @@
-import puppeteer from 'puppeteer';
-import proxyChain from 'proxy-chain';
+import { executablePath } from 'puppeteer';
+import puppeteerExtra from 'puppeteer-extra';
+import stealthPlugin from 'puppeteer-extra-plugin-stealth';
 
-// Browser class
+puppeteerExtra.use(stealthPlugin());
+
 class Browser {
   /**
    * Creates a browser instance
@@ -9,20 +11,18 @@ class Browser {
    */
   static async launchBrowser() {
     const { PROXY_URL } = process.env;
-    console.log(PROXY_URL);
-    const NEW_PROXY_URL = await proxyChain.anonymizeProxy(PROXY_URL);
-    console.log(typeof NEW_PROXY_URL);
     let browser;
     const browserOptions = {
-      headless: true,
-      args: [`--proxy-server=${NEW_PROXY_URL}`],
+      headless: false,
+      executablePath: executablePath(),
+      args: [`--proxy-server=${PROXY_URL}`],
       ignoreHTTPSErrors: true,
       defaultViewport: null,
     };
     try {
-      browser = await puppeteer.launch(browserOptions);
+      browser = await puppeteerExtra.launch(browserOptions);
     } catch (error) {
-      throw new Error(`Failed to start browser => : ${error.message}`);
+      throw new Error(`Failed to start browser => : ${error}`);
     }
     return browser;
   }

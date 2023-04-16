@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import Browser from './browser';
+import DBClient from '../utils/db';
 import ScraperController from './controller';
 
 dotenv.config();
@@ -65,12 +66,17 @@ async function main() {
   }
 
   try {
-    await Promise.all([courseraScrapper.scraper(),
+    await DBClient.connect();
+    await Promise.all([
+      courseraScrapper.scraper(),
       udacityScrapper.scraper(),
-      udemyScrapper.scraper()]);
+      udemyScrapper.scraper(),
+    ]);
+    await DBClient.close();
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
+  console.log('Scrapping session completed');
   setTimeout(() => main(), Math.random() * (MAX_WAIT - MIN_WAIT) + MIN_WAIT);
 }
 
