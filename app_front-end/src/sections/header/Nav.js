@@ -1,5 +1,6 @@
 import "./Nav.css";
 import { useState } from "react";
+import logo from './logo.png';
 
 /**
  * Navigation component section
@@ -17,6 +18,7 @@ function Nav() {
   window.addEventListener("scroll", scrollFixed);
   return (
     <div className={fix ? "Navigation Fixed": "Navigation"}>
+      <img className={fix ? "Heading Logo": "Heading"} src={logo} alt="Logo" />
       <div className="Navigation-links">
         <a className="Navigation-link" href="/">
           Home

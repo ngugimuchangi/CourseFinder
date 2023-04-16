@@ -1,3 +1,6 @@
+/**
+* Landing Hero section for the landing page
+*/
 .Landing {
         width: 100%;
         height: 100vh;
@@ -6,28 +9,55 @@
         justify-content: center;
         text-align: center;
 }
-.Landing-bg_img {
+
+/**
+* Hero Image for the landing page
+*/
+.Landing-cover {
+        background-image: linear-gradient(to right bottom, #7f56d9c2, #7f56d998),url(./bg3.jpeg);
+        background-size: cover;
+        background-position: center;
+        position: relative;
         width: 100%;
         height: 100%;
-        background-image: url(./landing-page.png);
-        background-repeat: no-repeat;
-        position: absolute;
-        z-index: 100;
-        text-align: center;
 }
+
+/**
+* Container for the Hero text and button section
+*/
 .Landing-containers {
         width: 100%;
         z-index: 200;
         color: #ffffff;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 }
+/**
+* Container Main Hero heading
+*/
 .Landing-containers-h1 {
         font-size: 6rem;
-        margin-bottom: 2.5rem;
+        font-weight: 500;
+        letter-spacing: 2.1rem;
+        text-transform: uppercase;
 }
+
+/**
+* Container Second Hero heading
+*/
 .Landing-containers-h3 {
         font-size: 2rem;
-        margin-bottom: 3.4rem;
+        margin-bottom: 2.4rem;
+        letter-spacing: 1rem;
+        text-transform: uppercase;
+        font-weight: 400;
 }
+
+/**
+* Container button for the link in the Hero section
+*/
 .Landing-containers-btn_link {
         color: #ffffff;
         background-color: #7F56D9;
@@ -35,6 +65,9 @@
         border-radius: 0.5rem;
 }
 
+/**
+* Container button annimation effect for the link in Hero section
+*/
 .Landing-containers-btn_link:hover {
         background-color: #442588;
 }
