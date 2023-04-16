@@ -20,23 +20,22 @@ class ClassifyCourse {
       classifier.train();
       classifier.save(CLASSIFIER_DOC);
     } catch (error) {
-      throw new Error(`Training classifier failed => : ${error.message}`);
+      throw new Error(`Training classifier failed => : ${error}`);
     }
   }
 
   /**
    * Classifies course based on it description
    * @param {string} token - course classification token
-   * @returns {string} - subcategory id based on classification result
+   * @returns {Promise} - promise that resolves with subcategory id based on classification results
    */
   static async getCourseCategory(token) {
-    let classifier;
-    try {
-      classifier = await BayesClassifier.load(CLASSIFIER_DOC);
-    } catch (error) {
-      throw new Error(`Loading classification failed => : ${error.message}`);
-    }
-    return classifier.classify(token.toLowerCase());
+    return new Promise((resolve, reject) => {
+      BayesClassifier.load(CLASSIFIER_DOC, null, async (error, classifier) => {
+        if (error) reject(new Error(`Loading classification failed => : ${error}`));
+        resolve(classifier.classify(token));
+      });
+    });
   }
 }
 
