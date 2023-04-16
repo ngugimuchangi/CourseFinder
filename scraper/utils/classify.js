@@ -1,24 +1,26 @@
 import { BayesClassifier } from 'natural';
 import Subcategory from '../../models/subcategory';
+import DBClient from '../../utils/db';
+
+const CLASSIFIER_DOC = process.env.CLASSIFIER_DOC || './scraper/utils/course_classifier.json';
 
 // Classification class
 class ClassifyCourse {
-  static CLASSIFIER_DOC = process.env.CLASSIFIER_DOC || 'course_classifier.json';
-
   /**
    * Trains course classifier
    */
   static async trainClassifier() {
-    const categories = await Subcategory.find({});
-    const classifier = new BayesClassifier();
-    for (const category of categories) {
-      classifier.addDocument(category.keywords, category._id.toString());
-    }
-    await classifier.train();
     try {
-      await classifier.save(this.CLASSIFIER_DOC);
+      await DBClient.connect();
+      const subcategories = await Subcategory.find({});
+      const classifier = new BayesClassifier();
+      for (const subcategory of subcategories) {
+        classifier.addDocument(subcategory.keywords, subcategory._id.toString());
+      }
+      classifier.train();
+      classifier.save(CLASSIFIER_DOC);
     } catch (error) {
-      console.error(`Saving classification failed => : ${error.message}`);
+      throw new Error(`Training classifier failed => : ${error.message}`);
     }
   }
 
@@ -30,9 +32,9 @@ class ClassifyCourse {
   static async getCourseCategory(token) {
     let classifier;
     try {
-      classifier = await BayesClassifier.load(this.CLASSIFIER_DOC);
+      classifier = await BayesClassifier.load(CLASSIFIER_DOC);
     } catch (error) {
-      console.error(`Loading classification failed => : ${error.message}`);
+      throw new Error(`Loading classification failed => : ${error.message}`);
     }
     return classifier.classify(token.toLowerCase());
   }

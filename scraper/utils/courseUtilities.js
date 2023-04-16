@@ -14,7 +14,7 @@ class CourseUtil {
       const course = await Course.findOne({ url });
       if (course) return true;
     } catch (error) {
-      console.error(error.message);
+      throw new Error(`Checking course existence failed => : ${error.message}`);
     }
     return false;
   }
@@ -30,7 +30,7 @@ class CourseUtil {
     try {
       categoryId = await ClassifyCourse.getCourseCategory(description);
     } catch (error) {
-      console.error(error.message);
+      throw new Error(`Course classification failed => : ${error.message}`);
     }
     return categoryId;
   }
@@ -51,7 +51,7 @@ class CourseUtil {
     try {
       await newCourse.save();
     } catch (error) {
-      console.error(`Failed to save new course => : ${error.message}`);
+      throw new Error(`Failed to save new course => : ${error.message}`);
     }
   }
 }
