@@ -13,7 +13,7 @@ class Browser {
     const { PROXY_URL } = process.env;
     let browser;
     const browserOptions = {
-      headless: false,
+      headless: true,
       executablePath: executablePath(),
       args: [`--proxy-server=${PROXY_URL}`],
       ignoreHTTPSErrors: true,
