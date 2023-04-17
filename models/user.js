@@ -24,6 +24,10 @@ const userSchema = new Schema(
         required: false,
         ref: 'Courses',
       }],
+    verified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     methods: {
