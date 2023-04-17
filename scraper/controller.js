@@ -15,7 +15,7 @@ async function getData(browser, page, courseLinkSelector) {
     courseLinkSelector,
   );
   const courseDataPromises = [];
-  for (const link of courseLinks.slice(0, 1)) {
+  for (const link of courseLinks) {
     const coursePage = await CourseScraper.goToPage(browser, link);
     courseDataPromises.push(CourseScraper.getCourseData(coursePage));
   }
