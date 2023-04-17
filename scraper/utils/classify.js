@@ -25,11 +25,11 @@ class ClassifyCourse {
   }
 
   /**
-   * Classifies course based on it description
+   * Classifies course based on it title and description
    * @param {string} token - course classification token
    * @returns {Promise} - promise that resolves with subcategory id based on classification results
    */
-  static async getCourseCategory(token) {
+  static async classify(token) {
     return new Promise((resolve, reject) => {
       BayesClassifier.load(CLASSIFIER_DOC, null, async (error, classifier) => {
         if (error) {
