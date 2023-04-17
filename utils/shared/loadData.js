@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import dotenv from 'dotenv';
 import DBClient from './db';
-import Category from '../models/category';
-import Subcategory from '../models/subcategory';
+import Category from '../../models/category';
+import Subcategory from '../../models/subcategory';
 
 dotenv.config();
 

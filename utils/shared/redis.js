@@ -18,7 +18,6 @@ class RedisClient {
     else if (ENV === 'test' && TEST_URI) connectionUri = TEST_URI;
     else if (ENV === 'prod' && PROD_URI) connectionUri = PROD_URI;
     else connectionUri = DEFAULT_URI;
-    console.log(connectionUri);
     this.client = createClient({ url: connectionUri });
     this.client.on('error', (error) => {
       console.error(error.message);
