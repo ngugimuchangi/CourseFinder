@@ -15,6 +15,7 @@ class DBClient {
     const TEST_URI = process.env.DB_TEST_URI;
     const PROD_URI = process.env.DB_PROD_URI;
     let connectionUri;
+
     if (ENV === 'dev' && DEV_URI) connectionUri = DEV_URI;
     else if (ENV === 'test' && TEST_URI) connectionUri = TEST_URI;
     else if (ENV === 'prod' && PROD_URI) connectionUri = PROD_URI;
