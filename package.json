@@ -8,7 +8,7 @@
     "dev": "nodemon --exec babel-node --presets babel-preset-env",
     "train-classifier": "nodemon --exec babel-node --presets babel-preset-env scraper/utils/train.js",
     "start-scraper": "nodemon --exec babel-node --presets babel-preset-env scraper/index.js",
-    "start-server": "nodemon --exec babel-node --presets babel-preset-env api/app.js",
+    "start-server": "nodemon --exec babel-node --presets babel-preset-env api/server.js",
     "test": "./node_modules/mocha/bin/mocha --require babel-register --exit",
     "test-all": "./node_modules/mocha/bin/mocha --require babel-register --exit tests/"
   },
@@ -27,6 +27,7 @@
     "install": "^0.13.0",
     "mongoose": "^7.0.3",
     "natural": "^6.2.0",
+    "nodemailer": "^6.9.1",
     "puppeteer": "^19.9.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
