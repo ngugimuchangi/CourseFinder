@@ -70,6 +70,7 @@ class CourseScraper {
         page.click(nextSelector),
       ]);
       // Needs refactoring
+      await page.waitForTimeout(5000);
       await page.waitForSelector(nextSelector);
     } catch (error) {
       throw new Error(`Navigating to next page failed => : ${error}`);
