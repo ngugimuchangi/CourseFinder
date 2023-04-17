@@ -1,8 +1,11 @@
+import dotenv from 'dotenv';
 import { BayesClassifier } from 'natural';
 import Subcategory from '../../models/subcategory';
 import DBClient from '../../utils/db';
 
-const CLASSIFIER_DOC = process.env.CLASSIFIER_DOC || './scraper/utils/course_classifier.json';
+dotenv.config();
+
+const { CLASSIFIER_DOC } = process.env;
 
 // Classification class
 class ClassifyCourse {
