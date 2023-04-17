@@ -1,4 +1,7 @@
 import { createClient } from 'redis';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 class RedisClient {
   /**
@@ -15,6 +18,7 @@ class RedisClient {
     else if (ENV === 'test' && TEST_URI) connectionUri = TEST_URI;
     else if (ENV === 'prod' && PROD_URI) connectionUri = PROD_URI;
     else connectionUri = DEFAULT_URI;
+    console.log(connectionUri);
     this.client = createClient({ url: connectionUri });
     this.client.on('error', (error) => {
       console.error(error.message);
@@ -42,7 +46,7 @@ class RedisClient {
    * @param {string} userId - id for user associated with the token
    */
   async setToken(token, userId) {
-    const authToken = `auth${token}`;
+    const authToken = `auth_${token}`;
     const expiry = 60 * 60 * 24;
     await this.client.set(authToken, userId, { EX: expiry, NX: true });
   }
