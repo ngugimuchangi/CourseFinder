@@ -31,7 +31,6 @@ class CourseScraper {
    * @param {string} courseLinkSelector  - selector for course items
    * @returns {Array} - array of course links
    */
-
   static async getCourseLinks(page, courseLinkSelector) {
     let courseLinks;
     try {
@@ -73,7 +72,7 @@ class CourseScraper {
       // Needs refactoring
       await page.waitForSelector(nextSelector);
     } catch (error) {
-      throw new Error(`Navigating to next page failed => :\n${error}`);
+      throw new Error(`Navigating to next page failed => : ${error}`);
     }
   }
 }

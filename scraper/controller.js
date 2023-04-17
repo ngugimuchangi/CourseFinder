@@ -1,7 +1,7 @@
 import CourseScraper from './scrapper';
 import CourseUtil from './utils/courseUtilities';
-/* necessary due to minimize browser resource consumption */
 /* eslint no-await-in-loop: 0 */ // --> OFF
+/* necessary due to minimize browser resource consumption */
 
 /**
    * Retrieves course data from pages
@@ -39,7 +39,8 @@ async function saveData(courseData, provider) {
     throw new Error(`Saving courses failed: ${error}`);
   }
 }
-// Scrapper controller
+
+// Scrapper controller class
 class ScraperController {
   /**
    * Initializes class with new browser objects
