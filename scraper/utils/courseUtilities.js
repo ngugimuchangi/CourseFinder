@@ -26,10 +26,10 @@ class CourseUtil {
    */
   static async classifyCourse(course) {
     const { title, description } = course;
-    const token = `${title} ${description}`;
+    const token = `${title}. ${description}`;
     let categoryId;
     try {
-      categoryId = await ClassifyCourse.getCourseCategory(token);
+      categoryId = await ClassifyCourse.classify(token);
     } catch (error) {
       throw new Error(`Course classification failed => :\n${error}`);
     }
