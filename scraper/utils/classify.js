@@ -15,7 +15,7 @@ class ClassifyCourse {
       const subcategories = await Subcategory.find({});
       const classifier = new BayesClassifier();
       for (const subcategory of subcategories) {
-        classifier.addDocument(subcategory.keywords, subcategory._id.toString());
+        classifier.addDocument(subcategory.keywords.join(' '), subcategory._id.toString());
       }
       classifier.train();
       classifier.save(CLASSIFIER_DOC);
@@ -32,8 +32,11 @@ class ClassifyCourse {
   static async getCourseCategory(token) {
     return new Promise((resolve, reject) => {
       BayesClassifier.load(CLASSIFIER_DOC, null, async (error, classifier) => {
-        if (error) reject(new Error(`Loading classification failed => : ${error}`));
-        resolve(classifier.classify(token));
+        if (error) {
+          reject(new Error(`Loading classification failed => : ${error}`));
+          return;
+        }
+        resolve(classifier.classify(token.toLowerCase()));
       });
     });
   }
