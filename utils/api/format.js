@@ -1,30 +1,73 @@
-import Subcategory from '../models/subcategory';
-
 // Formatting class
-class Format{
+class Format {
   /**
    * Formats user object for responses
    * @param {object} user - user object
    * @returns {object} -formatted user object
    */
   static formatUser(user) {
-    user.save
-    const id = user._id.toString();
+    const id = user._id;
     const { email, topics } = user;
-    const { bookmarks } = user.bookmarks.map((bookmark) => `/api/v1/courses/${bookmark.toString()}`)
-    const formattedUserResponse = { id, email, topics, bookmarks }
+    const bookmarks = user.bookmarks
+      .map((bookmark) => this.formatCourse(bookmark));
+    const formattedUserResponse = {
+      id, email, topics, bookmarks,
+    };
     return formattedUserResponse;
   }
-  
+
   /**
-   * Formats user object for responses
-   * @param {object} course - user object
+   * Formats course object for responses
+   * @param {object} course - course object
    * @returns {object} -formatted course object
    */
   static formatCourse(course) {
-    const id = course._id.toString();
-    const { title, description, url, imageUrl } = course;
-    const formattedCourseObject = { id, title, description, url, imageUrl }
-    return formattedCourseObject;
+    const id = course._id;
+    const {
+      title, description, url, imageUrl,
+    } = course;
+    const formattedCourseResponse = {
+      id, title, description, url, imageUrl,
+    };
+    return formattedCourseResponse;
+  }
+
+  /**
+   * Formats user object for responses
+   * @param {object} category - category object
+   * @returns {object} -formatted category object
+   */
+  static formatCategory(category) {
+    const id = category._id;
+    const { title } = category;
+    const url = `/categories/${id}`;
+    const formattedCategoryResponse = {
+      id,
+      title,
+      url,
+    };
+    return formattedCategoryResponse;
+  }
+
+  /**
+   * Formats subcategory object for responses
+   * @param {object} subcategory - subcategory object
+   * @returns {object} -formatted subcategory object
+   */
+  static formatSubcategory(subcategory) {
+    const id = subcategory._id;
+    const { title, category, keywords } = subcategory;
+    const categoryUri = `/categories/${category._id}`;
+    const url = `/subcategories/${id}`;
+    const formattedSubcategoryResponse = {
+      id,
+      title,
+      url,
+      category: categoryUri,
+      keywords,
+    };
+    return formattedSubcategoryResponse;
   }
 }
+
+export default Format;
