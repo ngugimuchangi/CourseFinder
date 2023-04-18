@@ -14,12 +14,12 @@ router.get('/stats', AppController.getStats);
 // Authentication endpoints
 router.post('/login', AuthController.login);
 router.get('/logout', AuthController.logout);
-router.get('/verify/', AuthController.verify);
+router.get('/verify-email/', AuthController.verifyEmail);
 
 // Users endpoints
 router.post('/users', UserController.postUser);
 router.get('/users/me', UserController.getUser);
-router.delete('/users', UserController.deleteUser);
+router.delete('/users/me', UserController.deleteUser);
 router.put('/users/email', UserController.putEmail);
 router.put('/users/password', UserController.putPassword);
 router.put('/users/reset-password', UserController.putPassword);
