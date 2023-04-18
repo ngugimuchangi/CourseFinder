@@ -1,6 +1,7 @@
 import "./Nav.css";
 import { useState } from "react";
 import logo from './logo.png';
+import { Link } from 'react-scroll';
 
 /**
  * Navigation component section
@@ -19,23 +20,26 @@ function Nav() {
   return (
     <div className={fix ? "Navigation Fixed": "Navigation"}>
       <img className={fix ? "Heading Logo": "Heading"} src={logo} alt="Logo" />
-      <div className="Navigation-links">
-        <a className="Navigation-link" href="/">
-          Home
-        </a>
-        <a className="Navigation-link" href="/">
-          Services
-        </a>
-        <a className="Navigation-link" href="/">
-          About Us
-        </a>
-        <a className="Navigation-link" href="/">
+      <ul className="Navigation-links">
+        <li className="Navigation-link" href="/">
+        <Link to="hero" spy={true} smooth={true} offset={-100} duration={500}>Home</Link>
+        </li>
+        <li className="Navigation-link" href="/">
+          <Link to="services" spy={true} smooth={true} offset={-76} duration={500}>Services</Link>
+        </li>
+        <li className="Navigation-link" href="/">
+        <Link to="team" spy={true} smooth={true} offset={-80} duration={500}>Team</Link>
+        </li>
+        <li className="Navigation-link" href="/">
+        <Link to="Contact" spy={true} smooth={true} offset={-80} duration={500}>Contact Us</Link>
+        </li>
+        <li className="Navigation-link" href="/">
           Singup
-        </a>
-        <a className="Navigation-link" href="/">
+        </li>
+        <li className="Navigation-link" href="/">
           Login
-        </a>
-      </div>
+        </li>
+      </ul>
     </div>
   );
 }

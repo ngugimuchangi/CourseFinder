@@ -41,6 +41,9 @@
 */
 .Navigation-links {
         padding-right: 8rem;
+        list-style: none;
+        display: flex;
+        gap: 1rem;
 }
 
 /**
@@ -50,6 +53,7 @@
         padding-right: 1.2rem;
         color: #ffffff;
         font-size: 1.1rem;
+        cursor: pointer;
 }
 
 /**

@@ -1,17 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Nav from "./sections/header/Nav";
-import Landing from "./sections/landing_page/Landing"
-import Features from "./sections/features/Features"
-import Footer from './sections/footer/Footer'
+import Header from "./sections/header/Header";
+import Features from "./sections/features/Features";
+import About from "./sections/about/About";
+import Contact from "./sections/contact/Contact";
+import Footer from './sections/footer/Footer';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Nav />
-    <Landing />
+    <Header />
     <Features />
+    <About />
+    <Contact />
     <Footer />
   </React.StrictMode>
 );
