@@ -14,9 +14,8 @@ const userSchema = new Schema(
     },
     topics: [
       {
-        type: SchemaTypes.ObjectId,
+        type: String,
         required: false,
-        ref: 'Subcategories',
       }],
     bookmarks: [
       {
