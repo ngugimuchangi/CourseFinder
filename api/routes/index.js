@@ -14,7 +14,7 @@ router.get('/stats', AppController.getStats);
 // Authentication endpoints
 router.post('/login', AuthController.login);
 router.get('/logout', AuthController.logout);
-router.get('/verify-email/', AuthController.verifyEmail);
+router.get('/verify-email', AuthController.verifyEmail);
 
 // Users endpoints
 router.post('/users', UserController.postUser);
