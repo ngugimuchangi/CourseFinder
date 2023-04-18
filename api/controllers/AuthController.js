@@ -48,12 +48,12 @@ class AuthController {
   }
 
   /**
-   * Verifies user email
+   * Validates user email
    * @param {Request} req - request object
    * @param {Response} res - response object
    * @param {Next} next - next function
    */
-  static async verify(req, res, next) {
+  static async verifyEmail(req, res, next) {
     const { user } = req;
     user.verified = true;
     try {
