@@ -27,7 +27,7 @@ const courseSchema = new Schema(
     subcategory: String,
     category: {
       type: SchemaTypes.ObjectId,
-      ref: 'Categories',
+      ref: 'Subcategories',
     },
   },
   { timestamps: true },
