@@ -6,7 +6,7 @@
   "scripts": {
     "check_lint": "./node_modules/.bin/.eslint",
     "dev": "nodemon --exec babel-node --presets babel-preset-env",
-    "train-classifier": "nodemon --exec babel-node --presets babel-preset-env scraper/utils/train.js",
+    "train-classifier": "nodemon --exec babel-node --presets babel-preset-env utils/scraper/train.js",
     "start-scraper": "nodemon --exec babel-node --presets babel-preset-env scraper/index.js",
     "start-server": "nodemon --exec babel-node --presets babel-preset-env api/server.js",
     "test": "./node_modules/mocha/bin/mocha --require babel-register --exit",
