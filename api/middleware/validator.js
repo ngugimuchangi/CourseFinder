@@ -15,9 +15,16 @@ class Validator {
    * @param {Next} next - next function
    */
   static async authTokenValidator(req, res, next) {
+    const userPaths = /^\/users\/(me|email|password|bookmarks)\/?$/;
+    const logoutPath = /^\/logout\/?$/;
+
+    if (!userPaths.test(req.path) && !logoutPath.test(req.path)) {
+      next();
+      return;
+    }
     let user;
     const token = req.get('A-Token');
-    const userId = redisClient.getUserId(token);
+    const userId = await redisClient.getUserId(token);
     try {
       user = await User.findById(userId).populate('bookmarks');
     } catch (error) {
@@ -39,7 +46,13 @@ class Validator {
    * @param {Response} res - response object
    * @param {Next} next - next function
    */
-  static async resetPasswordAndEmailTokenValidator(req, res, next) {
+  static async resetTokenValidator(req, res, next) {
+    const paths = /^(\/verify-email|\/users\/reset-password)\/?$/;
+    if (!paths.test(req.path)) {
+      next();
+      return;
+    }
+
     let user;
     let { userId } = req.params;
     const { token } = req.params;
@@ -47,7 +60,7 @@ class Validator {
     userId = Types.ObjectId.isValid(userId)
       ? Types.ObjectId(userId)
       : userId;
-    if (!Token.findOne({ user: userId, token })) {
+    if (!await Token.findOne({ user: userId, token })) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
     }
