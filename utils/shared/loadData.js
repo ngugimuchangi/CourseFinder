@@ -60,8 +60,8 @@ class LoadDataFromFile {
  * Populates database with categories and subcategories from csv files
  */
 async function loadCategories() {
-  const categoriesFile = './utils/course_categories.csv';
-  const subCategoriesFile = './utils/course_subcategories.csv';
+  const categoriesFile = './utils/shared/course_categories.csv';
+  const subCategoriesFile = './utils/shared/course_subcategories.csv';
   try {
     await DBClient.connect();
     await Category.deleteMany({});
