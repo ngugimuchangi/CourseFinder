@@ -100,7 +100,7 @@ class UserController {
         token: randomBytes(32).toString('hex'),
       });
       EmailJobs.addEmailJob(user, 'verify', token.token);
-      res.status(200).json({ token: token.token });
+      res.status(200).json(Format.formatUser(user));
     } catch (error) {
       next(error);
     }
@@ -130,12 +130,73 @@ class UserController {
   }
 
   /**
+   * Gets list of all user's bookmarks
+   * @param {Request} req - request object
+   * @param {Response} res - response object
+   */
+  static async getBookmarks(req, res) {
+    const { user } = req;
+    const bookmarks = user.bookmarks.map((bookmark) => Format.formatCourse(bookmark));
+    res.status(200).json({ count: bookmarks.length, bookmarks });
+  }
+
+  /**
+   * Add a topic to the list of topics belonging to a user
+   * @param {Request} req - request object
+   * @param {Response} res - response object
+   * @param {Next} next - next function
+   */
+  static async putTopic(req, res, next) {
+    const { user } = req;
+    const { topic } = req.body;
+    if (!topic) {
+      res.status(400).json({ error: 'Missing topic' });
+      return;
+    }
+    if (!user.topics.includes(topic)) {
+      user.topics.push(topic);
+      try {
+        await user.save();
+      } catch (error) {
+        next(error);
+        return;
+      }
+    }
+    res.status(200).json(Format.formatUser(user));
+  }
+
+  /**
+   * Deletes a topic from the list of topics belonging to a user
+   * @param {Request} req - request object
+   * @param {Response} res - response object
+   * @param {Next} next - next function
+   */
+  static async deleteTopic(req, res, next) {
+    const { user } = req;
+    const { topic } = req.body;
+    if (!topic) {
+      res.status(400).json({ error: 'Missing topic' });
+      return;
+    }
+    if (user.topics.includes(topic)) {
+      user.topics.pop(user.topics.indexOf(topic));
+      try {
+        await user.save();
+      } catch (error) {
+        next(error);
+        return;
+      }
+    }
+    res.status(200).json(Format.formatUser(user));
+  }
+
+  /**
    * Add users' bookmarks
    * @param {Request} req - request object
    * @param {Response} res - response object
    * @param {Next} next - next function
    */
-  static async postBookmark(req, res, next) {
+  static async putBookmark(req, res, next) {
     const { user } = req;
     if (!req.body || !req.body.courseId) {
       res.status(400).json({ error: 'Missing course id' });

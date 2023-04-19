@@ -87,7 +87,7 @@ class AuthController {
       next(error);
       return;
     }
-    res.status(200).json(Format.formatUser(user));
+    res.status(200).json({ verified: user.verified });
   }
 
   /**
@@ -96,7 +96,7 @@ class AuthController {
    * @param {Response} res - response object
    * @param {Next} next - next function
    */
-  static async getVerifyEmailToken(req, res, next) {
+  static async getEmailToken(req, res, next) {
     const { user } = req;
     const token = new Token({
       user: user._id,
@@ -109,7 +109,7 @@ class AuthController {
     } catch (error) {
       next(error);
     }
-    res.status(200).json({ token: token.token });
+    res.status(204).json();
   }
 
   /**
@@ -143,7 +143,7 @@ class AuthController {
       return;
     }
     EmailJobs.addEmailJob(user, 'reset', token.token);
-    res.status(200).json({ token: token.token });
+    res.status(204).json();
   }
 
   /**
@@ -152,7 +152,7 @@ class AuthController {
     * @param {Response} res - response object
     * @param {Next} next - next function
     */
-  static async putPassword(req, res, next) {
+  static async putResetPassword(req, res, next) {
     let user;
     let { token } = req.params;
     const { userId } = req.params;
