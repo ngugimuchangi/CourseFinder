@@ -14,7 +14,6 @@ const port = process.env.API_PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(Validator.authTokenValidator);
-app.use(Validator.resetTokenValidator);
 app.use(router);
 app.use(errorHandler);
 
