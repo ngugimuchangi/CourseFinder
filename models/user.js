@@ -22,7 +22,8 @@ const userSchema = new Schema(
         type: SchemaTypes.ObjectId,
         required: false,
         ref: 'Courses',
-      }],
+      },
+    ],
     verified: {
       type: Boolean,
       default: false,
@@ -37,8 +38,8 @@ const userSchema = new Schema(
         return bcrypt.compareSync(password, this.password);
       },
     },
+    timestamps: true,
   },
-  { timestamps: true },
 );
 const User = model('Users', userSchema);
 export default User;
