@@ -7,10 +7,10 @@
    * @param {import('express').NextFunction} next - next function
    */
 function errorHandler(error, _req, res, _next) {
-  const status = error.statusCode || 500;
+  const status = error.status || 500;
   const message = error.statusCode < 500 ? error.message : 'Something went wrong';
-  res.status(status).json({ error: message });
-  console.error(error.stack);
+  res.status(500).json({ error: message });
+  console.error(error);
 }
 
 export default errorHandler;
