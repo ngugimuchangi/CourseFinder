@@ -14,10 +14,10 @@ router.get('/stats', AppController.getStats);
 // Authentication endpoints
 router.post('/auth/login', AuthController.login);
 router.get('/auth/logout', AuthController.logout);
-router.get('/auth/verify-email', AuthController.getVerifyEmailToken);
-router.put('/auth/verify-email/:userId/:token', AuthController.verifyEmail);
+router.post('/auth/verify-email', AuthController.getEmailToken);
+router.get('/auth/verify-email/:userId/:token', AuthController.verifyEmail);
 router.post('/auth/reset-password/', AuthController.postResetPassword);
-router.put('/auth/reset-password/:userId/:token', AuthController.putPassword);
+router.put('/auth/reset-password/:userId/:token', AuthController.putResetPassword);
 
 // Users endpoints
 router.post('/users', UserController.postUser);
@@ -25,7 +25,10 @@ router.get('/users/me', UserController.getUser);
 router.delete('/users/me', UserController.deleteUser);
 router.put('/users/me/email', UserController.putEmail);
 router.put('/users/me/password', UserController.putPassword);
-router.post('/users/me/bookmarks', UserController.postBookmark);
+router.put('/users/me/topics', UserController.putTopic);
+router.delete('/users/me/topics', UserController.deleteTopic);
+router.get('/users/me/bookmarks', UserController.getBookmarks);
+router.put('/users/me/bookmarks', UserController.putBookmark);
 router.delete('/users/me/bookmarks', UserController.deleteBookmark);
 
 // Categories endpoints
