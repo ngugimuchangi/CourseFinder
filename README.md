@@ -11,19 +11,19 @@ A web application to find free online courses.
 ## Setup
 Clone the repo
 ```
-$ git clone https://github.com/ngugimuchangi/CourseFinder.git
+git clone https://github.com/ngugimuchangi/CourseFinder.git
 ```
 Install dependencies
 ```
-$ npm install
+npm install
 ```
 Run set up script
 ```
-$ ./setup.sh
+./setup.sh
 ```
 Run start up script
 ```
-$ ./start.sh
+./start.sh
 ```
 
 ## API Documentation
