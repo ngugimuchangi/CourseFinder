@@ -70,7 +70,7 @@ class AuthController {
     let { token, userId } = req.params;
     userId = Types.ObjectId.isValid(userId) ? new Types.ObjectId(userId) : userId;
     try {
-      token = await Token.findOne({ user: userId, token });
+      token = await Token.findOne({ user: userId, role: 'verify', token });
       if (!token) {
         res.status(401).json({ error: 'Unauthorized' });
         return;
@@ -163,7 +163,7 @@ class AuthController {
       return;
     }
     try {
-      token = await Token.findOne({ user: userId, token });
+      token = await Token.findOne({ user: userId, role: 'reset', token });
       if (!token) {
         res.status(401).json({ error: 'Unauthorized' });
         return;
