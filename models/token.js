@@ -18,6 +18,9 @@ const tokenSchema = new Schema(
   },
   { timestamps: true },
 );
-
+tokenSchema.index(
+  { updatedAt: 1 },
+  { expires: process.env.TOKEN_EXPIRY },
+);
 const Token = model('Tokens', tokenSchema);
 export default Token;
