@@ -21,7 +21,7 @@
  * }
  */
 
-/** 
+/**
  * @api {get} /auth/logout Logout
  * @apiName getLogout
  * @apiGroup Authentication
@@ -29,9 +29,8 @@
  * @apiUse XToken
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 204 No Content
- * 
+ *
  */
-
 
 /**
  * @api {post} /auth/verify-email Get email verification token
@@ -72,7 +71,6 @@
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 204 No Content
  */
-
 
 /**
  * @api {put} /auth/reset-password/:userId/:token Reset password

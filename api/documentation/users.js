@@ -84,7 +84,7 @@
  *           "provider": "coursera",
  *           "url": "https://www.coursera.org/learn/agile-atlassian-jira",
  *           "imageUrl": "https://s3.amazonaws.com/coursera_assets/meta_images/generated/XDP/XDP~COURSE!~agile-atlassian-jira/XDP~COURSE!~agile-atlassian-jira.jpeg"
- *       },
+ *       }
  *     ]
  *  }
  */
