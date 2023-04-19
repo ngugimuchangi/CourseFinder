@@ -7,11 +7,11 @@ class Format {
    */
   static formatUser(user) {
     const id = user._id;
-    const { email, topics } = user;
+    const { email, topics, verified } = user;
     const bookmarks = user.bookmarks
-      .map((bookmark) => this.formatCourse(bookmark));
+      .map((bookmark) => Format.formatCourse(bookmark));
     const formattedUserResponse = {
-      id, email, topics, bookmarks,
+      id, email, verified, topics, bookmarks,
     };
     return formattedUserResponse;
   }
@@ -24,10 +24,10 @@ class Format {
   static formatCourse(course) {
     const id = course._id;
     const {
-      title, description, url, imageUrl,
+      title, description, provider, url, imageUrl,
     } = course;
     const formattedCourseResponse = {
-      id, title, description, url, imageUrl,
+      id, title, description, provider, url, imageUrl,
     };
     return formattedCourseResponse;
   }
