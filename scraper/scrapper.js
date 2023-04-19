@@ -20,7 +20,7 @@ class CourseScraper {
       await page.waitForTimeout(5000);
       if (courseSection) await page.waitForSelector(courseSection);
     } catch (error) {
-      throw new Error(`Navigating to url: ${url} failed => :\n${error}`);
+      throw new Error(`Navigating to url: ${url} failed => : ${error}`);
     }
     return page;
   }

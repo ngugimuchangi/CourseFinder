@@ -10,7 +10,7 @@ dotenv.config();
  */
 async function main() {
   const MIN_WAIT = 1000 * 60 * 60 * 24 * 4;
-  const MAX_WAIT = 1000 * 60 * 60 * 24 * 7;
+  const MAX_WAIT = 1000 * 60 * 60 * 24 * 8;
   const COURSERA_ENV = {
     url: process.env.COURSERA_URL,
     provider: 'coursera',
@@ -27,7 +27,7 @@ async function main() {
   };
   const UDEMY_ENV = {
     url: process.env.UDEMY_URL,
-    provider: 'udacity',
+    provider: 'udemy',
     courseSectionSelector: process.env.UDEMY_COURSE_SECTION_SELECTOR,
     courseLinkSelector: process.env.UDEMY_COURSE_LINK_SELECTOR,
     nextSelector: process.env.UDEMY_NEXT_SELECTOR,
