@@ -46,7 +46,7 @@ class RedisClient {
    */
   async setToken(token, userId) {
     const authToken = `auth_${token}`;
-    const expiry = 60 * 60 * 24;
+    const expiry = parseInt(process.env.AUTH_TOKEN_EXPIRY, 10);
     await this.client.set(authToken, userId, { EX: expiry, NX: true });
   }
 
