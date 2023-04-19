@@ -9,7 +9,7 @@ class Format {
     const id = user._id;
     const { email, topics, verified } = user;
     const bookmarks = user.bookmarks
-      .map((bookmark) => Format.formatCourse(bookmark));
+      .map((bookmark) => `/courses/${bookmark._id}`);
     const formattedUserResponse = {
       id, email, verified, topics, bookmarks,
     };
