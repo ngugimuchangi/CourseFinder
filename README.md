@@ -1,7 +1,7 @@
 # CourseFinder
 A web application to find free online courses.
 
-### [Components](#components) | [Installation](#installation) | [Setup](#setup) | [API Documentation](#api-documentation) | [Authors](#authors)
+### [Components](#components) | [Setup](#setup) | [API Documentation](#api-documentation) | [Authors](#authors)
 
 ## Components
 1. [Scrapper](./scraper/) - web scrapper
