@@ -11,7 +11,7 @@
 /**
  * @api {post} /users Create new user
  * @apiName postUser
- * @apiGroup User
+ * @apiGroup Users
  * @apiDescription Creates a new user with given email and password.
  * @apiUse XToken
  * @apiBody {String} email User's email
@@ -35,7 +35,7 @@
 /**
  * @api {get} /users/me Get user details
  * @apiName getUser
- * @apiGroup User
+ * @apiGroup Users
  * @apiDescription Endpoint for retrieving user details.
  * @apiUse XToken
  * @apiUse UserSuccessParams
@@ -59,7 +59,7 @@
 /**
  * @api {get} /users/me/bookmarks Get user bookmarks
  * @apiName getUserBookmarks
- * @apiGroup User
+ * @apiGroup Users
  * @apiDescription Get detailed list of all bookmarks belonging to a user.
  * @apiUse XToken
  * @apiSuccess {Number} count Total count of bookmarks
@@ -92,7 +92,7 @@
 /**
  * @api {put} /users/me/bookmarks Add a bookmark
  * @apiName putUserBookmarks
- * @apiGroup User
+ * @apiGroup Users
  * @apiDescription Adds a course and adds it to the list of bookmarks
  * belonging to a user
  * @apiUse XToken
@@ -116,7 +116,7 @@
 /**
  * @api {delete} /users/me/bookmarks Delete a bookmark
  * @apiName deleteUserBookmarks
- * @apiGroup User
+ * @apiGroup Users
  * @apiDescription Deletes a course from the list of bookmarks
  * belonging to a user
  * @apiUse XToken
@@ -139,7 +139,7 @@
 /**
  * @api {put} /users/me/topics Add a user topic
  * @apiName putUserTopic
- * @apiGroup User
+ * @apiGroup Users
  * @apiDescription Adds a category of interest to the list
  * of user topics
  * @apiUse XToken
@@ -162,7 +162,7 @@
 /**
  * @api {delete} /users/me/topics Delete a user topic
  * @apiName deleteUserTopic
- * @apiGroup User
+ * @apiGroup Users
  * @apiDescription Deletes a course topic from the list
  * of user topics
  * @apiUse XToken
@@ -185,7 +185,7 @@
 /**
  * @api {put} /users/me/email Change user email
  * @apiName putEmail
- * @apiGroup User
+ * @apiGroup Users
  * @apiDescription Allows logged in user to change their email and receive
  * a verification token in their email
  * of user topics
@@ -209,11 +209,22 @@
 /**
  * @api {put} /users/me/password Change user password
  * @apiName putPassword
- * @apiGroup User
+ * @apiGroup Users
  * @apiDescription Allows logged in user to update their password
  * of user topics
  * @apiUse XToken
  * @apiUse UserSuccessParams
+ * @apiSuccessExample {json} Success-Response:
+ * HTTP/1.1 204 No Content
+ */
+
+/**
+ * @api {delete} /users/me Delete a user
+ * @apiName deleteUser
+ * @apiGroup Users
+ * @apiDescription Deletes a user account
+ * of user topics
+ * @apiUse XToken
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 204 No Content
  */
