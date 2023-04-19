@@ -5,6 +5,7 @@ import DBClient from '../utils/shared/db';
 import redisClient from '../utils/shared/redis';
 import errorHandler from './middleware/errorHandler';
 import Validator from './middleware/validator';
+import unmatchedRoutes from './middleware/unmatched';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(Validator.authTokenValidator);
 app.use(router);
+app.use(unmatchedRoutes);
 app.use(errorHandler);
 
 DBClient.connect();
