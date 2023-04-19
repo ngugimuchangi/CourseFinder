@@ -9,10 +9,10 @@ class Email {
  * @param {string} data - email body
  */
   static async sendEmail(email, subject, body) {
-    const { MAIL_USER, MAIL_PASSWORD } = process.env;
+    const { MAIL_USER, MAIL_PASSWORD, MAIL_SERVICE } = process.env;
     try {
       const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: MAIL_SERVICE,
         secure: true,
         auth: {
           user: MAIL_USER,
