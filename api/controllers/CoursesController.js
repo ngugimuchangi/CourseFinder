@@ -15,7 +15,9 @@ class CourseController {
    */
   static async getCourses(req, res, next) {
     let courses;
+    const filters = {};
     const PAGE_LIMIT = 10;
+    const { provider } = req.query;
     let { categoryId } = req.query;
     const page = /^\d+$/.test(req.query.page)
       ? parseInt(req.query.page, 10)
@@ -23,7 +25,8 @@ class CourseController {
     categoryId = Types.ObjectId.isValid(categoryId)
       ? new Types.ObjectId(categoryId)
       : categoryId;
-    const filters = categoryId ? { category: categoryId } : {};
+    if (categoryId) filters.category = categoryId;
+    if (provider) filters.provider = provider;
     const sort = { _id: 1 };
     const pipeline = [
       { $match: filters },

@@ -1,7 +1,10 @@
+import { randomBytes } from 'node:crypto';
 import { Types } from 'mongoose';
 import User from '../../models/user';
 import Course from '../../models/course';
 import Format from '../../utils/api/format';
+import Token from '../../models/token';
+import EmailJobs from '../../jobs/emailJobs';
 
 // User controller class
 class UserController {
@@ -26,6 +29,10 @@ class UserController {
       return;
     }
     try {
+      if (await User.findOne({ email })) {
+        res.status(409).send({ error: 'User already exists' });
+        return;
+      }
       user = new User({ email, password });
       user.hashPassword();
       await user.save();
@@ -33,6 +40,13 @@ class UserController {
       next(error);
       return;
     }
+    const token = new Token({
+      user: user._id,
+      token: randomBytes(32).toString('hex'),
+      role: 'verify',
+    });
+    await token.save();
+    await EmailJobs.addEmailJob(user, 'welcome', token.token);
     res.status(201).json(Format.formatUser(user));
   }
 
@@ -80,10 +94,39 @@ class UserController {
       user.email = email;
       user.verified = false;
       await user.save();
-      res.status(200).send(Format.formatUser(user));
+      const token = new Token({
+        user: user._id,
+        role: 'verify',
+        token: randomBytes(32).toString('hex'),
+      });
+      EmailJobs.addEmailJob(user, 'verify', token.token);
+      res.status(200).json({ token: token.token });
     } catch (error) {
       next(error);
     }
+  }
+
+  /**
+   * Update logged in user's password
+   * @param {Request} req - request object
+   * @param {Response} res - response object
+   * @param {Next} next - next function
+   */
+  static async putPassword(req, res, next) {
+    const { user } = req;
+    const { password } = req.body;
+    if (!password) {
+      res.status(400).json({ error: 'Missing password' });
+      return;
+    }
+    try {
+      user.password = password;
+      user.hashPassword();
+      await user.save();
+    } catch (error) {
+      next(error);
+    }
+    res.status(204).json();
   }
 
   /**
@@ -92,22 +135,26 @@ class UserController {
    * @param {Response} res - response object
    * @param {Next} next - next function
    */
-  static async postBookmark(res, req, next) {
+  static async postBookmark(req, res, next) {
     const { user } = req;
-    const { courseId } = req.body;
-    if (!courseId) {
+    if (!req.body || !req.body.courseId) {
       res.status(400).json({ error: 'Missing course id' });
       return;
     }
+    const { courseId } = req.body;
     try {
       const course = await Course.findById(courseId);
       if (!course) {
-        res.status(404).json({ error: 'Course not found' });
+        res.status(404).json({ error: 'Not found' });
         return;
       }
-      if (!user.bookmarks.includes(course._id)) user.bookmarks.push(course._id);
+      if (user.bookmarks.some((bookmark) => bookmark._id.toString() === course._id.toString())) {
+        res.status(409).json({ error: 'Bookmark exists' });
+        return;
+      }
+      user.bookmarks.push(course);
       await user.save();
-      res.status(200).send(Format.formatUser(user));
+      res.status(200).json(Format.formatUser(user));
     } catch (error) {
       next(error);
     }
@@ -119,9 +166,10 @@ class UserController {
    * @param {Response} res - response object
    * @param {Next} next - next function
    */
-  static async deleteBookmark(res, req, next) {
+  static async deleteBookmark(req, res, next) {
     const { user } = req;
-    let { courseId } = req.body;
+    const { courseId } = req.body;
+
     if (!courseId) {
       res.status(400).json({ error: 'Missing course id' });
       return;
@@ -130,42 +178,18 @@ class UserController {
       res.status(400).json({ error: 'Invalid course id' });
       return;
     }
-    courseId = Types.ObjectId(courseId);
-    if (!user.bookmarks.includes(courseId)) {
+    const course = user.bookmarks.find((bookmark) => bookmark._id.toString() === courseId);
+    if (!course) {
       res.status(404).json({ error: 'Not found' });
       return;
     }
     try {
-      user.bookmarks.pop(user.bookmarks.indexOf(courseId));
-      await user.save();
-      res.status(200).send(Format.formatUser(user));
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  /**
-   * Reset users' password
-   * @param {Request} req - request object
-   * @param {Response} res - response object
-   * @param {Next} next - next function
-   */
-  static async putPassword(res, req, next) {
-    const { user } = req;
-    const { password } = req.body;
-    if (!password) {
-      res.status(400).send({ error: 'Missing password' });
-      return;
-    }
-    user.password = password;
-    user.hashPassword();
-    try {
+      user.bookmarks = user.bookmarks.filter((bookmark) => bookmark._id.toString() !== courseId);
       await user.save();
     } catch (error) {
       next(error);
-      return;
     }
-    res.status(200).json(Format.formatUser(user));
+    res.status(200).send(Format.formatUser(user));
   }
 }
 

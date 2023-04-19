@@ -1,6 +1,10 @@
-import { v4 } from 'uuid';
+import { randomBytes } from 'node:crypto';
+import { Types } from 'mongoose';
 import redisClient from '../../utils/shared/redis';
 import User from '../../models/user';
+import Token from '../../models/token';
+import EmailJobs from '../../jobs/emailJobs';
+import Format from '../../utils/api/format';
 
 // Authentication controller class
 class AuthController {
@@ -15,14 +19,22 @@ class AuthController {
    */
   static async login(req, res, next) {
     const { email, password } = req.body;
-    const user = User.findOne({ email });
-    if (!user || !user.isValid(password)) {
-      next({ statusCode: 401, message: 'Unauthorized' });
+    if (!email) {
+      res.status(401).json({ error: 'Missing email' });
       return;
     }
-    const token = v4();
+    if (!password) {
+      res.status(401).json({ error: 'Missing password' });
+      return;
+    }
+    const user = await User.findOne({ email });
+    if (!user || !user.isValidPassword(password)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    const token = randomBytes(32).toString('hex');
     try {
-      await redisClient.setToken(token);
+      await redisClient.setToken(token, user._id.toString());
     } catch (error) {
       next(error);
       return;
@@ -37,7 +49,7 @@ class AuthController {
    * @param {Next} next - next function
    */
   static async logout(req, res, next) {
-    const token = req.get('A-Token');
+    const token = req.get('X-Token');
     try {
       await redisClient.deleteToken(token);
     } catch (error) {
@@ -54,15 +66,122 @@ class AuthController {
    * @param {Next} next - next function
    */
   static async verifyEmail(req, res, next) {
-    const { user } = req;
-    user.verified = true;
+    let user;
+    let { token, userId } = req.params;
+    userId = Types.ObjectId.isValid(userId) ? new Types.ObjectId(userId) : userId;
     try {
+      token = await Token.findOne({ user: userId, token });
+      if (!token) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+      user = await User.findById(userId);
+      if (!user) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+      user.verified = true;
       await user.save();
+      await Token.deleteOne({ token: req.params.token });
     } catch (error) {
       next(error);
       return;
     }
-    res.status(200).json({ verified: true });
+    res.status(200).json(Format.formatUser(user));
+  }
+
+  /**
+   * Get another email verification token if expired
+   * @param {Request} req - request object
+   * @param {Response} res - response object
+   * @param {Next} next - next function
+   */
+  static async getVerifyEmailToken(req, res, next) {
+    const { user } = req;
+    const token = new Token({
+      user: user._id,
+      role: 'verify',
+      token: randomBytes(32).toString('hex'),
+    });
+    try {
+      await token.save();
+      await EmailJobs.addEmailJob(user, 'verify', token.token);
+    } catch (error) {
+      next(error);
+    }
+    res.status(200).json({ token: token.token });
+  }
+
+  /**
+   * Gets reset token in forgot password scenarios
+   * @param {Request} req - request object
+   * @param {Response} res - response object
+   * @param {Next} next - next function
+   */
+  static async postResetPassword(req, res, next) {
+    let token;
+    let user;
+    const { email } = req.body;
+    if (!email) {
+      res.status(400).json({ error: 'Missing email' });
+      return;
+    }
+    try {
+      user = await User.findOne({ email });
+      if (!user) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+      token = new Token({
+        user: user._id,
+        token: randomBytes(32).toString('hex'),
+        role: 'reset',
+      });
+      await token.save();
+    } catch (error) {
+      next(error);
+      return;
+    }
+    EmailJobs.addEmailJob(user, 'reset', token.token);
+    res.status(200).json({ token: token.token });
+  }
+
+  /**
+    * Reset users' password
+    * @param {Request} req - request object
+    * @param {Response} res - response object
+    * @param {Next} next - next function
+    */
+  static async putPassword(req, res, next) {
+    let user;
+    let { token } = req.params;
+    const { userId } = req.params;
+    const { password } = req.body;
+
+    if (!Types.ObjectId.isValid(userId)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    try {
+      token = await Token.findOne({ user: userId, token });
+      if (!token) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+      user = await User.findById(userId);
+      if (!user) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+      user.password = password;
+      user.hashPassword();
+      await user.save();
+      await Token.deleteOne({ token: req.params.token });
+    } catch (error) {
+      next(error);
+      return;
+    }
+    res.status(200).json(Format.formatUser(user));
   }
 }
 
