@@ -1,0 +1,56 @@
+{
+  "name": "course_finder",
+  "version": "1.0.0",
+  "description": "A web application to find free online courses.",
+  "main": "index.js",
+  "scripts": {
+    "check_lint": "./node_modules/.bin/.eslint",
+    "dev": "nodemon --exec babel-node --presets babel-preset-env",
+    "load-data": "nodemon --exec babel-node --presets babel-preset-env utils/shared/loadData.js",
+    "train-classifier": "nodemon --exec babel-node --presets babel-preset-env utils/scraper/train.js",
+    "start-scraper": "nodemon --exec babel-node --presets babel-preset-env scraper/index.js",
+    "start-server": "nodemon --exec babel-node --presets babel-preset-env api/server.js",
+    "start-workers": "nodemon --exec babel-node --presets babel-preset-env workers/emailWorker.js",
+    "test": "./node_modules/mocha/bin/mocha --require babel-register --exit",
+    "test-all": "./node_modules/mocha/bin/mocha --require babel-register --exit tests/"
+  },
+  "keywords": [
+    "courses",
+    "online courses",
+    "web scrapper"
+  ],
+  "author": "Duncan Ngugi",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bull": "^4.10.4",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3",
+    "natural": "^6.2.0",
+    "nodemailer": "^6.9.1",
+    "puppeteer": "^19.9.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "redis": "^4.6.5"
+  },
+  "devDependencies": {
+    "apidoc": "^0.54.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "eslint": "^8.38.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22",
+    "sinon": "^15.0.3"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "course_classifier.json"
+    ]
+  }
+}
