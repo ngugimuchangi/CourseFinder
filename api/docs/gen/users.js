@@ -90,14 +90,14 @@
  */
 
 /**
- * @api {put} /users/me/bookmarks/:courseId Add a bookmark
+ * @api {put} /users/me/bookmarks/ Add a bookmark
  * @apiName putBookmarks
  * @apiGroup Users
  * @apiDescription Adds a course and adds it to the list of bookmarks
  * belonging to a user
  * @apiUse XToken
  * @apiUse UserSuccessParams
- * @apiParam {String} courseId ID of course to bookmark
+ * @apiBody {String} courseId ID of course to bookmark
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
@@ -114,14 +114,14 @@
  */
 
 /**
- * @api {delete} /users/me/bookmarks Delete a bookmark
+ * @api {delete} /users/me/bookmarks/:courseId Delete a bookmark
  * @apiName deleteBookmarks
  * @apiGroup Users
  * @apiDescription Deletes a course from the list of bookmarks
  * belonging to a user
  * @apiUse XToken
  * @apiUse UserSuccessParams
- * @apiBody {String} courseId ID of course to remove from bookmarks
+ * @apiParam {String} courseId ID of course to remove from bookmarks
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
