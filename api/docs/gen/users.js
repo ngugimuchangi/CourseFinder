@@ -90,7 +90,7 @@
  */
 
 /**
- * @api {put} /users/me/bookmarks/ Add a bookmark
+ * @api {put} /users/me/bookmarks/ Add bookmarks
  * @apiName putBookmarks
  * @apiGroup Users
  * @apiDescription Adds a course and adds it to the list of bookmarks
@@ -114,7 +114,7 @@
  */
 
 /**
- * @api {delete} /users/me/bookmarks/:courseId Delete a bookmark
+ * @api {delete} /users/me/bookmarks/:courseId Delete bookmarks
  * @apiName deleteBookmarks
  * @apiGroup Users
  * @apiDescription Deletes a course from the list of bookmarks
@@ -137,7 +137,7 @@
  */
 
 /**
- * @api {put} /users/me/topics Add a user topic
+ * @api {put} /users/me/topics Add topics
  * @apiName putUserTopic
  * @apiGroup Users
  * @apiDescription Adds a category of interest to the list
@@ -160,7 +160,7 @@
  */
 
 /**
- * @api {delete} /users/me/topics/:topic Delete a user topic
+ * @api {delete} /users/me/topics/:topic Delete topics
  * @apiName deleteUserTopic
  * @apiGroup Users
  * @apiDescription Deletes a course topic from the list
@@ -220,7 +220,7 @@
  */
 
 /**
- * @api {delete} /users/me Delete a user
+ * @api {delete} /users/me Delete user
  * @apiName deleteUser
  * @apiGroup Users
  * @apiDescription Deletes a user account
