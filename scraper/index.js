@@ -9,8 +9,8 @@ dotenv.config();
  * Scraper entry point
  */
 async function main() {
-  const MIN_WAIT = 1000 * 60 * 60 * 24 * 4;
-  const MAX_WAIT = 1000 * 60 * 60 * 24 * 8;
+  const MIN_WAIT = parseInt(process.env.MIN_WAIT, 10);
+  const MAX_WAIT = parseInt(process.env.MAX_WAIT, 10);
   const COURSERA_ENV = {
     url: process.env.COURSERA_URL,
     provider: 'coursera',
@@ -37,6 +37,7 @@ async function main() {
   let udacityScrapper;
   let udemyScrapper;
   try {
+    await DBClient.connect();
     courseraScrapper = new ScraperController(
       await Browser.launchBrowser(),
       COURSERA_ENV.url,
@@ -61,12 +62,6 @@ async function main() {
       UDEMY_ENV.courseLinkSelector,
       UDEMY_ENV.nextSelector,
     );
-  } catch (error) {
-    console.error(error);
-  }
-
-  try {
-    await DBClient.connect();
     await Promise.all([
       courseraScrapper.scraper(),
       udacityScrapper.scraper(),
