@@ -60,6 +60,28 @@ class AuthController {
   }
 
   /**
+   * Get another email verification token if expired
+   * @param {Request} req - request object
+   * @param {Response} res - response object
+   * @param {Next} next - next function
+   */
+  static async getEmailToken(req, res, next) {
+    const { user } = req;
+    const token = new Token({
+      user: user._id,
+      role: 'verify',
+      token: randomBytes(32).toString('hex'),
+    });
+    try {
+      await token.save();
+      await EmailJobs.addEmailJob(user, 'verify', token.token);
+    } catch (error) {
+      next(error);
+    }
+    res.status(204).json();
+  }
+
+  /**
    * Validates user email
    * @param {Request} req - request object
    * @param {Response} res - response object
@@ -91,29 +113,7 @@ class AuthController {
   }
 
   /**
-   * Get another email verification token if expired
-   * @param {Request} req - request object
-   * @param {Response} res - response object
-   * @param {Next} next - next function
-   */
-  static async getEmailToken(req, res, next) {
-    const { user } = req;
-    const token = new Token({
-      user: user._id,
-      role: 'verify',
-      token: randomBytes(32).toString('hex'),
-    });
-    try {
-      await token.save();
-      await EmailJobs.addEmailJob(user, 'verify', token.token);
-    } catch (error) {
-      next(error);
-    }
-    res.status(204).json();
-  }
-
-  /**
-   * Gets reset token in forgot password scenarios
+   * Gets password reset token in forgot password scenarios
    * @param {Request} req - request object
    * @param {Response} res - response object
    * @param {Next} next - next function
@@ -129,7 +129,7 @@ class AuthController {
     try {
       user = await User.findOne({ email });
       if (!user) {
-        res.status(401).json({ error: 'Unauthorized' });
+        res.status(404).json({ error: 'Not found' });
         return;
       }
       token = new Token({

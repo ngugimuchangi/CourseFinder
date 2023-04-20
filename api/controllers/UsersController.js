@@ -30,7 +30,7 @@ class UserController {
     }
     try {
       if (await User.findOne({ email })) {
-        res.status(409).send({ error: 'User already exists' });
+        res.status(409).json({ error: 'User already exists' });
         return;
       }
       user = new User({ email, password });
@@ -198,23 +198,26 @@ class UserController {
    */
   static async putBookmark(req, res, next) {
     const { user } = req;
-    if (!req.body || !req.body.courseId) {
+    const { courseId } = req.body;
+    if (courseId) {
       res.status(400).json({ error: 'Missing course id' });
       return;
     }
-    const { courseId } = req.body;
+    if (!Types.ObjectId.isValid(courseId)) {
+      res.status(400).json({ error: 'Invalid course id' });
+      return;
+    }
     try {
       const course = await Course.findById(courseId);
       if (!course) {
         res.status(404).json({ error: 'Not found' });
         return;
       }
+
       if (user.bookmarks.some((bookmark) => bookmark._id.toString() === course._id.toString())) {
-        res.status(409).json({ error: 'Bookmark exists' });
-        return;
+        user.bookmarks.push(course);
+        await user.save();
       }
-      user.bookmarks.push(course);
-      await user.save();
       res.status(200).json(Format.formatUser(user));
     } catch (error) {
       next(error);
@@ -250,7 +253,7 @@ class UserController {
     } catch (error) {
       next(error);
     }
-    res.status(200).send(Format.formatUser(user));
+    res.status(200).json(Format.formatUser(user));
   }
 }
 
