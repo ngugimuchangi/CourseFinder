@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import router from './routes';
 import DBClient from '../utils/shared/db';
 import redisClient from '../utils/shared/redis';
-import errorHandler from './middleware/errorHandler';
+import errorHandler from './middleware/error';
 import Validator from './middleware/validator';
 import unmatchedRoutes from './middleware/unmatched';
 
