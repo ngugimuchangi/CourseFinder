@@ -3,9 +3,8 @@
  * @apiName getCourses
  * @apiGroup Courses
  * @apiDescription Gets list of all courses.
- * @apiQuery {String} [query] Search query parameter
  * @apiQuery {String} [provider] Course provider
- * @apiQuery {String} [categoryId] CategoryId for courses
+ * @apiQuery {String} [categoryId] Subcategory id associated with the courses
  * @apiQuery {Number} [page=0] Pagination query parameter starting from 0 index
  * @apiSuccess {Array} categories List of all courses that match the query parameters
  * @apiSuccessExample Success-Response:

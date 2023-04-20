@@ -173,7 +173,7 @@ class UserController {
    */
   static async deleteTopic(req, res, next) {
     const { user } = req;
-    const { topic } = req.body;
+    const { topic } = req.params;
     if (!topic) {
       res.status(400).json({ error: 'Missing topic' });
       return;
@@ -229,7 +229,7 @@ class UserController {
    */
   static async deleteBookmark(req, res, next) {
     const { user } = req;
-    const { courseId } = req.body;
+    const { courseId } = req.params;
 
     if (!courseId) {
       res.status(400).json({ error: 'Missing course id' });

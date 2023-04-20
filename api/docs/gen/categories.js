@@ -218,9 +218,9 @@
  * @apiGroup Categories
  * @apiDescription Gets a specific subcategory that matches given subcategory id.
  * @apiParam {String} id Unique ID for the subcategory to fetch
- * @apiSuccess {String} id Subcategory's id
- * @apiSuccess {String} title Subcategory's title
- * @apiSuccess {String} url Subcategory's url
+ * @apiSuccess {String} id Subcategory id
+ * @apiSuccess {String} title Subcategory title
+ * @apiSuccess {String} url Subcategory url
  * @apiSuccess {String} category Url for category associated with the subcategory
  * @apiSuccess {Array} keywords Keywords linked to the subcategory
  * @apiSuccessExample Success-Response:

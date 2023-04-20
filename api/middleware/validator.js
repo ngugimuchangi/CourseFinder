@@ -13,10 +13,11 @@ class Validator {
    * @param {Next} next - next function
    */
   static async authTokenValidator(req, res, next) {
-    const userPaths = /^\/users\/me(||\/email|\/password|\/topics|\/bookmarks)\/?$/;
+    const userPaths = /^\/users\/me(\/email|\/password|\/topics|\/bookmarks)?\/?$/;
+    const deletePaths = /^\/users\/me\/(topics|bookmarks)\/\w+/;
     const authPaths = /^\/auth\/(logout|verify-email)\/?$/;
 
-    if (!userPaths.test(req.path) && !authPaths.test(req.path)) {
+    if (!userPaths.test(req.path) && !authPaths.test(req.path) && !deletePaths.test(deletePaths)) {
       next();
       return;
     }

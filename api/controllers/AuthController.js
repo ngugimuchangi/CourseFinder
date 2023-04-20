@@ -65,7 +65,7 @@ class AuthController {
    * @param {Response} res - response object
    * @param {Next} next - next function
    */
-  static async verifyEmail(req, res, next) {
+  static async putVerifyEmail(req, res, next) {
     let user;
     let { token, userId } = req.params;
     userId = Types.ObjectId.isValid(userId) ? new Types.ObjectId(userId) : userId;

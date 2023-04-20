@@ -58,7 +58,7 @@
 
 /**
  * @api {get} /users/me/bookmarks Get user bookmarks
- * @apiName getUserBookmarks
+ * @apiName getBookmarks
  * @apiGroup Users
  * @apiDescription Get detailed list of all bookmarks belonging to a user.
  * @apiUse XToken
@@ -90,14 +90,14 @@
  */
 
 /**
- * @api {put} /users/me/bookmarks Add a bookmark
- * @apiName putUserBookmarks
+ * @api {put} /users/me/bookmarks/:courseId Add a bookmark
+ * @apiName putBookmarks
  * @apiGroup Users
  * @apiDescription Adds a course and adds it to the list of bookmarks
  * belonging to a user
  * @apiUse XToken
  * @apiUse UserSuccessParams
- * @apiBody {String} courseId ID of course to bookmark
+ * @apiParam {String} courseId ID of course to bookmark
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
@@ -115,7 +115,7 @@
 
 /**
  * @api {delete} /users/me/bookmarks Delete a bookmark
- * @apiName deleteUserBookmarks
+ * @apiName deleteBookmarks
  * @apiGroup Users
  * @apiDescription Deletes a course from the list of bookmarks
  * belonging to a user
@@ -160,13 +160,14 @@
  */
 
 /**
- * @api {delete} /users/me/topics Delete a user topic
+ * @api {delete} /users/me/topics/:topic Delete a user topic
  * @apiName deleteUserTopic
  * @apiGroup Users
  * @apiDescription Deletes a course topic from the list
  * of user topics
  * @apiUse XToken
  * @apiUse UserSuccessParams
+ * @apiParam {String} topic Topic to delete from list of topics
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {

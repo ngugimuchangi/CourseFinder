@@ -15,7 +15,7 @@ router.get('/stats', AppController.getStats);
 router.post('/auth/login', AuthController.login);
 router.get('/auth/logout', AuthController.logout);
 router.get('/auth/verify-email', AuthController.getEmailToken);
-router.get('/auth/verify-email/:userId/:token', AuthController.verifyEmail);
+router.put('/auth/verify-email/:userId/:token', AuthController.putVerifyEmail);
 router.post('/auth/reset-password/', AuthController.postResetPassword);
 router.put('/auth/reset-password/:userId/:token', AuthController.putResetPassword);
 
@@ -26,10 +26,10 @@ router.delete('/users/me', UserController.deleteUser);
 router.put('/users/me/email', UserController.putEmail);
 router.put('/users/me/password', UserController.putPassword);
 router.put('/users/me/topics', UserController.putTopic);
-router.delete('/users/me/topics', UserController.deleteTopic);
+router.delete('/users/me/topics/:topic', UserController.deleteTopic);
 router.get('/users/me/bookmarks', UserController.getBookmarks);
 router.put('/users/me/bookmarks', UserController.putBookmark);
-router.delete('/users/me/bookmarks', UserController.deleteBookmark);
+router.delete('/users/me/bookmarks/:courseId', UserController.deleteBookmark);
 
 // Categories endpoints
 router.get('/categories', CategoriesController.getCategories);
