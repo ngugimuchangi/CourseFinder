@@ -55,7 +55,7 @@
 }
 
 .Navigation-link a {
-        color: #ffffff;
+        color: #ffffff !important;
         font-size: 1.6rem;
 }
 
@@ -63,7 +63,8 @@
 * Animated hover effect for navigation link for the header section.
 */
 .Navigation-link,
-a:hover {
-        color: #442588;
-        font-weight: 300;
+a:hover,
+:active {
+        color: #442588 !important;
+        font-weight: 500;
 }

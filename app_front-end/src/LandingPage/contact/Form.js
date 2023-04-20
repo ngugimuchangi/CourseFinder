@@ -2,12 +2,36 @@ import "./Form.css"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { useState } from 'react';
+import axios from 'axios';
+
+function sendEmail(data) {
+        axios.post('/api-route', data)
+          .then(res => {
+            console.log(res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+}
 
 
 function Form() {
         const [value, setValue] = useState();
+
+        const handleSubmit = (event) => {
+                event.preventDefault();
+                const data = new FormData(event.target);
+                sendEmail({
+                  firstName: data.get('firstName'),
+                  lastName: data.get('lastName'),
+                  email: data.get('email'),
+                  phone: value,
+                  message: data.get('message')
+                });
+        };
+
         return (
-                <form>
+                <form onSubmit={handleSubmit}>
                         <div className="User_form">
                                 <div className="User_form-User_names">
                                         <div className="User_form-User_forms">

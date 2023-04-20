@@ -44,7 +44,6 @@
 .User_form-User_Agree {
         display: flex;
         gap: 1.2rem;
-        flex-wrap: wrap;
 }
 
 .User_form-User_Agree input {

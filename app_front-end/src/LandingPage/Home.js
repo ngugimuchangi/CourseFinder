@@ -7,7 +7,7 @@ import Footer from './footer/Footer';
 
 function Home() {
         return (
-                <div className="container">
+                <div className="containers">
                         <Header />
                         <Features />
                         <About />

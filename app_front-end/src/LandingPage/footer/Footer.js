@@ -7,8 +7,12 @@ function Footer() {
                         <ul className="Links">
                                 <li className="Link">About us</li>
                                 <li className="Link">Contact</li>
-                                <li className="Link">Privacy policy</li>
-                                <li className="Link">Terms of Use</li>
+                                <li className="Link">
+                                        <a href="/privacy">Privacy policy</a>
+                                </li>
+                                <li className="Link">
+                                        <a href="/terms">Terms of Use</a>
+                                </li>
                         </ul>
                 </div>
         );
