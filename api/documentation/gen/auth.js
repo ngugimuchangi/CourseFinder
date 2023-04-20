@@ -33,13 +33,12 @@
  */
 
 /**
- * @api {post} /auth/verify-email Get email verification token
+ * @api {get} /auth/verify-email Get email verification token
  * @apiName postEmailToken
  * @apiGroup Authentication
  * @apiDescription Endpoint for requesting user's email authentication token.
  * Emails verification tokens are sent to user's email and expire after 48 hours.
  * @apiUse XToken
- * @apiBody {String} email User's email
  * @apiSuccess {String} id User'id
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 204 No Content

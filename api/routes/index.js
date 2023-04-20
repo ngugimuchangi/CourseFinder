@@ -14,7 +14,7 @@ router.get('/stats', AppController.getStats);
 // Authentication endpoints
 router.post('/auth/login', AuthController.login);
 router.get('/auth/logout', AuthController.logout);
-router.post('/auth/verify-email', AuthController.getEmailToken);
+router.get('/auth/verify-email', AuthController.getEmailToken);
 router.get('/auth/verify-email/:userId/:token', AuthController.verifyEmail);
 router.post('/auth/reset-password/', AuthController.postResetPassword);
 router.put('/auth/reset-password/:userId/:token', AuthController.putResetPassword);
