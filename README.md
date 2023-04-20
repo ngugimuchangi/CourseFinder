@@ -1,8 +1,6 @@
 # CourseFinder
 A web application to find free online courses.
 
-### [Components](#components) | [API Documentation](#api-documentation) | [Authors](#authors)
-
 ## Components
 1. [Scrapper](./scraper/) - web scrapper
 2. [API](./api/) - RESTful API
