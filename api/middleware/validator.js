@@ -14,8 +14,8 @@ class Validator {
    */
   static async authTokenValidator(req, res, next) {
     const userPaths = /^\/users\/me(\/email|\/password|\/topics|\/bookmarks)?\/?$/;
-    const deletePaths = /^\/users\/me\/(topics|bookmarks)\/\w+/;
-    const authPaths = /^\/auth\/(logout|verify-email)\/?$/;
+    const deletePaths = /^\/users\/me\/(topics|bookmarks)\/\w+\/?$/;
+    const authPaths = /^\/auth\/logout\/?$/;
 
     if (!userPaths.test(req.path) && !authPaths.test(req.path) && !deletePaths.test(deletePaths)) {
       next();
