@@ -1,19 +1,11 @@
-/**
- * Types
- * @apiDefine UserSuccessParams
- * @apiSuccess {String} id User'id
- * @apiSuccess {String} email User'email
- * @apiSuccess {Boolean} user email verification status
- * @apiSuccess {Array} topics List of topics of interest to user
- * @apiSuccess {Array} bookmarks List of bookmarked courses
- */
-
+// Users endpoints
 /**
  * @api {post} /users Create new user
  * @apiName postUser
  * @apiGroup Users
  * @apiDescription Creates a new user with given email and password.
- * @apiUse XToken
+ * @apiUse MissingEmail
+ * @apiUse MissingPassword
  * @apiBody {String} email User's email
  * @apiBody {String} password User's password
  * @apiSuccess (Success 201) {String} id User'id
@@ -25,10 +17,16 @@
  * HTTP/1.1 201 Created
  * {
  *   "id": "643f78560c0ffbdafb2f3521".
- *   "email": "",
+ *   "email": "test.user@mail.com",
  *   "verified": false,
  *   "topics": [],
  *   "bookmarks": []
+ * }
+ * @apiError (Error 409) AlreadyExists User already exists
+ * @apiErrorExample AlreadyExists
+ * HTTP/1.1 409 Conflict
+ * {
+ *   "error": "User already exists"
  * }
  */
 
@@ -38,6 +36,7 @@
  * @apiGroup Users
  * @apiDescription Endpoint for retrieving user details.
  * @apiUse XToken
+ * @apiUse Unauthorized
  * @apiUse UserSuccessParams
  * @apiBody {String} email User's email
  * @apiBody {String} password User's password
@@ -45,7 +44,7 @@
  * HTTP/1.1 200 OK
  * {
  *   "id": "643f78560c0ffbdafb2f3521",
- *   "email": "tech.curious14@gmail.com",
+ *   "email": "test.user@mail.com",
  *   "verified": true,
  *   "topics": ["Web Development", "Databases", "Art & Crafts"],
  *   "bookmarks": [
@@ -62,6 +61,7 @@
  * @apiGroup Users
  * @apiDescription Get detailed list of all bookmarks belonging to a user.
  * @apiUse XToken
+ * @apiUse Unauthorized
  * @apiSuccess {Number} count Total count of bookmarks
  * @apiSuccess {Array} bookmarks List of bookmarked courses
  * @apiSuccessExample {json} Success-Response:
@@ -96,13 +96,16 @@
  * @apiDescription Adds a course and adds it to the list of bookmarks
  * belonging to a user
  * @apiUse XToken
+ * @apiUse MissingCourseId
+ * @apiUse InvalidCourseId
+ * @apiUse Unauthorized
  * @apiUse UserSuccessParams
  * @apiBody {String} courseId ID of course to bookmark
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
  *   "id": "643f78560c0ffbdafb2f3521",
- *   "email": "tech.curious14@gmail.com",
+ *   "email": "test.user@mail.com",
  *   "verified": true,
  *   "topics": ["Web Development", "Databases", "Art & Crafts"],
  *   "bookmarks": [
@@ -120,13 +123,16 @@
  * @apiDescription Deletes a course from the list of bookmarks
  * belonging to a user
  * @apiUse XToken
+ * @apiUse MissingCourseId
+ * @apiUse InvalidCourseId
+ * @apiUse Unauthorized
  * @apiUse UserSuccessParams
  * @apiParam {String} courseId ID of course to remove from bookmarks
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
- *  "id": "643f78560c0ffbdafb2f3521",
- *   "email": "tech.curious14@gmail.com",
+ *   "id": "643f78560c0ffbdafb2f3521",
+ *   "email": "test.user@mail.com",
  *   "verified": true,
  *   "topics": ["Web Development", "Databases", "Art & Crafts"],
  *   "bookmarks": [
@@ -143,12 +149,14 @@
  * @apiDescription Adds a category of interest to the list
  * of user topics
  * @apiUse XToken
+ * @apiUse MissingTopic
+ * @apiUse Unauthorized
  * @apiUse UserSuccessParams
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
- *  "id": "643f78560c0ffbdafb2f3521",
- *   "email": "tech.curious14@gmail.com",
+ *   "id": "643f78560c0ffbdafb2f3521",
+ *   "email": "test.user@mail.com",
  *   "verified": true,
  *   "topics": ["Web Development", "Databases", "Career Development", "Art & Crafts"],
  *   "bookmarks": [
@@ -166,13 +174,15 @@
  * @apiDescription Deletes a course topic from the list
  * of user topics
  * @apiUse XToken
+ * @apiUse MissingTopic
+ * @apiUse Unauthorized
  * @apiUse UserSuccessParams
  * @apiParam {String} topic Topic to delete from list of topics
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
- *  "id": "643f78560c0ffbdafb2f3521",
- *   "email": "tech.curious14@gmail.com",
+ *   "id": "643f78560c0ffbdafb2f3521",
+ *   "email": "test.user@mail.com",
  *   "verified": true,
  *   "topics": ["Web Development", "Career Development", "Art & Crafts"],
  *   "bookmarks": [
@@ -191,12 +201,14 @@
  * a verification token in their email
  * of user topics
  * @apiUse XToken
+ * @apiUse MissingEmail
+ * @apiUse Unauthorized
  * @apiUse UserSuccessParams
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
- *  "id": "643f78560c0ffbdafb2f3521",
- *   "email": "tech.curious14@gmail.com",
+ *   "id": "643f78560c0ffbdafb2f3521",
+ *   "email": "test.user@mail.com",
  *   "verified": false,
  *   "topics": ["Web Development", "Career Development", "Art & Crafts"],
  *   "bookmarks": [
@@ -214,6 +226,8 @@
  * @apiDescription Allows logged in user to update their password
  * of user topics
  * @apiUse XToken
+ * @apiUse MissingPassword
+ * @apiUse Unauthorized
  * @apiUse UserSuccessParams
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 204 No Content
@@ -226,6 +240,7 @@
  * @apiDescription Deletes a user account
  * of user topics
  * @apiUse XToken
+ * @apiUse Unauthorized
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 204 No Content
  */

@@ -1,3 +1,4 @@
+// Categories endpoint
 /**
  * @api {get} /categories Get categories
  * @apiName getCategories
@@ -50,6 +51,7 @@
  * @apiName getCategoriesById
  * @apiGroup Categories
  * @apiDescription Gets a specific category that matches given id.
+ * @apiUse NotFound
  * @apiParam {String} id Unique ID for the category to fetch
  * @apiSuccess {String} id Category's id
  * @apiSuccess {String} title Category's title
@@ -217,6 +219,7 @@
  * @apiName getSubcategoriesById
  * @apiGroup Categories
  * @apiDescription Gets a specific subcategory that matches given subcategory id.
+ * @apiUse NotFound
  * @apiParam {String} id Unique ID for the subcategory to fetch
  * @apiSuccess {String} id Subcategory id
  * @apiSuccess {String} title Subcategory title

@@ -1,3 +1,4 @@
+// Courses endpoints
 /**
  * @api {get} /courses Get courses
  * @apiName getCourses
