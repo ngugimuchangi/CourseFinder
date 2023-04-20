@@ -1,19 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Header from "./sections/header/Header";
-import Features from "./sections/features/Features";
-import About from "./sections/about/About";
-import Contact from "./sections/contact/Contact";
-import Footer from './sections/footer/Footer';
+import {BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./LandingPage/Home";
+import Signup from "./Credentials/Signup";
+import Login from "./Credentials/Login";
+import Reset from "./Credentials/Reset";
+import NotFound from "./ErrorHandler/404";
+import Dashboard from "./Dashboard/Dashboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Header />
-    <Features />
-    <About />
-    <Contact />
-    <Footer />
-  </React.StrictMode>
+  <BrowserRouter>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/reset" element={<Reset />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </React.Suspense>
+  </BrowserRouter>
 );

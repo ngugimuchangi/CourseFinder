@@ -1,0 +1,69 @@
+/**
+* Container for header Navigation section
+*/
+.Navigation {
+        width: 100%;
+        background-image: linear-gradient(to right bottom, #7f56d998, #7f56d9c2);
+        display: flex;
+        justify-content: center;
+        top: 0;
+        z-index: 1000;
+}
+
+/**
+* Making the container for header Navigation section.
+* @Fixed: position top on scroll
+*/
+.Navigation.Fixed {
+        background-color: #7F56D9;
+        transition: 0.4s ease-in-out;
+        top: 0;
+        position: fixed;
+}
+
+.Navigation-Container {
+        width: 80%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+}
+
+.Heading {
+        height: 5.8rem;
+        margin: 0.9rem;
+        cursor: pointer;
+}
+
+/**
+* Container for header links in the navigation section
+*/
+.Navigation-links {
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+}
+
+/**
+* Navigation link for the header section.
+*/
+.Navigation-link {
+        padding-right: 1.2rem;
+        color: #ffffff;
+        font-size: 1.1rem;
+        cursor: pointer;
+}
+
+.Navigation-link a {
+        color: #ffffff;
+        font-size: 1.6rem;
+}
+
+/**
+* Animated hover effect for navigation link for the header section.
+*/
+.Navigation-link,
+a:hover {
+        color: #442588;
+        font-weight: 300;
+}
