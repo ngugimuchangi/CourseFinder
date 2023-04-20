@@ -2,7 +2,7 @@ import "./Form.css"
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { useState } from 'react';
-import axios from 'axios';
+import axios from 'react-axios';
 
 function sendEmail(data) {
         axios.post('/api-route', data)

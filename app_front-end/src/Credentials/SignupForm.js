@@ -1,35 +1,36 @@
-import axios from 'axios';
 import "./Container.css";
+import { useState } from 'react';
+import axios from 'axios';
 
 function SignUp() {
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const formData = {
-      email: event.target.elements.email.value,
-      password: event.target.elements.password.value
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
+    axios.defaults.baseURL = 'https://cors-anywhere.herokuapp.com/http://127.0.0.1:1245';  
 
-    axios.post('/api/users', formData)
-      .then(response => {
-        console.log(response.data);
-        // display success message or redirect to different page
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+    await axios.post('/users', {
+      email: email,
+      password: password,
+    }).then(response => {
+      console.log(response.data);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form  onSubmit={handleSubmit}>
       <div className="User_forms">
         <div className="User_forms-User_forms">
           <label>User Email</label>
-          <input type="email" name="email" placeholder="Enter email address"/>
+          <input type="email" name={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter email address"/>
         </div>
         <div className="User_forms-User_forms">
           <label>Password</label>
-          <input type="password" name="password" placeholder="Enter Password" />
+          <input type="password" name={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter Password" />
         </div>
         <div className="User_form-User_Submission">
           <div className="User_form-User_Agree">

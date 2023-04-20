@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "react-axios";
 import "./Container.css";
 
 function Login() {

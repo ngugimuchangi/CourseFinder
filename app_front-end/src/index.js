@@ -21,7 +21,7 @@ const App = () => {
       <Route path="/reset" element={<Reset />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/privacy" element={<PrivacyPopup />} />
-      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<Terms />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

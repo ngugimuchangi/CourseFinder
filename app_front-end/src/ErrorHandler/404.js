@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from 'react-axios';
 import "./404.css";
 import Home from "../LandingPage/Home";
 
