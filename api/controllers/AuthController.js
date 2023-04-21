@@ -20,11 +20,11 @@ class AuthController {
   static async login(req, res, next) {
     const { email, password } = req.body;
     if (!email) {
-      res.status(401).json({ error: 'Missing email' });
+      res.status(400).json({ error: 'Missing email' });
       return;
     }
     if (!password) {
-      res.status(401).json({ error: 'Missing password' });
+      res.status(400).json({ error: 'Missing password' });
       return;
     }
     const user = await User.findOne({ email });
