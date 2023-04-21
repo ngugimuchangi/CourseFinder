@@ -1,4 +1,4 @@
-# CourseFinder
+# Course Finder
 A web application to find free online courses.
 
 ## Components
