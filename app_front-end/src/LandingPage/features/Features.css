@@ -1,0 +1,88 @@
+.Features_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 2.4rem;
+        font-size: 1rem;
+}
+.service {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        gap: 1.6rem;
+        font-size: 1.6rem;
+}
+
+.service h1 {
+        color: #7F56D9;
+        font-size: 9rem;
+}
+
+.service p {
+        width: 41%;
+        text-align: center;
+}
+
+.Logos {
+        display: flex;
+        flex-direction: row;
+        width: 40%;
+        justify-content: center;
+        align-items: center;
+        gap: 0 2rem;
+}
+
+.Logos-Udemy {
+        width: 45%;
+        height: 50%;
+}
+
+.Logos-Alx {
+        width: 115%;
+}
+
+.Logos-Udacity {
+        width: 90%;
+        height: 36%;
+}
+
+.Greatings{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        gap: 1.6rem;
+}
+
+.Greatings-Emoji {
+        height: 10vh;
+}
+
+.Greatings-text {
+        font-size: 6rem;
+        color: #000000;
+        font-weight: 500;
+}
+
+/**
+* Container button for the link in the Hero section
+*/
+.Greatings-btn_link {
+        color: #ffffff;
+        background-color: #7F56D9;
+        padding: 1.4rem 2.6rem;
+        border-radius: 0.5rem;
+        font-size: 2.4rem;
+}
+
+/**
+* Container button annimation effect for the link in Hero section
+*/
+.Greatings-btn_link:hover {
+        background-color: #442588;
+        color: #ffffff;
+}

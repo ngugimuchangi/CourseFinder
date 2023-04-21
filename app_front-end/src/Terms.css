@@ -1,0 +1,11 @@
+.Container_Privacy {
+        font-size: 1.7rem;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        gap: 3rem;
+        text-align: center;
+}
