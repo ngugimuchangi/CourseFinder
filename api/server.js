@@ -27,3 +27,5 @@ redisClient.connect();
 app.listen(port, () => {
   console.log(`Course Finder API server listening at port ${port}`);
 });
+
+export default app;
