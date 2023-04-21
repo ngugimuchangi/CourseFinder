@@ -4,7 +4,6 @@
  * @apiHeader {String} X-Token User authentication token
  */
 
-
 /**
  * @apiDefine UserSuccessParams
  * @apiSuccess {String} id User'id

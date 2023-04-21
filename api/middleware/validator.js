@@ -1,4 +1,4 @@
-import redisClient from '../../utils/shared/redis';
+import redisClient from '../../shared/redis';
 import User from '../../models/user';
 
 // Authentication tokens validation class
@@ -14,10 +14,10 @@ class Validator {
    */
   static async authTokenValidator(req, res, next) {
     const userPaths = /^\/users\/me(\/email|\/password|\/topics|\/bookmarks)?\/?$/;
-    const deletePaths = /^\/users\/me\/(topics|bookmarks)\/\w+\/?$/;
-    const authPaths = /^\/auth\/logout\/?$/;
+    const deletePaths = /^\/users\/me\/bookmarks\/\w+\/?$/;
+    const authPaths = /^\/auth\/(logout|verify-email)\/?$/;
 
-    if (!userPaths.test(req.path) && !authPaths.test(req.path) && !deletePaths.test(deletePaths)) {
+    if (!userPaths.test(req.path) && !authPaths.test(req.path) && !deletePaths.test(req.path)) {
       next();
       return;
     }

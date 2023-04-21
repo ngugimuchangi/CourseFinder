@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import Course from '../../models/course';
-import Format from '../../utils/api/format';
+import Format from '../utils/format';
 
 class CourseController {
   /**

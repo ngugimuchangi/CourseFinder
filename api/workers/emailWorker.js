@@ -1,6 +1,6 @@
 import Queue from 'bull';
 import dotenv from 'dotenv';
-import Email from '../utils/jobs/email';
+import Email from '../utils/email';
 
 dotenv.config();
 

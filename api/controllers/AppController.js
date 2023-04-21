@@ -1,5 +1,5 @@
-import DBClient from '../../utils/shared/db';
-import redisClient from '../../utils/shared/redis';
+import DBClient from '../../shared/db';
+import redisClient from '../../shared/redis';
 import Category from '../../models/category';
 import Subcategory from '../../models/subcategory';
 import Course from '../../models/course';

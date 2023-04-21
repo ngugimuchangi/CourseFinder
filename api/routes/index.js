@@ -26,7 +26,6 @@ router.delete('/users/me', UserController.deleteUser);
 router.put('/users/me/email', UserController.putEmail);
 router.put('/users/me/password', UserController.putPassword);
 router.put('/users/me/topics', UserController.putTopic);
-router.delete('/users/me/topics/:topic', UserController.deleteTopic);
 router.get('/users/me/bookmarks', UserController.getBookmarks);
 router.put('/users/me/bookmarks', UserController.putBookmark);
 router.delete('/users/me/bookmarks/:courseId', UserController.deleteBookmark);

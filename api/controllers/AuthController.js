@@ -1,10 +1,10 @@
 import { randomBytes } from 'node:crypto';
 import { Types } from 'mongoose';
-import redisClient from '../../utils/shared/redis';
+import redisClient from '../../shared/redis';
 import User from '../../models/user';
 import Token from '../../models/token';
-import EmailJobs from '../../jobs/emailJobs';
-import Format from '../../utils/api/format';
+import EmailJobs from '../jobs/emailJobs';
+import Format from '../utils/format';
 
 // Authentication controller class
 class AuthController {
@@ -20,11 +20,11 @@ class AuthController {
   static async login(req, res, next) {
     const { email, password } = req.body;
     if (!email) {
-      res.status(401).json({ error: 'Missing email' });
+      res.status(400).json({ error: 'Missing email' });
       return;
     }
     if (!password) {
-      res.status(401).json({ error: 'Missing password' });
+      res.status(400).json({ error: 'Missing password' });
       return;
     }
     const user = await User.findOne({ email });
@@ -67,6 +67,10 @@ class AuthController {
    */
   static async getEmailToken(req, res, next) {
     const { user } = req;
+    if (user.verified) {
+      res.status(204).json();
+      return;
+    }
     const token = new Token({
       user: user._id,
       role: 'verify',
@@ -90,7 +94,11 @@ class AuthController {
   static async putVerifyEmail(req, res, next) {
     let user;
     let { token, userId } = req.params;
-    userId = Types.ObjectId.isValid(userId) ? new Types.ObjectId(userId) : userId;
+    if (!Types.ObjectId.isValid(userId)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    userId = new Types.ObjectId(userId);
     try {
       token = await Token.findOne({ user: userId, role: 'verify', token });
       if (!token) {
