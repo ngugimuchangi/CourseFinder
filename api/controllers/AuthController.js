@@ -67,6 +67,10 @@ class AuthController {
    */
   static async getEmailToken(req, res, next) {
     const { user } = req;
+    if (user.verified) {
+      res.status(204).json();
+      return;
+    }
     const token = new Token({
       user: user._id,
       role: 'verify',
@@ -90,7 +94,11 @@ class AuthController {
   static async putVerifyEmail(req, res, next) {
     let user;
     let { token, userId } = req.params;
-    userId = Types.ObjectId.isValid(userId) ? new Types.ObjectId(userId) : userId;
+    if (!Types.ObjectId.isValid(userId)) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+    userId = new Types.ObjectId(userId);
     try {
       token = await Token.findOne({ user: userId, role: 'verify', token });
       if (!token) {
