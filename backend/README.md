@@ -1,15 +1,42 @@
-# CourseFinder
-A web application to find free online courses.
+# Course Finder Backend
 
 ## Components
-1. [Scrapper](./scraper/) - web scrapper
-2. [API](./api/) - RESTful API
-3. App - application's front-end
+1. [Scraper](/backend/scraper/) - simple web scrapper
+2. [API](/backend/api/) - restful backend api
+
+## Setup
+Clone repo
+```
+git clone https://github.com/ngugimuchangi/CourseFinder.git
+
+```
+
+Run setup script
+```
+cd backend
+./set-up.sh
+```
+
+## Getting Started
+Start scrapper
+```
+npm run start-scraper
+```
+
+Start workers
+```
+npm run start-workers
+```
+
+Start server
+```
+npm run start-server
+```
+## Logs
+- Coming soon
 
 ## API Documentation
-Api documentation available [here](./api/docs/)
+API documentation available [here](/backend/api/docs/)
 
-## Authors
-- [Duncan Ngugi](https://github.com/ngugimuchangi)
-- [Marvin Buge](https://github.com/bugemarvin)
-- [Samule Ekati](https://github.com/Samuthe)
+## More
+Checkout our frontend application [here](/app_front-end/).

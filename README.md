@@ -2,12 +2,8 @@
 A web application to find free online courses.
 
 ## Components
-1. [Scrapper](./scraper/) - web scrapper
-2. [API](./api/) - RESTful API
-3. App - application's front-end
-
-## API Documentation
-Api documentation available [here](./api/docs/)
+1. [Frontend](/app_front-end/) - React web application
+2. [Backend](/backend/) - Web scrapper and restful api
 
 ## Authors
 - [Duncan Ngugi](https://github.com/ngugimuchangi)
