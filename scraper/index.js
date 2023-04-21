@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import Browser from './browser';
-import DBClient from '../utils/shared/db';
+import DBClient from '../shared/db';
 import ScraperController from './controller';
 
 dotenv.config();

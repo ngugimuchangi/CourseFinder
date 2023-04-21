@@ -1,10 +1,10 @@
 import { randomBytes } from 'node:crypto';
 import { Types } from 'mongoose';
-import redisClient from '../../utils/shared/redis';
+import redisClient from '../../shared/redis';
 import User from '../../models/user';
 import Token from '../../models/token';
-import EmailJobs from '../../jobs/emailJobs';
-import Format from '../../utils/api/format';
+import EmailJobs from '../jobs/emailJobs';
+import Format from '../utils/format';
 
 // Authentication controller class
 class AuthController {

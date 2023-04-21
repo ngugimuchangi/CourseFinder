@@ -1,4 +1,4 @@
-import Parser from '../utils/scraper/parser';
+import Parser from './utils/parser';
 
 // Course scrapper
 class CourseScraper {

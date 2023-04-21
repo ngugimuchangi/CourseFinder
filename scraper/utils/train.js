@@ -1,5 +1,5 @@
 import ClassifyCourse from './classify';
-import DBClient from '../shared/db';
+import DBClient from '../../shared/db';
 
 // Train classifier
 (async () => {
