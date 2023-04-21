@@ -174,7 +174,7 @@
  * {
  *    "error": "Missing action parameter"
  * }
- * 
+ *
  * @apiError (Error 400) InvalidAction `action` query parameter doesn't match allowed values
  * @apiErrorExample InvalidAction
  * HTTP/1.1 400 Bad Request

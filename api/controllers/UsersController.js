@@ -2,9 +2,9 @@ import { randomBytes } from 'node:crypto';
 import { Types } from 'mongoose';
 import User from '../../models/user';
 import Course from '../../models/course';
-import Format from '../../utils/api/format';
+import Format from '../utils/format';
 import Token from '../../models/token';
-import EmailJobs from '../../jobs/emailJobs';
+import EmailJobs from '../jobs/emailJobs';
 
 // User controller class
 class UserController {

@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import Category from '../../models/category';
 import Subcategory from '../../models/subcategory';
-import Format from '../../utils/api/format';
+import Format from '../utils/format';
 
 // Categories class controller
 class CategoriesController {

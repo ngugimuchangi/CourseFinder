@@ -1,5 +1,5 @@
 import CourseScraper from './scrapper';
-import CourseUtil from '../utils/scraper/courseUtilities';
+import CourseUtil from './utils/courseUtilities';
 /* eslint no-await-in-loop: 0 */ // --> OFF
 /* necessary due to minimize browser resource consumption */
 
