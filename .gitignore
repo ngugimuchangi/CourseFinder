@@ -1,0 +1,19 @@
+# config
+.env
+.eslintrc.json
+.gitignore
+apidoc.json
+babel.config.json
+
+# node files
+node_modules
+package-lock.json
+
+# personal tests
+_tests
+test.js
+
+# personal files
+course_classifier.json
+notes.txt
+files
