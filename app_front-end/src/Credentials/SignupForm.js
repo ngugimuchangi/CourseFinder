@@ -9,7 +9,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     axios.defaults.headers.post['Content-Type'] = 'application/json';
-    axios.defaults.baseURL = 'https://cors-anywhere.herokuapp.com/http://127.0.0.1:1245';  
+    axios.defaults.baseURL = 'http://127.0.0.1:1245';
 
     await axios.post('/users', {
       email: email,

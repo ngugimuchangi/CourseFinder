@@ -1,6 +1,7 @@
-import { useState } from "react";
-import axios from "react-axios";
+import { useState } from 'react';
+import axios from "axios";
 import "./Container.css";
+import Cookies from 'js-cookie';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -10,17 +11,19 @@ function Login() {
     event.preventDefault();
 
     try {
-      // Make axios call to get user details from backend
-      const response = await axios.get(`/api/users/${email}`);
-      const user = response.data;
+      const response = await axios.post('http://127.0.0.1:1245/auth/login', {
+        email: email,
+        password: password,
+      });
 
-      // Handle authentication logic here
-      // ...
+      const token = response.data.token;
 
+      Cookies.set('session', token, { expires: 1, path: '/' });
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error(error);
     }
-  };
+  }
 
   return (
     <form onSubmit={handleLogin}>
@@ -29,17 +32,17 @@ function Login() {
           <label>User Email</label>
           <input
             type="email"
-            name=""
+            name="email"
             placeholder="Enter email address"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
         </div>
         <div className="User_forms-User_forms">
-          <label>Last name</label>
+          <label>Password</label>
           <input
             type="password"
-            name=""
+            name="password"
             placeholder="Enter Password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
@@ -48,14 +51,14 @@ function Login() {
         <div className="User_form-User_Submission">
           <div className="User_form-User_Agree Rester">
             <div className="Cont">
-              <input type="checkbox" name="" value="" />
+              <input type="checkbox" name="remember" value="" />
               <label>Remember</label>
             </div>
             <a className="Resets" href="/reset">
               Reset password
             </a>
           </div>
-          <input type="submit" name="" value="Login" />
+          <input type="submit" name="login" value="Login" />
         </div>
       </div>
     </form>

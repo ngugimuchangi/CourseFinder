@@ -7,12 +7,16 @@ function Reset() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('https://cors-anywhere.herokuapp.com/12', { email });
+      const response = await axios.post('/127.0.0.1:1245/auth/reset-password', { email });
       console.log(response.data);
-      // Display a success message to the user
+      <div class="alert alert-success" role="alert">
+        This is a success alert—check it out!
+      </div>
     } catch (error) {
       console.log(error.response.data);
-      // Display an error message to the user
+      <div class="alert alert-danger" role="alert">
+        This is a danger alert—check it out!
+      </div>
     }
   };
 

@@ -1,32 +1,62 @@
-import { useState, useEffect } from 'react';
 import "./Dashboard.css";
-import NavBar from './Components/Nav';
-import Login from "../Credentials/Login";
+import { useState } from "react";
 
-export default function Dashboard() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    useEffect(() => {
-        // Check if user is authenticated
-        const token = localStorage.getItem('token');
-        if (token) {
-            setIsAuthenticated(true); // set isAuthenticated to true if a token exists in localStorage
-        } else {
-            setIsAuthenticated(false); // set isAuthenticated to false if no token exists in localStorage
-        }
-    }, []);
+function Dashboard() {
 
-    // If user is not authenticated, render Login component
-    if (!isAuthenticated) {
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        window.location.href = "/";
+    };
         return (
-                <Login />
-        );
-    }
+            <div className="Dashboard" id="dashboard">
+                    <div class="area">
+                        <nav class="main-menu">
+                            <ul>
 
-    // If user is authenticated, render dashboard
-    return (
-        <div className="Dashboard" id="dashboard">
-            <NavBar />
+                                <li class="has-subnav">
+                                    <a href="#">
+                                    <i class="fa fa-book fa-4x"></i>
+                                        <span class="nav-text">
+                                            Courses
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="has-subnav">
+                                    <a href="#">
+                                        <i class="fa fa-bookmark fa-2x"></i>
+                                        <span class="nav-text">
+                                            Bookmarks
+                                        </span>
+                                    </a>
+                                    
+                                </li>
+                                <li>
+                                <a href="#">
+                                    <i class="fa fa-cogs fa-2x"></i>
+                                        <span class="nav-text">
+                                            Settings
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <ul class="logout">
+                                <li>
+                                <a href="" onClick={handleLogout}>
+                                        <i class="fa fa-power-off fa-2x"></i>
+                                        <span class="nav-text">
+                                            Logout
+                                        </span>
+                                    </a>
+                                </li>  
+                            </ul>
+                        </nav>
+                    </div>
         </div>
-    );
+        );
 }
+
+export default Dashboard;
