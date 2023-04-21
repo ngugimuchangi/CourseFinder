@@ -21,19 +21,19 @@ class EmailJobs {
     switch (purpose) {
       case 'welcome':
         content = 'Thank you for signing up. Please, click the link below to verify your email. '
-          + 'The link will expire in 2 days';
+          + 'The link will expire in 2 days.';
         link = verifyEmailEndpoint + resetParams;
         action = 'Confirm email';
         break;
       case 'verify':
-        content = 'Please, click the link below to verify your email. The link will expire in 2 days';
+        content = 'Please, click the link below to verify your email. The link will expire in 2 days.';
         link = verifyEmailEndpoint + resetParams;
         action = 'Confirm email';
         break;
       case 'reset':
         content = 'Your are receiving this email because you requested a password reset '
             + 'for your Course Finder account. Please click the link below to reset your password. '
-            + 'The link will expire in 2 days';
+            + 'The link will expire in 2 days.';
         link = resetPasswordEndpoint + resetParams;
         action = 'Reset password';
         break;
