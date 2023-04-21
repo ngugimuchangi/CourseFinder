@@ -1,4 +1,4 @@
-import redisClient from '../../utils/shared/redis';
+import redisClient from '../../shared/redis';
 import User from '../../models/user';
 
 // Authentication tokens validation class
