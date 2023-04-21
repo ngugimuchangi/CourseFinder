@@ -141,7 +141,7 @@ class UserController {
   }
 
   /**
-   * Add a topic to the list of topics belonging to a user
+   * Add or remove topic to the list of topics belonging to a user
    * @param {Request} req - request object
    * @param {Response} res - response object
    * @param {Next} next - next function
@@ -149,43 +149,30 @@ class UserController {
   static async putTopic(req, res, next) {
     const { user } = req;
     const { topic } = req.body;
+    const { action } = req.query;
+    if (!action) {
+      res.status(400).json({ error: 'Missing action parameter' });
+      return;
+    }
     if (!topic) {
       res.status(400).json({ error: 'Missing topic' });
       return;
     }
-    if (!user.topics.includes(topic)) {
+    if (action !== 'add' && action !== 'del') {
+      res.status(400).json({ error: 'Invalid action' });
+      return;
+    }
+    if (!user.topics.includes(topic) && action === 'add') {
       user.topics.push(topic);
-      try {
-        await user.save();
-      } catch (error) {
-        next(error);
-        return;
-      }
     }
-    res.status(200).json(Format.formatUser(user));
-  }
-
-  /**
-   * Deletes a topic from the list of topics belonging to a user
-   * @param {Request} req - request object
-   * @param {Response} res - response object
-   * @param {Next} next - next function
-   */
-  static async deleteTopic(req, res, next) {
-    const { user } = req;
-    const { topic } = req.params;
-    if (!topic) {
-      res.status(400).json({ error: 'Missing topic' });
-      return;
-    }
-    if (user.topics.includes(topic)) {
+    if (user.topics.includes(topic) && action === 'del') {
       user.topics.pop(user.topics.indexOf(topic));
-      try {
-        await user.save();
-      } catch (error) {
-        next(error);
-        return;
-      }
+    }
+    try {
+      await user.save();
+    } catch (error) {
+      next(error);
+      return;
     }
     res.status(200).json(Format.formatUser(user));
   }

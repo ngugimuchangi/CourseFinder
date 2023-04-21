@@ -6,10 +6,10 @@
  * @apiDescription Creates a new user with given email and password.
  * @apiUse MissingEmail
  * @apiUse MissingPassword
- * @apiBody {String} email User's email
- * @apiBody {String} password User's password
- * @apiSuccess (Success 201) {String} id User'id
- * @apiSuccess (Success 201) {String} email User'email
+ * @apiBody {String} email User email
+ * @apiBody {String} password User password
+ * @apiSuccess (Success 201) {String} id User id
+ * @apiSuccess (Success 201) {String} email Useremail
  * @apiSuccess (Success 201) {Boolean} user email verification status
  * @apiSuccess (Success 201) {Array} topics List of topics of interest to user
  * @apiSuccess (Success 201) {Array} bookmarks List of bookmarked courses
@@ -38,8 +38,8 @@
  * @apiUse XToken
  * @apiUse Unauthorized
  * @apiUse UserSuccessParams
- * @apiBody {String} email User's email
- * @apiBody {String} password User's password
+ * @apiBody {String} email User email
+ * @apiBody {String} password User password
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
@@ -143,14 +143,17 @@
  */
 
 /**
- * @api {put} /users/me/topics Add topics
- * @apiName putUserTopic
+ * @api {put} /users/me/topics Add and delete user topics
+ * @apiName putUserTopics
  * @apiGroup Users
  * @apiDescription Adds a category of interest to the list
  * of user topics
  * @apiUse XToken
  * @apiUse MissingTopic
  * @apiUse Unauthorized
+ * @apiQuery {String='add','del'} action Action to perform on topic. `add` initiates topic
+ * addition to the user's list of topics. `del` initiates deletion of a topic from the
+ * list of topics
  * @apiUse UserSuccessParams
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
@@ -165,32 +168,19 @@
  *       "/courses/643e4102d1e93c81f60dda95"
  *     ]
  *  }
- */
-
-/**
- * @api {delete} /users/me/topics/:topic Delete topics
- * @apiName deleteUserTopic
- * @apiGroup Users
- * @apiDescription Deletes a course topic from the list
- * of user topics
- * @apiUse XToken
- * @apiUse MissingTopic
- * @apiUse Unauthorized
- * @apiUse UserSuccessParams
- * @apiParam {String} topic Topic to delete from list of topics
- * @apiSuccessExample {json} Success-Response:
- * HTTP/1.1 200 OK
+ * @apiError (Error 400) MissingAction `action` query parameter is not provider
+ * @apiErrorExample MissingAction
+ * HTTP/1.1 400 Bad Request
  * {
- *   "id": "643f78560c0ffbdafb2f3521",
- *   "email": "test.user@mail.com",
- *   "verified": true,
- *   "topics": ["Web Development", "Career Development", "Art & Crafts"],
- *   "bookmarks": [
- *       "bookmarks": [
- *       "/courses/643e4102d1e93c81f60dda95",
- *       "/courses/643e4102d1e93c81f60dda95"
- *     ]
- *  }
+ *    "error": "Missing action parameter"
+ * }
+ * 
+ * @apiError (Error 400) InvalidAction `action` query parameter doesn't match allowed values
+ * @apiErrorExample InvalidAction
+ * HTTP/1.1 400 Bad Request
+ * {
+ *    "error": "Invalid action"
+ * }
  */
 
 /**
