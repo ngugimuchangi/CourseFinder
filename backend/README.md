@@ -18,7 +18,7 @@ cd backend
 ```
 
 ## Getting Started
-Start scrapper
+Start scraper
 ```
 npm run start-scraper
 ```
