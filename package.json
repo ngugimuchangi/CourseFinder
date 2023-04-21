@@ -6,13 +6,13 @@
   "scripts": {
     "check-lint": "./node_modules/.bin/eslint",
     "fix-lint": "./node_modules/.bin/eslint --fix",
-    "dev": "nodemon --exec babel-node --presets babel-preset-env",
-    "load-data": "nodemon --exec babel-node --presets babel-preset-env shared/loadData.js",
-    "train-classifier": "nodemon --exec babel-node --presets babel-preset-env scraper/utils/train.js",
-    "start-scraper": "nodemon --exec babel-node --presets babel-preset-env scraper/index.js",
-    "start-workers": "nodemon --exec babel-node --presets babel-preset-env api/workers/emailWorker.js",
-    "start-server": "nodemon --exec babel-node --presets babel-preset-env api/server.js",
-    "test": "./node_modules/mocha/bin/mocha --require babel-register --exit"
+    "dev": "nodemon --exec babel-node --presets @babel/preset-env",
+    "load-data": "nodemon --exec babel-node --presets @babel/preset-env shared/loadData.js",
+    "train-classifier": "nodemon --exec babel-node --presets @babel/preset-env scraper/utils/train.js",
+    "start-scraper": "nodemon --exec babel-node --presets @babel/preset-env scraper/index.js",
+    "start-workers": "nodemon --exec babel-node --presets @babel/preset-env api/workers/emailWorker.js",
+    "start-server": "nodemon --exec babel-node --presets @babel/preset-env api/server.js",
+    "test": "./node_modules/.bin/mocha --require @babel/register --exit"
   },
   "keywords": [
     "courses",
@@ -37,9 +37,11 @@
     "redis": "^4.6.5"
   },
   "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "@babel/register": "^7.21.0",
     "apidoc": "^0.54.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "chai": "^4.3.7",
     "chai-http": "^4.3.0",
     "eslint": "^8.38.0",
