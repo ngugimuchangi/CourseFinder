@@ -25,6 +25,7 @@ describe('Authentication endpoints tests', () => {
     user.hashPassword();
     await user.save();
   });
+
   after(async () => {
     await db.connection.dropDatabase();
     await mongoose.connection.close();
@@ -36,6 +37,7 @@ describe('Authentication endpoints tests', () => {
     await Promise.all(keyDeletionPromises);
     await redis.quit();
   });
+
   describe('POST /auth/login', () => {
     it('should return 400 error for missing email', (done) => {
       request(app)
