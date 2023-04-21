@@ -15,6 +15,7 @@ describe('Authentication endpoints tests', () => {
   let db;
   let redis;
   let user;
+  let token;
 
   before(async () => {
     redis = createClient({ url: process.env.REDIS_TEST_URI });
@@ -85,9 +86,44 @@ describe('Authentication endpoints tests', () => {
         .post('/auth/login')
         .send({ email: user.email, password: 'supersecret' })
         .end((error, res) => {
+          token = res.body.token;
           expect(error).to.be.null;
           expect(res).to.have.status(200);
           expect(res.body.token).to.be.a('string');
+          done();
+        });
+    });
+    it('should allow logged in user to access restricted path', (done) => {
+      request(app)
+        .get('/users/me')
+        .set('X-Token', token)
+        .end((error, res) => {
+          expect(error).to.be.null;
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
+
+  describe('GET /auth/logout', () => {
+    it('should logout user', (done) => {
+      request(app)
+        .get('/auth/logout')
+        .set('X-Token', token)
+        .end((error, res) => {
+          expect(error).to.be.null;
+          expect(res).to.have.status(204);
+          done();
+        });
+    });
+    it('should prevent logged out user from accessing restricted path', (done) => {
+      request(app)
+        .get('/users/me')
+        .set('X-Token', token)
+        .end((error, res) => {
+          expect(error).to.be.null;
+          expect(res).to.have.status(401);
+          expect(res.body.error).to.equal('Unauthorized');
           done();
         });
     });
