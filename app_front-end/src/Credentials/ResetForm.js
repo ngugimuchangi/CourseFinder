@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'react-axios';
+import axios from 'axios';
 
 function Reset() {
   const [email, setEmail] = useState('');
