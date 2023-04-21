@@ -7,7 +7,7 @@ A web application to find free online courses.
 3. App - application's front-end
 
 ## API Documentation
-Api documentation available [here](./api/documentation/)
+Api documentation available [here](./api/docs/)
 
 ## Authors
 - [Duncan Ngugi](https://github.com/ngugimuchangi)
