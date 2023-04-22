@@ -1,62 +1,53 @@
 import "./Dashboard.css";
-import { useState } from "react";
-
+import NavBar from "./Nav";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function Dashboard() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [user, setUser] = useState([]);
 
-    const [setIsLoggedIn] = useState(true);
+  // Add useEffect hook to check for isLoggedIn value on mount
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (isLoggedIn === "true") {
+      setIsLoggedIn(true);
+    }
 
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-        window.location.href = "/";
-    };
-        return (
-            <div className="Dashboard" id="dashboard">
-                    <div class="area">
-                        <nav class="main-menu">
-                            <ul>
+    // API call to get user details
+    axios.defaults.headers.get['Content-Type'] = 'application/json';
+    axios.defaults.headers.get['X-Token '] = Cookies.get("session");
+    axios.defaults.baseURL = 'http://127.0.0.1:1245';
+    
+    axios.get("/categories").then((response) => {
+        setUser(response.data);
+    });
+  }, []);
 
-                                <li class="has-subnav">
-                                    <a href="#">
-                                    <i class="fa fa-book fa-4x"></i>
-                                        <span class="nav-text">
-                                            Courses
-                                        </span>
-                                    </a>
-                                </li>
-                                <li class="has-subnav">
-                                    <a href="#">
-                                        <i class="fa fa-bookmark fa-2x"></i>
-                                        <span class="nav-text">
-                                            Bookmarks
-                                        </span>
-                                    </a>
-                                    
-                                </li>
-                                <li>
-                                <a href="#">
-                                    <i class="fa fa-cogs fa-2x"></i>
-                                        <span class="nav-text">
-                                            Settings
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-
-                            <ul class="logout">
-                                <li>
-                                <a href="" onClick={handleLogout}>
-                                        <i class="fa fa-power-off fa-2x"></i>
-                                        <span class="nav-text">
-                                            Logout
-                                        </span>
-                                    </a>
-                                </li>  
-                            </ul>
-                        </nav>
-                    </div>
+  if (!isLoggedIn) {
+    window.location.href = "/";
+  } else {
+    return (
+      <div className="DashBoard" id="dashboard">
+        <NavBar />
+        <div className="ContentArea">
+            <header className="Title">
+                <h1>DashBoards</h1>
+            </header>
+            <section className="Content">
+            {user.map(item => (
+                <div key={item.id}>
+                    <h1>{item.id}</h1>
+                    <h2>{item.title}</h2>
+                    <h3>{item.url}</h3>
+                </div>
+            ))}
+            </section>
         </div>
-        );
+      </div>
+    );
+  }
 }
 
 export default Dashboard;
