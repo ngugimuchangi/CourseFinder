@@ -1,11 +1,13 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import sinon from 'sinon'
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { createClient } from 'redis';
 import { randomBytes } from 'crypto';
 import User from '../../models/user';
 import Token from '../../models/token';
+import EmailJobs from '../jobs/emailJobs';
 import app from '../server';
 
 dotenv.config();
@@ -20,8 +22,10 @@ describe('Verification endpoints tests', () => {
   let authToken;
   let emailToken;
   let passwordToken;
+  let emailMock;
 
   before(async () => {
+    emailMock = sinon.mock(EmailJobs, 'addEmailJob');
     redis = createClient({ url: process.env.REDIS_TEST_URI });
     await redis.connect();
     db = await mongoose.connect(process.env.DB_TEST_URI);
