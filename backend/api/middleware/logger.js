@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 class Logger {
   
 }
@@ -47,3 +48,22 @@ class Logger {
 
 export default Logger;
 >>>>>>> front-end_dev
+=======
+import expressWinston from 'express-winston';
+import {transports, format} from 'winston';
+
+class Logger {
+  static infoLogger(){
+    const infoTransport = {
+      transports: [
+        new transports.File(),
+      ],
+      format: format.timestamp()
+    }
+
+  }
+  static debugLogger(){
+    const debugTransport = {};
+  }
+}
+>>>>>>> f403751 (repo restructure)
