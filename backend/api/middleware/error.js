@@ -6,11 +6,9 @@
  * @param {import('express').Response} res - response object
  * @param {import('express').NextFunction} next - next function
  */
-function errorHandler(error, _req, res, _next) {
-  const status = error.status || 500;
-  const message = error.statusCode < 500 ? error.message : 'Something went wrong';
-  res.status(500).json({ error: message });
-  console.error(error);
+function errorHandler(error, _req, res, next) {
+  if (res.headersSent) return next(error);
+  return res.status(500).json({ error: 'Something went wrong' });
 }
 
 export default errorHandler;

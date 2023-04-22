@@ -21,24 +21,20 @@ class UserController {
     const { email, password } = req.body;
     let user;
     if (!email) {
-      res.status(400).json({ error: 'Missing email' });
-      return;
+      return res.status(400).json({ error: 'Missing email' });
     }
     if (!password) {
-      res.status(400).json({ error: 'Missing password' });
-      return;
+      return res.status(400).json({ error: 'Missing password' });
     }
     try {
       if (await User.findOne({ email })) {
-        res.status(409).json({ error: 'User already exists' });
-        return;
+        return res.status(409).json({ error: 'User already exists' });
       }
       user = new User({ email, password });
       user.hashPassword();
       await user.save();
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
     const token = new Token({
       user: user._id,
@@ -46,8 +42,8 @@ class UserController {
       role: 'verify',
     });
     await token.save();
-    await EmailJobs.addEmailJob(user, 'welcome', token.token);
-    res.status(201).json(Format.formatUser(user));
+    EmailJobs.addEmailJob(user, 'welcome', token.token);
+    return res.status(201).json(Format.formatUser(user));
   }
 
   /**
@@ -87,8 +83,7 @@ class UserController {
     const { user } = req;
     const { email } = req.body;
     if (!email) {
-      res.status(400).json({ error: 'Missing email' });
-      return;
+      return res.status(400).json({ error: 'Missing email' });
     }
     try {
       user.email = email;
@@ -100,10 +95,10 @@ class UserController {
         token: randomBytes(32).toString('hex'),
       });
       EmailJobs.addEmailJob(user, 'verify', token.token);
-      res.status(200).json(Format.formatUser(user));
     } catch (error) {
-      next(error);
+      return next(error);
     }
+    return res.status(200).json(Format.formatUser(user));
   }
 
   /**
@@ -116,17 +111,16 @@ class UserController {
     const { user } = req;
     const { password } = req.body;
     if (!password) {
-      res.status(400).json({ error: 'Missing password' });
-      return;
+      return res.status(400).json({ error: 'Missing password' });
     }
     try {
       user.password = password;
       user.hashPassword();
       await user.save();
     } catch (error) {
-      next(error);
+      return next(error);
     }
-    res.status(204).json();
+    return res.status(204).json();
   }
 
   /**
@@ -150,17 +144,10 @@ class UserController {
     const { user } = req;
     const { topic } = req.body;
     const { action } = req.query;
-    if (!action) {
-      res.status(400).json({ error: 'Missing action parameter' });
-      return;
-    }
-    if (!topic) {
-      res.status(400).json({ error: 'Missing topic' });
-      return;
-    }
+    if (!action) return res.status(400).json({ error: 'Missing action parameter' });
+    if (!topic) return res.status(400).json({ error: 'Missing topic' });
     if (action !== 'add' && action !== 'del') {
-      res.status(400).json({ error: 'Invalid action' });
-      return;
+      return res.status(400).json({ error: 'Invalid action' });
     }
     if (!user.topics.includes(topic) && action === 'add') {
       user.topics.push(topic);
@@ -171,10 +158,9 @@ class UserController {
     try {
       await user.save();
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    res.status(200).json(Format.formatUser(user));
+    return res.status(200).json(Format.formatUser(user));
   }
 
   /**
@@ -186,29 +172,21 @@ class UserController {
   static async putBookmark(req, res, next) {
     const { user } = req;
     const { courseId } = req.body;
-    if (courseId) {
-      res.status(400).json({ error: 'Missing course id' });
-      return;
-    }
+    if (courseId) return res.status(400).json({ error: 'Missing course id' });
     if (!Types.ObjectId.isValid(courseId)) {
-      res.status(400).json({ error: 'Invalid course id' });
-      return;
+      return res.status(400).json({ error: 'Invalid course id' });
     }
     try {
       const course = await Course.findById(courseId);
-      if (!course) {
-        res.status(404).json({ error: 'Not found' });
-        return;
-      }
-
+      if (!course) return res.status(404).json({ error: 'Not found' });
       if (user.bookmarks.some((bookmark) => bookmark._id.toString() === course._id.toString())) {
         user.bookmarks.push(course);
         await user.save();
       }
-      res.status(200).json(Format.formatUser(user));
     } catch (error) {
-      next(error);
+      return next(error);
     }
+    return res.status(200).json(Format.formatUser(user));
   }
 
   /**
@@ -221,26 +199,19 @@ class UserController {
     const { user } = req;
     const { courseId } = req.params;
 
-    if (!courseId) {
-      res.status(400).json({ error: 'Missing course id' });
-      return;
-    }
+    if (!courseId) return res.status(400).json({ error: 'Missing course id' });
     if (!Types.ObjectId.isValid(courseId)) {
-      res.status(400).json({ error: 'Invalid course id' });
-      return;
+      return res.status(400).json({ error: 'Invalid course id' });
     }
     const course = user.bookmarks.find((bookmark) => bookmark._id.toString() === courseId);
-    if (!course) {
-      res.status(404).json({ error: 'Not found' });
-      return;
-    }
+    if (!course) return res.status(404).json({ error: 'Not found' });
     try {
       user.bookmarks = user.bookmarks.filter((bookmark) => bookmark._id.toString() !== courseId);
       await user.save();
     } catch (error) {
-      next(error);
+      return next(error);
     }
-    res.status(200).json(Format.formatUser(user));
+    return res.status(200).json(Format.formatUser(user));
   }
 }
 

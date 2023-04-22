@@ -38,10 +38,9 @@ class CourseController {
       courses = (await Course.aggregate(pipeline))
         .map((course) => Format.formatCourse(course));
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    res.status(200).json(courses);
+    return res.status(200).json(courses);
   }
 
   /**
@@ -56,11 +55,10 @@ class CourseController {
     try {
       course = await Course.findById(id);
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    if (!course)res.status(404).json({ error: 'Not found' });
-    else res.status(200).json(Format.formatCourse(course));
+    if (!course) return res.status(404).json({ error: 'Not found' });
+    return res.status(200).json(Format.formatCourse(course));
   }
 }
 
