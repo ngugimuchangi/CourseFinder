@@ -9,7 +9,6 @@ dotenv.config();
 let session = 1;
 
 /**
- * 
  * Scraper entry point
  */
 async function main() {
