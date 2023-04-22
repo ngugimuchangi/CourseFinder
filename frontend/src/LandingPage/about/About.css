@@ -1,0 +1,147 @@
+/* Default styles */
+.About_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 8rem;
+        font-size: 1.7rem;
+        gap: 8rem;
+}
+
+.About {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        gap: 1rem;
+}
+
+.About h1 {
+        color: #7F56D9;
+        font-size: 9rem;
+        margin: 2.4rem 0;
+}
+
+.About p {
+        width: 56%;
+        text-align: center;
+}
+
+/* Card color #F9FAFB */
+.Users {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12rem;
+        flex-direction: row;
+        align-items: center;
+}
+
+.Users-Card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 24rem;
+        background-color: #F5F6F7;
+        border-radius: 1.4rem;
+}
+
+.Users-Card_image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20rem;
+        border-radius: 1rem;
+}
+
+.Users-Card_profile {
+        width: 8rem;
+        height: 8rem;
+        margin: 1rem;
+        border-radius: 50%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+.Users-Card_name {
+        font-weight: 500;
+        color: #000;
+}
+
+.Users-Card_specilization {
+        font-weight: 200;
+        color: #6941C6;
+}
+
+.Users-Card_info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+}
+
+.Users-Card_icons {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        float: row;
+        align-items: center;
+        margin-bottom: 1.2rem;
+}
+
+.Users-Card_icon {
+        width: 4rem;
+        height: 4rem;
+}
+
+/* Media queries */
+@media screen and (max-width: 768px) {
+        .About {
+          width: 90%;
+        }
+        .About h1 {
+          font-size: 6rem;
+          margin: 1.6rem 0;
+        }
+        .About p {
+          width: 80%;
+        }
+        .Users {
+          width: 100%;
+          gap: 3rem;
+        }
+        .Users-Card {
+          width: 100%;
+        }
+        .Users-Card_image {
+          width: 100%;
+        }
+      }
+      
+      @media screen and (max-width: 480px) {
+        .About h1 {
+          font-size: 4rem;
+          margin: 1.2rem 0;
+        }
+        .About p {
+          font-size: 1.2rem;
+          width: 90%;
+        }
+        .Users {
+          gap: 2rem;
+        }
+        .Users-Card {
+          width: 100%;
+          margin-bottom: 2rem;
+        }
+        .Users-Card_profile {
+          width: 6rem;
+          height: 6rem;
+        }
+}
