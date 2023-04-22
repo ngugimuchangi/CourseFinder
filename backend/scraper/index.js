@@ -2,8 +2,11 @@ import dotenv from 'dotenv';
 import Browser from './browser';
 import DBClient from '../shared/db';
 import ScraperController from './controller';
+import logger from './utils/logger';
 
 dotenv.config();
+
+let session = 1;
 
 /**
  * Scraper entry point
@@ -37,6 +40,7 @@ async function main() {
   let udacityScrapper;
   let udemyScrapper;
   try {
+    logger.info(`Scrapping session #${session} started`);
     await DBClient.connect();
     courseraScrapper = new ScraperController(
       await Browser.launchBrowser(),
@@ -69,9 +73,10 @@ async function main() {
     ]);
     await DBClient.close();
   } catch (error) {
-    console.log(error);
+    logger.error(error);
   }
-  console.log('Scrapping session completed');
+  logger.info(`Scraping session #${session} completed`);
+  session += 1;
   setTimeout(() => main(), Math.random() * (MAX_WAIT - MIN_WAIT) + MIN_WAIT);
 }
 
