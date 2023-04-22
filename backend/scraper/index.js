@@ -73,7 +73,7 @@ async function main() {
     ]);
     await DBClient.close();
   } catch (error) {
-    logger.error(error);
+    logger.error(`Scrapping session#${session} error : ${error}`);
   }
   logger.info(`Scraping session #${session} completed`);
   session += 1;
