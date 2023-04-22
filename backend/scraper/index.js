@@ -74,10 +74,14 @@ async function main() {
     await DBClient.close();
   } catch (error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     logger.error(`Scrapping session#${session} error : ${error}`);
 =======
     logger.error(error);
 >>>>>>> b947cde (integrated logger for the scraper)
+=======
+    logger.error(`Scrapping session#${session} error : ${error}`);
+>>>>>>> 3f9cce0 (updated log message)
   }
   logger.info(`Scraping session #${session} completed`);
   session += 1;
