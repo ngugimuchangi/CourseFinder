@@ -78,10 +78,9 @@ class CategoriesController {
       subcategories = (await Subcategory.find({}))
         .map((subcategory) => Format.formatSubcategory(subcategory));
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    res.status(200).json(subcategories);
+    return res.status(200).json(subcategories);
   }
 
   /**
@@ -96,11 +95,10 @@ class CategoriesController {
     try {
       subcategory = await Subcategory.findById(id);
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    if (!subcategory) res.status(404).json({ error: 'Not found' });
-    else res.status(200).json(Format.formatSubcategory(subcategory));
+    if (!subcategory) return res.status(404).json({ error: 'Not found' });
+    return res.status(200).json(Format.formatSubcategory(subcategory));
   }
 }
 

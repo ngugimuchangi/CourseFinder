@@ -19,27 +19,20 @@ class AuthController {
    */
   static async login(req, res, next) {
     const { email, password } = req.body;
-    if (!email) {
-      res.status(400).json({ error: 'Missing email' });
-      return;
-    }
-    if (!password) {
-      res.status(400).json({ error: 'Missing password' });
-      return;
-    }
-    const user = await User.findOne({ email });
-    if (!user || !user.isValidPassword(password)) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-    }
-    const token = randomBytes(32).toString('hex');
+    let token;
+    if (!email) return res.status(400).json({ error: 'Missing email' });
+    if (!password) return res.status(400).json({ error: 'Missing password' });
     try {
+      const user = await User.findOne({ email });
+      if (!user || !user.isValidPassword(password)) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+      token = randomBytes(32).toString('hex');
       await redisClient.setToken(token, user._id.toString());
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    res.status(200).json({ token });
+    return res.status(200).json({ token });
   }
 
   /**
@@ -53,10 +46,9 @@ class AuthController {
     try {
       await redisClient.deleteToken(token);
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    res.status(204).json();
+    return res.status(204).json();
   }
 
   /**
@@ -67,10 +59,7 @@ class AuthController {
    */
   static async getEmailToken(req, res, next) {
     const { user } = req;
-    if (user.verified) {
-      res.status(204).json();
-      return;
-    }
+    if (user.verified) return res.status(204).json();
     const token = new Token({
       user: user._id,
       role: 'verify',
@@ -80,9 +69,9 @@ class AuthController {
       await token.save();
       await EmailJobs.addEmailJob(user, 'verify', token.token);
     } catch (error) {
-      next(error);
+      return next(error);
     }
-    res.status(204).json();
+    return res.status(204).json();
   }
 
   /**
@@ -95,29 +84,25 @@ class AuthController {
     let user;
     let { token, userId } = req.params;
     if (!Types.ObjectId.isValid(userId)) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
+      return res.status(401).json({ error: 'Unauthorized' });
     }
     userId = new Types.ObjectId(userId);
     try {
       token = await Token.findOne({ user: userId, role: 'verify', token });
       if (!token) {
-        res.status(401).json({ error: 'Unauthorized' });
-        return;
+        return res.status(401).json({ error: 'Unauthorized' });
       }
       user = await User.findById(userId);
       if (!user) {
-        res.status(401).json({ error: 'Unauthorized' });
-        return;
+        return res.status(401).json({ error: 'Unauthorized' });
       }
       user.verified = true;
       await user.save();
       await Token.deleteOne({ token: req.params.token });
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    res.status(200).json({ verified: user.verified });
+    return res.status(200).json({ verified: user.verified });
   }
 
   /**
@@ -131,14 +116,12 @@ class AuthController {
     let user;
     const { email } = req.body;
     if (!email) {
-      res.status(400).json({ error: 'Missing email' });
-      return;
+      return res.status(400).json({ error: 'Missing email' });
     }
     try {
       user = await User.findOne({ email });
       if (!user) {
-        res.status(404).json({ error: 'Not found' });
-        return;
+        return res.status(404).json({ error: 'Not found' });
       }
       token = new Token({
         user: user._id,
@@ -147,11 +130,10 @@ class AuthController {
       });
       await token.save();
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
     EmailJobs.addEmailJob(user, 'reset', token.token);
-    res.status(204).json();
+    return res.status(204).json();
   }
 
   /**
@@ -167,29 +149,25 @@ class AuthController {
     const { password } = req.body;
 
     if (!Types.ObjectId.isValid(userId)) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
+      return res.status(401).json({ error: 'Unauthorized' });
     }
     try {
       token = await Token.findOne({ user: userId, role: 'reset', token });
       if (!token) {
-        res.status(401).json({ error: 'Unauthorized' });
-        return;
+        return res.status(401).json({ error: 'Unauthorized' });
       }
       user = await User.findById(userId);
       if (!user) {
-        res.status(401).json({ error: 'Unauthorized' });
-        return;
+        return res.status(401).json({ error: 'Unauthorized' });
       }
       user.password = password;
       user.hashPassword();
       await user.save();
       await Token.deleteOne({ token: req.params.token });
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    res.status(200).json(Format.formatUser(user));
+    return res.status(200).json(Format.formatUser(user));
   }
 }
 
