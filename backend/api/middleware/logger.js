@@ -1,17 +1,42 @@
-import expressWinston from 'express-winston';
-import {transports, format} from 'winston';
+import { createLogger, transports, format } from 'winston';
 
+// Logging class
 class Logger {
-  static infoLogger(){
-    const infoTransport = {
-      transports: [
-        new transports.File(),
-      ],
-      format: format.timestamp()
-    }
-
+  /**
+   * Requests logger
+   * @returns {object} - Winston logger instance
+   */
+  static requestLogger() {
+    const requestLogFormat = format.printf(({ level, timestamp, meta }) => {
+      const { method, url } = meta.req;
+      const { statusCode } = meta.res;
+      const { responseTime } = meta;
+      return `[${timestamp}] ${level.toUpperCase()}: ${method} ${url} ${statusCode} ${responseTime}`;
+    });
+    const logger = createLogger({
+      transports: [new transports.File({ filename: 'logs/access.log' })],
+      format: format.combine(format.timestamp(), requestLogFormat),
+    });
+    return logger;
   }
-  static debugLogger(){
-    const debugTransport = {};
+
+  /**
+   * Internal errors logger
+   * @returns {object} winston logger object for logging internal server errors
+   */
+  static errorLogger() {
+    const errorLogFormat = format.printf(({ level, timestamp, meta }) => {
+      const { method, url } = meta.req;
+
+      const { message } = meta;
+      return `[${timestamp}] ${level.toUpperCase()}: ${method} ${url} Error: ${message} {}`;
+    });
+    const logger = createLogger({
+      transports: [new transports.File({ filename: 'logs/error.log' })],
+      format: format.combine(format.timestamp(), errorLogFormat),
+    });
+    return logger;
   }
 }
+
+export default Logger;
