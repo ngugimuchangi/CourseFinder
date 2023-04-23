@@ -172,7 +172,7 @@ class UserController {
   static async putBookmark(req, res, next) {
     const { user } = req;
     const { courseId } = req.body;
-    if (courseId) return res.status(400).json({ error: 'Missing course id' });
+    if (!courseId) return res.status(400).json({ error: 'Missing course id' });
     if (!Types.ObjectId.isValid(courseId)) {
       return res.status(400).json({ error: 'Invalid course id' });
     }

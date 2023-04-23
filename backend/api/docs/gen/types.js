@@ -6,8 +6,8 @@
 
 /**
  * @apiDefine UserSuccessParams
- * @apiSuccess {String} id User'id
- * @apiSuccess {String} email User'email
+ * @apiSuccess {String} id User id
+ * @apiSuccess {String} email User email
  * @apiSuccess {Boolean} user email verification status
  * @apiSuccess {Array} topics List of topics of interest to user
  * @apiSuccess {Array} bookmarks List of bookmarked courses
