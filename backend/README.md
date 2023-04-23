@@ -34,7 +34,7 @@ npm run start-server
 ```
 ## Logs
 - Scraper logs available in `logs/scraper/` directory.
-- API server logs available in `logs/server` directory.
+- API server logs available in `logs/server/` directory.
 - Logs directories created on start up.
 
 ## API Documentation
