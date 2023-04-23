@@ -13,7 +13,7 @@ git clone https://github.com/ngugimuchangi/CourseFinder.git
 
 Run setup script
 ```
-cd backend
+cd CourseFinder/backend/
 ./set-up.sh
 ```
 
@@ -33,11 +33,12 @@ Start server
 npm run start-server
 ```
 ## Logs
-- Scraper logs available in `scraper/logs` directory.
-- API server logs available in `api/logs` directory.
+- Logs directories created on start up.
+- Scraper logs available in `logs/scraper/` directory.
+- API server logs available in `logs/server/` directory.
 
 ## API Documentation
-API documentation available [here](/backend/api/docs/)
+API documentation available [here](/backend/api/docs/).
 
 ## More
 Checkout our frontend application [here](/app_front-end/).

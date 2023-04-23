@@ -1,6 +1,7 @@
 import CourseScraper from './scrapper';
 import CourseUtil from './utils/courseUtilities';
-import logger from './utils/logger';
+import { infoLogger } from './utils/logger';
+
 /* eslint no-await-in-loop: 0 */ // --> OFF
 /* necessary due to minimize browser resource consumption */
 
@@ -91,7 +92,7 @@ class ScraperController {
     }
     await page.close();
     await this.browser.close();
-    logger.info(`Data collection from ${this.provider} completed.`);
+    infoLogger.info(`Data collection from ${this.provider} completed.`);
   }
 }
 
