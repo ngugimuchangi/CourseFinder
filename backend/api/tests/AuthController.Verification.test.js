@@ -23,7 +23,7 @@ describe('Verification endpoints tests', () => {
   let emailToken;
   let passwordToken;
   let emailStub;
-  const newPassword = 'anothersupersecret 😸';
+  const newPassword = 'anothersupersecret😸';
   const randomString = () => randomBytes(32).toString('hex');
 
   before(async () => {
