@@ -15,6 +15,15 @@ export default function Dashboard() {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [fix, setFixed] = useState(false);
+
+  function scrollFixed() {
+    if (window.scrollY >= 1) {
+      setFixed(true);
+    } else {
+      setFixed(false);
+    }
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -59,15 +68,18 @@ export default function Dashboard() {
       }
     });
     const url = `/users/me/bookmarks`;
-    const data = { itemId };
+    const prams = `?action=add`
+    const data = {
+      courseId: itemId 
+    };
     try {
-      const response = await api.put(url, data);
-      console.log('Bookmark added successfully', response.status);
+        const response = await api.put(url + prams, data);
+        console.log('Bookmark added successfully', response.status);
     } catch (error) {
       console.log('Bookmark could not be added', error);
     }
   }
-
+  window.addEventListener("scroll", scrollFixed);
   if (isLoggedIn === "false") {
     window.location.href = "/";
   }else {
@@ -75,7 +87,7 @@ export default function Dashboard() {
       <div className="DashBoard" id="dashboard">
         <NavBar />
         <div className="ContentArea">
-          <header className="Title">
+          <header className={fix ? "Title Fixed": "Title"}>
             <Container className="Heading_title">
             <InputGroup className="mb-3">
               <Form.Control
@@ -92,7 +104,10 @@ export default function Dashboard() {
                 <div className="Loader">Loading please  wait...</div>
               ) : (data.map(item => (
                 <Card key={item.id} style={{ width: '26rem', height: '30rem' }} className="Card_spacing">
-                  <span className="bookmarks" onClick={() => { addBookmark(item.id)}}>🔖</span>
+                  <span className="bookmarks" onClick={() => { addBookmark(item.id)
+                  }
+                  }
+                  >🔖<span className="tooltiptext">Bookmark</span></span>
                   <Card.Img variant="top" src={item.imageUrl} />
                   <Card.Body>
                     <Card.Title className="Card_title">{item.provider}</Card.Title>
