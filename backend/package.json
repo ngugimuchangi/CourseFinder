@@ -12,7 +12,8 @@
     "start-scraper": "nodemon --exec babel-node --presets @babel/preset-env scraper/index.js",
     "start-workers": "nodemon --exec babel-node --presets @babel/preset-env api/workers/emailWorker.js",
     "start-server": "nodemon --exec babel-node --presets @babel/preset-env api/server.js",
-    "test": "mocha --require @babel/register --exit"
+    "test": "mocha --require @babel/register --exit",
+    "test-all": "mocha --require @babel/register --exit api/tests/"
   },
   "keywords": [
     "courses",
