@@ -38,7 +38,7 @@ npm run start-server
 - Logs directories created on start up.
 
 ## API Documentation
-API documentation available [here](/backend/api/docs/)
+API documentation available [here](/backend/api/docs/).
 
 ## More
 Checkout our frontend application [here](/app_front-end/).
