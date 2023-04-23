@@ -90,16 +90,20 @@
  */
 
 /**
- * @api {put} /users/me/bookmarks/ Add bookmarks
+ * @api {put} /users/me/bookmarks Add and delete bookmarks
  * @apiName putBookmarks
  * @apiGroup Users
- * @apiDescription Adds a course and adds it to the list of bookmarks
+ * @apiDescription Adds a course to or deletes it from the list of bookmarks based
+ * on action parameter.
  * belonging to a user
  * @apiUse XToken
  * @apiUse MissingCourseId
  * @apiUse InvalidCourseId
  * @apiUse Unauthorized
  * @apiUse UserSuccessParams
+ * @apiQuery {String='add','del'} action Action to perform on bookmark. `add` initiates bookmark
+ * addition to the user's list of bookmark. `del` initiates deletion of a topic from the
+ * list of bookmarks
  * @apiBody {String} courseId ID of course to bookmark
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
@@ -116,31 +120,6 @@
  *  }
  */
 
-/**
- * @api {delete} /users/me/bookmarks/:courseId Delete bookmarks
- * @apiName deleteBookmarks
- * @apiGroup Users
- * @apiDescription Deletes a course from the list of bookmarks
- * belonging to a user
- * @apiUse XToken
- * @apiUse MissingCourseId
- * @apiUse InvalidCourseId
- * @apiUse Unauthorized
- * @apiUse UserSuccessParams
- * @apiParam {String} courseId ID of course to remove from bookmarks
- * @apiSuccessExample {json} Success-Response:
- * HTTP/1.1 200 OK
- * {
- *   "id": "643f78560c0ffbdafb2f3521",
- *   "email": "test.user@mail.com",
- *   "verified": true,
- *   "topics": ["Web Development", "Databases", "Art & Crafts"],
- *   "bookmarks": [
- *       "bookmarks": [
- *       "/courses/643e4102d1e93c81f60dda95"
- *     ]
- *  }
- */
 
 /**
  * @api {put} /users/me/topics Add and delete user topics
