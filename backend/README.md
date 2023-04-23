@@ -33,9 +33,9 @@ Start server
 npm run start-server
 ```
 ## Logs
+- Logs directories created on start up.
 - Scraper logs available in `logs/scraper/` directory.
 - API server logs available in `logs/server/` directory.
-- Logs directories created on start up.
 
 ## API Documentation
 API documentation available [here](/backend/api/docs/).
