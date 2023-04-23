@@ -6,8 +6,8 @@ import Subcategory from '../models/subcategory';
 
 dotenv.config();
 
-// Helper class for unit tests
-class LoadDataFromFile {
+// Helper class for loading data from files
+class LoadData {
   /**
    * Add categories to database from an excel or csv file
    * @param {string} file - filepath to categories file
@@ -60,17 +60,17 @@ class LoadDataFromFile {
  * Populates database with categories and subcategories from csv files
  */
 async function loadCategories() {
-  const categoriesFile = './utils/shared/course_categories.csv';
-  const subCategoriesFile = './utils/shared/course_subcategories.csv';
+  const categoriesFile = './shared/course_categories.csv';
+  const subCategoriesFile = './shared/course_subcategories.csv';
   try {
     await DBClient.connect();
     await Category.deleteMany({});
     await Subcategory.deleteMany({});
-    await LoadDataFromFile.addCategories(categoriesFile);
-    await LoadDataFromFile.addSubcategories(subCategoriesFile);
+    await LoadData.addCategories(categoriesFile);
+    await LoadData.addSubcategories(subCategoriesFile);
   } catch (error) {
     console.error(error);
   }
 }
 
-loadCategories();
+loadCategories().then(() => process.exit());
