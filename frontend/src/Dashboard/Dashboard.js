@@ -10,68 +10,63 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 
-function Dashboard() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+export default function Dashboard() {
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [addBookMark, setBookmark] = useState('');
 
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn === "true") {
-      setIsLoggedIn(true)
-    }
-      async function addBookmarks() {
-        const api = axios.create({
-          baseURL: 'http://127.0.0.1:1245',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Token': Cookies.get('session')
-          }
-        });
-        let url = `/users/me/bookmarks`;
-        try {
-          const response = await api.put(url);
-          setBookmark(response.data)
-          console.log('Bookmark added successfully', response.statusCode);
-        } catch (error) {
-          console.log('Bookmark could not be added', error);
+    async function fetchData() {
+      setIsLoading(true);
+      const api = axios.create({
+        baseURL: 'http://127.0.0.1:1245',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': Cookies.get('session')
         }
+      });
+      let url = `/courses`;
+      if (searchQuery) {
+        url += `?q=${searchQuery}`;
       }
-
-      async function fetchData() {
-        setIsLoading(true);
-        const api = axios.create({
-          baseURL: 'http://127.0.0.1:1245',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Token': Cookies.get('session')
-          }
-        });
-        let url = `/courses`;
+      const response = await api.get(url);
+      try {
         if (searchQuery) {
-          url += `?q=${searchQuery}`;
+          setData(response.data.filter(item => 
+            item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.provider.toLowerCase().includes(searchQuery.toLowerCase())
+          ));
+        } else {
+          setData(response.data);
         }
-        const response = await api.get(url);
-        try {
-          if (searchQuery) {
-            setData(response.data.filter(item => 
-              item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              item.provider.toLowerCase().includes(searchQuery.toLowerCase())
-            ));
-          } else {
-            setData(response.data);
-          }
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setIsLoading(false);
-        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
       }
-      fetchData();
-      addBookmarks()
-  }, [searchQuery, addBookMark]);
+    }
+
+    fetchData();
+  }, [searchQuery]);
+
+  async function addBookmark(itemId) {
+    const api = axios.create({
+      baseURL: 'http://127.0.0.1:1245',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Token': Cookies.get('session')
+      }
+    });
+    const url = `/users/me/bookmarks`;
+    const data = { itemId };
+    try {
+      const response = await api.put(url, data);
+      console.log('Bookmark added successfully', response.status);
+    } catch (error) {
+      console.log('Bookmark could not be added', error);
+    }
+  }
 
   if (isLoggedIn === "false") {
     window.location.href = "/";
@@ -97,7 +92,7 @@ function Dashboard() {
                 <div className="Loader">Loading please  wait...</div>
               ) : (data.map(item => (
                 <Card key={item.id} style={{ width: '26rem', height: '30rem' }} className="Card_spacing">
-                  <span className="bookmarks" onClick={() => addBookMark(item.id)}>🔖</span>
+                  <span className="bookmarks" onClick={() => { addBookmark(item.id)}}>🔖</span>
                   <Card.Img variant="top" src={item.imageUrl} />
                   <Card.Body>
                     <Card.Title className="Card_title">{item.provider}</Card.Title>
@@ -117,5 +112,3 @@ function Dashboard() {
     );
   }
 }
-
-export default Dashboard;

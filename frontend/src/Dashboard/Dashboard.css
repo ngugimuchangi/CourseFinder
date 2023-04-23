@@ -13,14 +13,6 @@ vertical-align: middle;
 font-size:20px;
 }
 
-.DashBoard {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  position: relative;
-justify-content: space-between;
-}
-
 .main-menu {
   background-image: linear-gradient(to right bottom, #7f56d9, #7f56d9);
   height: 100vh;
@@ -114,7 +106,13 @@ nav ul,nav li {
   width: 100%;
 }
 
-
+.DashBoard {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  justify-content: space-between;
+}
 
 .ContentArea {
   width: 84.4%;
