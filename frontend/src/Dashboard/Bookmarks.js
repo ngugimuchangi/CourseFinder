@@ -105,7 +105,7 @@ export default function Dashboard() {
                 </div>
                 :data.map(item => (
                 <Card key={item.id} style={{ width: '26rem', height: '30rem' }} className="Card_spacing">
-                  <span className="bookmarks_link_remover" onClick={() => { addBookmark(item.id)}}>X</span>
+                  <span className="bookmarks_link_remover" onClick={() => { addBookmark(item.id)}}>X<span className="tooltiptext">Remove</span></span>
                   <Card.Img variant="top" src={item.imageUrl} />
                   <Card.Body>
                     <Card.Title className="Card_title">{item.provider}</Card.Title>

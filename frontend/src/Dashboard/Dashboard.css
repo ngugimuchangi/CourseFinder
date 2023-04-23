@@ -227,6 +227,25 @@ nav ul,nav li {
   cursor: pointer;
 }
 
+.bookmarks_link_remover .tooltiptext {
+  visibility: hidden;
+  background-color: rgb(65, 61, 61);
+  color: #fff;
+  text-align: center;
+  border-radius: 1px;
+  width: 3rem;
+  position: absolute;
+  padding: 2px;
+  font-size: 5px;
+  z-index: 100;
+  top: -50%;
+  right: 4%;
+  margin-right: 5px;
+}
+.bookmarks_link_remover:hover .tooltiptext {
+  visibility: visible;
+}
+
 .Heading_title {
   display: flex;
   width: 50%;
