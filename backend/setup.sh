@@ -4,3 +4,6 @@
 # 2. Loading categories data
 # 3. Training classifier
 
+npm install &&
+npm run load-data &&
+npm run train-classifier
