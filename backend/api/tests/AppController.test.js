@@ -13,6 +13,7 @@ const { expect, request } = chai;
 
 describe('Status and stats endpoints tests', () => {
   let db;
+
   before(async () => {
     const randomString = (length = 16) => randomBytes(length).toString('hex');
     const categoriesCreationPromises = [];
@@ -42,6 +43,7 @@ describe('Status and stats endpoints tests', () => {
     await Promise.all(subcategoriesCreationPromises);
     await Promise.all(coursesCreationPromises);
   });
+
   after(async () => {
     await db.connection.dropDatabase();
     mongoose.connection.close();
