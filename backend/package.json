@@ -22,7 +22,6 @@
   "author": "Duncan Ngugi",
   "license": "ISC",
   "dependencies": {
-    "babel-node": "^0.0.1-security",
     "bcrypt": "^5.1.0",
     "bull": "^4.10.4",
     "cors": "^2.8.5",
@@ -30,7 +29,7 @@
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-winston": "^4.2.0",
-    "mongoose": "^7.0.4",
+    "mongoose": "^7.0.3",
     "natural": "^6.2.0",
     "nodemailer": "^6.9.1",
     "puppeteer": "^19.9.0",
