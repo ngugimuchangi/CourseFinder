@@ -33,12 +33,6 @@ export default function NavBar() {
             </li>
             <li className={location.pathname === "/dashboard" ? "active" : ""}>
               <Link to="/dashboard">
-                <i className="fa fa-4x">🏠 </i>
-                <span className="nav-text">Dashboard</span>
-              </Link>
-            </li>
-            <li className={location.pathname === "/courses" ? "active" : ""}>
-              <Link to="/courses">
                 <i className="fa fa-4x">📚 </i>
                 <span className="nav-text">Courses</span>
               </Link>

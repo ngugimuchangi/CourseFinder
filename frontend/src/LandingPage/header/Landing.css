@@ -71,5 +71,5 @@
 */
 .Landing-containers-btn_link:hover {
         background-color: #442588;
-        color: #ffffff;
+        color: #ffffff !important;
 }

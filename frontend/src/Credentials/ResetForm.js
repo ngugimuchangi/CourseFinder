@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
 function Reset() {
   const [email, setEmail] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/127.0.0.1:1245/auth/reset-password', { email });
+      const response = await axios.post('http://127.0.0.1:1245/auth/reset-password', { email });
       console.log(response.data);
       <div class="alert alert-success" role="alert">
         This is a success alert—check it out!

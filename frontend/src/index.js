@@ -9,7 +9,6 @@ import Login from "./Credentials/Login";
 import Reset from "./Credentials/Reset";
 import NotFound from "./ErrorHandler/404";
 import Dashboard from "./Dashboard/Dashboard";
-import Courses from "./Dashboard/Courses";
 import BookMarks from "./Dashboard/Bookmarks";
 import Settings from "./Dashboard/Settings";
 import PrivacyPopup from "./OnlinePrivacy";
@@ -23,7 +22,6 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/reset" element={<Reset />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/courses" element={<Courses />} />
       <Route path="/bookmarks" element={<BookMarks />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/privacy" element={<PrivacyPopup />} />

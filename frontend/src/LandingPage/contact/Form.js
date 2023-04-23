@@ -4,8 +4,9 @@ import PhoneInput from 'react-phone-number-input'
 import { useState } from 'react';
 import axios from 'axios';
 
+
 function sendEmail(data) {
-        axios.post('/api-route', data)
+        axios.post('http://127.0.0.1:1245', data)
           .then(res => {
             console.log(res.data);
           })

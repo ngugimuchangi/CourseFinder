@@ -15,9 +15,7 @@
     "js-cookie": "^3.0.1",
     "lint-staged": "^13.2.1",
     "prettier": "^2.8.7",
-    "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
-    "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-icons-all": "^4.5.1",
     "react-phone-number-input": "^3.2.19",
@@ -72,9 +70,16 @@
     }
   },
   "devDependencies": {
+    "babel-loader": "^9.1.2",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "css-loader": "^6.7.3",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "postcss-normalize": "^10.0.1",
     "prop-types": "^15.8.1",
-    "webpack": "^5.79.0"
+    "style-loader": "^3.3.2",
+    "webpack": "^5.80.0",
+    "webpack-cli": "^5.0.2",
+    "webpack-dev-server": "^4.13.3"
   }
 }
