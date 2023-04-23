@@ -144,8 +144,8 @@ class UserController {
     const { user } = req;
     const { topic } = req.body;
     const { action } = req.query;
-    if (!action) return res.status(400).json({ error: 'Missing action parameter' });
     if (!topic) return res.status(400).json({ error: 'Missing topic' });
+    if (!action) return res.status(400).json({ error: 'Missing action parameter' });
     if (action !== 'add' && action !== 'del') {
       return res.status(400).json({ error: 'Invalid action' });
     }
@@ -164,7 +164,7 @@ class UserController {
   }
 
   /**
-   * Add users' bookmarks
+   * Add and delete users' bookmarks
    * @param {Request} req - request object
    * @param {Response} res - response object
    * @param {Next} next - next function
@@ -172,41 +172,25 @@ class UserController {
   static async putBookmark(req, res, next) {
     const { user } = req;
     const { courseId } = req.body;
+    const { action } = req.query;
     if (!courseId) return res.status(400).json({ error: 'Missing course id' });
     if (!Types.ObjectId.isValid(courseId)) {
       return res.status(400).json({ error: 'Invalid course id' });
+    }
+    if (!action) return res.status(400).json({ error: 'Missing action parameter' });
+    if (action !== 'add' && action !== 'del') {
+      return res.status(400).json({ error: 'Invalid action' });
     }
     try {
       const course = await Course.findById(courseId);
       if (!course) return res.status(404).json({ error: 'Not found' });
-      if (user.bookmarks.some((bookmark) => bookmark._id.toString() === course._id.toString())) {
+
+      if (action === 'add' && !user.bookmarks.some((bookmark) => bookmark._id.toString() === course._id.toString())) {
         user.bookmarks.push(course);
-        await user.save();
       }
-    } catch (error) {
-      return next(error);
-    }
-    return res.status(200).json(Format.formatUser(user));
-  }
-
-  /**
-   * Delete users' bookmarks
-   * @param {Request} req - request object
-   * @param {Response} res - response object
-   * @param {Next} next - next function
-   */
-  static async deleteBookmark(req, res, next) {
-    const { user } = req;
-    const { courseId } = req.params;
-
-    if (!courseId) return res.status(400).json({ error: 'Missing course id' });
-    if (!Types.ObjectId.isValid(courseId)) {
-      return res.status(400).json({ error: 'Invalid course id' });
-    }
-    const course = user.bookmarks.find((bookmark) => bookmark._id.toString() === courseId);
-    if (!course) return res.status(404).json({ error: 'Not found' });
-    try {
-      user.bookmarks = user.bookmarks.filter((bookmark) => bookmark._id.toString() !== courseId);
+      if (action === 'del') {
+        user.bookmarks = user.bookmarks.filter((bookmark) => bookmark._id.toString() !== courseId);
+      }
       await user.save();
     } catch (error) {
       return next(error);

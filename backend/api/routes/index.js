@@ -28,7 +28,6 @@ router.put('/users/me/password', UserController.putPassword);
 router.put('/users/me/topics', UserController.putTopic);
 router.get('/users/me/bookmarks', UserController.getBookmarks);
 router.put('/users/me/bookmarks', UserController.putBookmark);
-router.delete('/users/me/bookmarks/:courseId', UserController.deleteBookmark);
 
 // Categories endpoints
 router.get('/categories', CategoriesController.getCategories);
