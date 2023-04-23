@@ -13,7 +13,7 @@ git clone https://github.com/ngugimuchangi/CourseFinder.git
 
 Run setup script
 ```
-cd backend
+cd CourseFinder/backend/
 ./set-up.sh
 ```
 
