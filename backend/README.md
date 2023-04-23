@@ -33,8 +33,8 @@ Start server
 npm run start-server
 ```
 ## Logs
-- Scraper logs available in `scraper/logs` directory.
-- API server logs available in `api/logs` directory.
+- Scraper logs available in `logs/scraper/` directory.
+- API server logs available in `logs/server` directory.
 
 ## API Documentation
 API documentation available [here](/backend/api/docs/)
