@@ -23,7 +23,7 @@ export default function NavBar() {
     window.location.href = "/";
   } else {
     return (
-      <div>
+      <div className="menu_container">
         <nav className="main-menu">
           <ul>
           <li>
