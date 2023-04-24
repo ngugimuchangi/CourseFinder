@@ -23,11 +23,11 @@ describe('Verification endpoints tests', () => {
   let emailToken;
   let passwordToken;
   let emailStub;
-  const newPassword = 'anothersupersecret😸';
+  const newPassword = 'anothersupersecret';
   const randomString = () => randomBytes(32).toString('hex');
 
   before(async () => {
-    emailStub = sinon.stub(EmailJobs, 'addEmailJob').callsFake(() => console.log('Email sent 😸'));
+    emailStub = sinon.stub(EmailJobs, 'addEmailJob').callsFake(() => console.log('Email sent'));
     redis = createClient({ url: process.env.REDIS_TEST_URI });
     await redis.connect();
     db = await mongoose.connect(process.env.DB_TEST_URI);
