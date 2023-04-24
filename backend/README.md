@@ -32,6 +32,7 @@ Start server
 ```
 npm run start-server
 ```
+
 ## Logs
 - Logs directories created on start up.
 - Scraper logs available in `logs/scraper/` directory.
