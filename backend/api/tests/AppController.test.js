@@ -15,7 +15,7 @@ describe('Status and stats endpoints tests', () => {
   let db;
 
   before(async () => {
-    const randomString = (length = 16) => randomBytes(length).toString('hex');
+    const randomString = () => randomBytes(16).toString('hex');
     const categoriesCreationPromises = [];
     const subcategoriesCreationPromises = [];
     const coursesCreationPromises = [];
@@ -25,12 +25,12 @@ describe('Status and stats endpoints tests', () => {
       const subcategory = new Subcategory({
         title: randomString(),
         category: category._id,
-        keywords: [randomString(10), randomString(10)],
+        keywords: [randomString(), randomString()],
       });
       const course = new Course({
         title: randomString(),
-        description: randomString(32),
-        provider: randomString(10),
+        description: randomString(),
+        provider: randomString(),
         category: subcategory._id,
         url: randomString(),
         imageUrl: randomString(),
