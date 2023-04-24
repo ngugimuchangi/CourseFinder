@@ -46,7 +46,7 @@
 /**
  * @apiDefine NotFound
  * @apiError (Error 404) NotFound Resource not found
- * @apiErrorExample {json} NotFound:
+ * @apiErrorExample {json} NotFound
  * HTTP/1.1 404 Not Found
  * {
  *  "error": "Not found"

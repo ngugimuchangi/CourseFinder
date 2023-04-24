@@ -81,6 +81,7 @@
  * not logged in and have forgotten their password. Requires user id and
  * password reset token.
  * @apiUse Unauthorized
+ * @apiUse MissingPassword
  * @apiParam {String} userId User id
  * @apiParam {String} token Password reset token
  * @apiBody {String} password New user password

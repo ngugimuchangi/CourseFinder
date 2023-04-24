@@ -4,7 +4,6 @@ import redisClient from '../../shared/redis';
 import User from '../../models/user';
 import Token from '../../models/token';
 import EmailJobs from '../jobs/emailJobs';
-import Format from '../utils/format';
 
 // Authentication controller class
 class AuthController {
@@ -120,9 +119,7 @@ class AuthController {
     }
     try {
       user = await User.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ error: 'Not found' });
-      }
+      if (!user) return res.status(204).json();
       token = new Token({
         user: user._id,
         token: randomBytes(32).toString('hex'),
@@ -148,6 +145,7 @@ class AuthController {
     const { userId } = req.params;
     const { password } = req.body;
 
+    if (!password) return res.status(400).json({ error: 'Missing password' });
     if (!Types.ObjectId.isValid(userId)) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
@@ -167,7 +165,7 @@ class AuthController {
     } catch (error) {
       return next(error);
     }
-    return res.status(200).json(Format.formatUser(user));
+    return res.status(204).json();
   }
 }
 

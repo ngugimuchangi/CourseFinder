@@ -192,12 +192,11 @@
  * @api {put} /users/me/password Change user password
  * @apiName putPassword
  * @apiGroup Users
- * @apiDescription Allows logged in user to update their password
+ * @apiDescription Enables logged in user to update their password
  * of user topics
  * @apiUse XToken
  * @apiUse MissingPassword
  * @apiUse Unauthorized
- * @apiUse UserSuccessParams
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 204 No Content
  */
