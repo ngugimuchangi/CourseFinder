@@ -22,7 +22,7 @@ const App = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/reset" element={<Reset />} />
-      <Route path="/auth/verify-email" element={<EmailVerification />} />
+      <Route path="/confirmEmail/:Id/:verificationToken" element={<EmailVerification />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/bookmarks" element={<BookMarks />} />
       <Route path="/settings" element={<Settings />} />

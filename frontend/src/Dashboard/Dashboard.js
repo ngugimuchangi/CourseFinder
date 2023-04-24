@@ -84,7 +84,7 @@ export default function Dashboard() {
     window.location.href = "/";
   }else {
     return (
-      <div className="DashBoard" id="dashboard">
+      <div className={DashboardClass()} id="dashboard">
         <NavBar />
         <div className="ContentArea">
           <header className={fix ? "Title Fixed": "Title"}>
@@ -125,5 +125,9 @@ export default function Dashboard() {
         </div>
       </div>
     );
+  }
+
+  function DashboardClass() {
+    return "DashBoard";
   }
 }
