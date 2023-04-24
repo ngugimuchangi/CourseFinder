@@ -23,7 +23,7 @@ export default function NavBar() {
     window.location.href = "/";
   } else {
     return (
-      <div>
+      <div className="menu_container">
         <nav className="main-menu">
           <ul>
           <li>
@@ -34,7 +34,7 @@ export default function NavBar() {
             <li className={location.pathname === "/dashboard" ? "active" : ""}>
               <Link to="/dashboard">
                 <i className="fa fa-4x">📚 </i>
-                <span className="nav-text">Courses</span>
+                <span className="nav-text">Dashboard</span>
               </Link>
             </li>
             <li className={location.pathname === "/bookmarks" ? "active" : ""}>

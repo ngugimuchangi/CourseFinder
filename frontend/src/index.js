@@ -7,6 +7,7 @@ import Home from "./LandingPage/Home";
 import Signup from "./Credentials/Signup";
 import Login from "./Credentials/Login";
 import Reset from "./Credentials/Reset";
+import EmailVerification from "./Credentials/verifyEmail";
 import NotFound from "./ErrorHandler/404";
 import Dashboard from "./Dashboard/Dashboard";
 import BookMarks from "./Dashboard/Bookmarks";
@@ -21,6 +22,7 @@ const App = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/reset" element={<Reset />} />
+      <Route path="/confirmEmail/:Id/:verificationToken" element={<EmailVerification />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/bookmarks" element={<BookMarks />} />
       <Route path="/settings" element={<Settings />} />

@@ -19,17 +19,34 @@ function Settings() {
     return (
       <div className="DashBoard" id="settings">
         <NavBar />
-        <div className="ContentArea">
-            <header className="Title">
-                <h1>Settings</h1>
-            </header>
-            <section className="Content">
-              <p>
-                content
-              </p>
-            </section>
+        <div className="ContentArea settings_section">
+          <div className="container">
+            <div className="card"> 
+              <div className="info"> 
+              <i className="fa fa-user fa-2x"style={{scale: '2', top: '40%'}}></i>
+                <span style={{scale: '2', margin: '30px'}}>Settings</span> 
+              </div> 
+              <div className="forms">
+                <div className="inputs">
+                  <span>Email add</span>
+                  <input type="text"  />
+                </div>
+                <div className="inputs">
+                    <span>Password</span>
+                    <input type="password" />
+                </div>
+                <div className="inputs">
+                    <span>Confirm password</span>
+                    <input type="password" />
+                </div> 
+              </div>
+              <div className="info info_2">
+                <button>Save</button>
+              </div> 
+            </div>
+          </div>
         </div>
-      </div>
+    </div>
     );
   }
 }
