@@ -63,8 +63,7 @@ Tools where used for development.
 ## Credits
 
 Course Finder was developed by
-- [Duncan Ngugi](https://github.com/ngugimuchangi)
-- [Marvin Buge](https://github.com/bugemarvin)
-- [Samule Ekati](https://github.com/Samuthe)
+<img src="https://github.com/ngugimuchangi/CourseFinder/blob/frontend/frontend/src/Services/image.png" />
+
 
 
