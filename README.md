@@ -50,7 +50,7 @@ Start server
 npm run start-server
 ```
 
-***For more details in regards to backend installation visit [backend](./backend/) directory***
+*For more details in regards to backend installation visit [backend](./backend/) directory*
 
 #### Frontend
 Install the necessary dependencies using the command.
@@ -63,7 +63,7 @@ Start the application.
 ```
 npm start
 ```
-***For more details in regards to getting started with the frontend application visit [frontend](./frontend/) directory***
+*For more details in regards to getting started with the frontend application visit [frontend](./frontend/) directory*
 
 
 ## Tools
