@@ -35,14 +35,16 @@ class CategoriesController {
   static async getCategoriesById(req, res, next) {
     const { id } = req.params;
     let category;
+    if (!Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: 'Not found' });
+    }
     try {
       category = await Category.findById(id);
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    if (!category) res.status(404).json({ error: 'Not found' });
-    else res.status(200).json(Format.formatCategory(category));
+    if (!category) return res.status(404).json({ error: 'Not found' });
+    return res.status(200).json(Format.formatCategory(category));
   }
 
   /**
@@ -53,17 +55,17 @@ class CategoriesController {
    */
   static async getSubcategoriesByCategory(req, res, next) {
     let subcategories;
-    const categoryId = Types.ObjectId.isValid(req.params.id)
-      ? new Types.ObjectId(req.params.id)
-      : req.params.id;
+    const { id } = req.params;
+    if (!Types.ObjectId.isValid(id)) {
+      return res.status(200).json({ count: 0, subcategories: [] });
+    }
     try {
-      subcategories = (await Subcategory.find({ category: categoryId }))
+      subcategories = (await Subcategory.find({ category: id }))
         .map((subcategory) => Format.formatSubcategory(subcategory));
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    res.status(200).json({ count: subcategories.length, subcategories });
+    return res.status(200).json({ count: subcategories.length, subcategories });
   }
 
   /**
@@ -91,6 +93,9 @@ class CategoriesController {
    */
   static async getSubcategoriesById(req, res, next) {
     const { id } = req.params;
+    if (!Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: 'Not found' });
+    }
     let subcategory;
     try {
       subcategory = await Subcategory.findById(id);

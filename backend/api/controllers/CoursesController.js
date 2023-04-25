@@ -52,6 +52,9 @@ class CourseController {
   static async getCoursesById(req, res, next) {
     let course;
     const { id } = req.params;
+    if (!Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: 'Not found' });
+    }
     try {
       course = await Course.findById(id);
     } catch (error) {
