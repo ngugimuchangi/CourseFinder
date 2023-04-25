@@ -21,7 +21,7 @@ describe('Categories endpoints tests', () => {
     // DB connection
     db = await mongoose.connect(process.env.DB_TEST_URI);
 
-    // Categories and subcategories tests data
+    // Categories and subcategories test data
     const categoriesCreationPromises = [];
     const subcategoriesCreationPromises = [];
     for (let i = 0; i < 10; i += 1) {
