@@ -26,7 +26,7 @@ function About() {
                                         </div>
                                         <h2 className="Users-Card_name">Duncan Muchangi</h2>
                                         <h3 className="Users-Card_specilization">Back-end Developer</h3>
-                                        <p className="Users-Card_info">Former frontend dev for Linear, Coinbase, and Postscript.</p>
+                                        <p className="Users-Card_info">“ In order to be irreplaceable, one must always be different” – Coco Chanel</p>
                                         <div className="Users-Card_icons">
                                                 <img className="Users-Card_icon" src={Twitter} alt="Twitter Logo" />
                                                 <img className="Users-Card_icon" src={Github} alt="Twitter Logo" />
@@ -39,7 +39,7 @@ function About() {
                                         </div>
                                         <h2 className="Users-Card_name">Samuel Ekati</h2>
                                         <h3 className="Users-Card_specilization">Back-end Developer</h3>
-                                        <p className="Users-Card_info">Former frontend dev for Linear, Coinbase, and Postscript.</p>
+                                        <p className="Users-Card_info">“Good programmers write code that humans can understand.” – Martin Fowler.</p>
                                         <div className="Users-Card_icons">
                                                 <img className="Users-Card_icon" src={Twitter} alt="Twitter Logo" />
                                                 <img className="Users-Card_icon" src={Github} alt="Twitter Logo" />
@@ -52,7 +52,7 @@ function About() {
                                         </div>
                                         <h2 className="Users-Card_name">Marvin Kurland</h2>
                                         <h3 className="Users-Card_specilization">Back-end Developer</h3>
-                                        <p className="Users-Card_info">Former frontend dev for Linear, Coinbase, and Postscript.</p>
+                                        <p className="Users-Card_info">“Simplicity is the soul of efficiency.” – Austin Freeman</p>
                                         <div className="Users-Card_icons">
                                                 <img className="Users-Card_icon" src={Twitter} alt="Twitter Logo" />
                                                 <img className="Users-Card_icon" src={Github} alt="Twitter Logo" />
