@@ -28,7 +28,7 @@ Clone the repository to your local machine.
 git clone https://github.com/ngugimuchangi/CourseFinder.git
 ```
 
-### Backend 
+#### Backend 
 Run setup script
 ```
 cd CourseFinder/backend/
@@ -52,7 +52,7 @@ npm run start-server
 
 ***For more details in regards to backend installation visit [backend](./backend/) directory***
 
-### Frontend
+#### Frontend
 Install the necessary dependencies using the command.
 ```
 cd frontend
