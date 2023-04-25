@@ -62,7 +62,7 @@ function Form() {
                                 <div className="User_form-User_Submission">
                                         <div className="User_form-User_Agree">
                                         <input type="checkbox" name="" value="" />
-                                        <label>You agree to our friendly <a href="/">privacy policy</a>.</label>
+                                        <label>You agree to our friendly <a href="/privacy">privacy policy</a>.</label>
                                         </div>
                                         <input type="submit" name="" value="Send Message" />
                                 </div>
