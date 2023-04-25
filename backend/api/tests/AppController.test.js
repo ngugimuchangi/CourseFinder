@@ -20,7 +20,11 @@ describe('Status and stats endpoints tests', () => {
     const categoriesCreationPromises = [];
     const subcategoriesCreationPromises = [];
     const coursesCreationPromises = [];
+
+    // DB connection
     db = await mongoose.connect(process.env.DB_TEST_URI);
+
+    // Categories, subcategories and courses test data
     for (let i = 0; i < 10; i += 1) {
       const category = new Category({ title: randomString() });
       const subcategory = new Subcategory({

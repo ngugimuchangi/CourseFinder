@@ -27,10 +27,15 @@ describe('Verification endpoints tests', () => {
   const randomString = () => randomBytes(32).toString('hex');
 
   before(async () => {
+    // Stub to prevent emil jobs creation
     emailStub = sinon.stub(EmailJobs, 'addEmailJob').callsFake(() => console.log('Email sent'));
+
+    // Redis and DB connection
     redis = createClient({ url: process.env.REDIS_TEST_URI });
     await redis.connect();
     db = await mongoose.connect(process.env.DB_TEST_URI);
+
+    // User test data
     user = new User({ email: 'user@mail.com', password: 'supersecret' });
     emailToken = new Token({
       user: user._id,

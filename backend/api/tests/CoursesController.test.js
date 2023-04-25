@@ -20,10 +20,10 @@ describe('Courses endpoints tests', () => {
   const randomString = () => randomBytes(16).toString('hex');
 
   before(async () => {
-    db = await mongoose.connect(process.env.DB_TEST_URI);
     // DB connection
+    db = await mongoose.connect(process.env.DB_TEST_URI);
 
-    // Create test category data
+    // Courses test data
     const category = new Category({ title: randomString() });
     subcategoryOne = new Subcategory({
       title: randomString(),

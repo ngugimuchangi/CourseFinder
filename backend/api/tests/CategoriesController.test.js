@@ -18,9 +18,12 @@ describe('Categories endpoints tests', () => {
   const randomString = () => randomBytes(16).toString('hex');
 
   before(async () => {
+    // DB connection
+    db = await mongoose.connect(process.env.DB_TEST_URI);
+
+    // Categories and subcategories tests data
     const categoriesCreationPromises = [];
     const subcategoriesCreationPromises = [];
-    db = await mongoose.connect(process.env.DB_TEST_URI);
     for (let i = 0; i < 10; i += 1) {
       const category = new Category({ title: randomString() });
       const subcategory = new Subcategory({
