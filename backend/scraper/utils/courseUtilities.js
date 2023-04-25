@@ -39,7 +39,7 @@ class CourseUtil {
   /**
    * Creates new course document and saves it to the database
    * @param {object} courseData course data from parsed meta tags
-   * @param {*} provider - course provider
+   * @param {string} provider - course provider
    */
   static async addCourse(courseData, provider) {
     const course = courseData;

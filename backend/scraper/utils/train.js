@@ -7,5 +7,4 @@ async function train() {
   await ClassifyCourse.trainClassifier();
   console.log('Classification training completed');
 }
-
-train().then(() => process.exit());
+train().then(() => setTimeout(() => process.exit(), 5000));

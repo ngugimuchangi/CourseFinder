@@ -7,7 +7,7 @@ class Logger {
    * Requests logger
    * @returns {WinstonLogger} - Winston logger instance
    */
-  static requestLogger() {
+  static accessLogger() {
     const accessLogs = process.env.SERVER_ACCESS_LOGS || './logs/server/access.log';
     const requestLogFormat = format.printf(({ level, timestamp, meta }) => {
       const { method, url } = meta.req;
