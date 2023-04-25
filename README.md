@@ -1,4 +1,6 @@
-# Course Finder
+<img src="https://github.com/ngugimuchangi/CourseFinder/blob/frontend/frontend/src/LandingPage/Images/Logos/logo.png" />
+
+## Description
 A simple yet powerful web application designed to help users discover free courses online. It utilizing web scraping techniques, to gathers information from popular websites like Coursera, Udemy, and Udacity, and presents the user with a comprehensive list of available free courses.
 With the application, a users can easily navigate through a wide variety of courses and select the ones that best suit their needs and interests and bookmark them for easy access to their desiered course of intrest. The web application is built using the MERN stack, with MongoDB, ExpressJS, ReactJS, and NodeJS working together to deliver a fast and responsive user experience. The application also uses Redis as a caching layer to optimize performance.
 
@@ -8,6 +10,10 @@ With the application, a users can easily navigate through a wide variety of cour
 - [Installation and Setup](#installation-and-setup)
 - [Usage](#usage)
 - [Credits](#credits)
+
+## Landing Page
+
+<img src="https://github.com/ngugimuchangi/CourseFinder/blob/frontend/frontend/src/image.png" />
 
 ## Installation and Setup
 
