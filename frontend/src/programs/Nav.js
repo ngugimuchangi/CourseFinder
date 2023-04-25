@@ -1,7 +1,6 @@
 import "./Nav.css";
 import { useState } from "react";
-import logo from '../Images/Logos/logo.png';
-import { Link } from 'react-scroll';
+import logo from '../LandingPage/Images/Logos/logo.png';
 
 /**
  * Navigation component section
@@ -20,19 +19,10 @@ function Nav() {
   return (
     <div className={fix ? "Navigation Fixed": "Navigation"}>
         <div className="Navigation-Container">
-        <Link to="hero" spy={true} smooth={true} offset={-100} duration={500}><img className="Heading" src={logo} alt="Logo" /></Link>
+        <a href="/" spy={true} smooth={true} offset={-100} duration={500}><img className="Heading" src={logo} alt="Logo" /></a>
         <ul className="Navigation-links">
           <li className="Navigation-link" href="/">
-          <Link to="hero" spy={true} smooth={true} offset={-80} duration={500}>Home</Link>
-          </li>
-          <li className="Navigation-link" href="/">
-            <Link to="services" spy={true} smooth={true} offset={-136} duration={500}>Services</Link>
-          </li>
-          <li className="Navigation-link" href="/">
-          <Link to="team" spy={true} smooth={true} offset={-100} duration={500}>Team</Link>
-          </li>
-          <li className="Navigation-link" href="/">
-          <Link to="Contact" spy={true} smooth={true} offset={-100} duration={500}>Contact Us</Link>
+          <a href="/" spy={true} smooth={true} offset={-80} duration={500}>Home</a>
           </li>
           <li className="Navigation-link" href="/">
             <a href="/signup">Signup</a>

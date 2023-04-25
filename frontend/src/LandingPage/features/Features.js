@@ -23,7 +23,7 @@ export default function Features() {
                         <div className="Greatings">
                                 <img className="Greatings-Emoji" src={hi_emoji} alt="Hi hand emoji" />
                                 <p className="Greatings-text">Ready to Explore new free Courses?</p>
-                                <a href="/"className="Greatings-btn_link">Learn more</a>
+                                <a href="/programs"className="Greatings-btn_link">Checkout Courses</a>
                         </div>
                 </section>
         );

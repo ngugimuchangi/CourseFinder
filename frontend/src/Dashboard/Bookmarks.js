@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import ReactPaginate from "react-paginate";
 
 
 export default function Dashboard() {
@@ -15,8 +16,36 @@ export default function Dashboard() {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [fix, setFixed] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  function scrollFixed() {
+    if (window.scrollY >= 1) {
+      setFixed(true);
+    } else {
+      setFixed(false);
+    }
+  }
 
   useEffect(() => {
+    async function verification() {
+      const api = axios.create({
+        baseURL: 'http://127.0.0.1:1245',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': Cookies.get('session'),
+        }
+      });
+        let user = '/users/me';
+        const response = await api.get(user)
+        if (response.data.verified) {
+          setIsVerified(true)
+        } else {
+          setIsVerified(false)
+        }
+      }
+    // fetching data from database
     async function fetchData() {
       setIsLoading(true);
       const api = axios.create({
@@ -27,6 +56,7 @@ export default function Dashboard() {
         }
       });
       let url = `/users/me/bookmarks`;
+      url += `?page=${currentPage}&per_page=${10}`;
       if (searchQuery) {
         url += `?q=${searchQuery}`;
       }
@@ -48,7 +78,14 @@ export default function Dashboard() {
     }
 
     fetchData();
-  }, [searchQuery]);
+    verification()
+  }, [currentPage, searchQuery]);
+
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+  const Previous = () => setCurrentPage(currentPage - 1)
+  const Next = () => setCurrentPage(currentPage + 1)
 
   async function addBookmark(itemId) {
     const api = axios.create({
@@ -70,15 +107,21 @@ export default function Dashboard() {
       console.log('Bookmark could not be added', error);
     }
   }
-
+  window.addEventListener("scroll", scrollFixed);
   if (isLoggedIn === "false") {
     window.location.href = "/";
   }else {
     return (
-      <div className="DashBoard" id="dashboard">
+      <div className="DashBoard" id="bookmarks">
+        {!isVerified ? ( 
+          <p className={fix ? "verified verified_hidden": "verified"}>Please  Verify your Email waiting... </p>
+          ) : (
+            <div className="confirmed"></div>
+          )
+          }
         <NavBar />
         <div className="ContentArea">
-          <header className="Title">
+          <header className={fix ? "Title Fixed": "Title"}>
             <Container className="Heading_title">
             <InputGroup className="mb-3">
               <Form.Control
@@ -90,6 +133,16 @@ export default function Dashboard() {
             </Container>
           </header>
           <section className="Content">
+          <ReactPaginate
+              pageCount={6}
+              onPageChange={handlePageChange}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+              previousLabel={"Prev"}
+              nextLabel={"Next"}
+              onPagePrev={Previous}
+              onPageNext={Next}
+            />
             <Container className="Details">
             {isLoading ? (
                 <div className="Loader">Loading please  wait...</div>
@@ -119,6 +172,16 @@ export default function Dashboard() {
             )))
           }
             </Container>
+            <ReactPaginate
+              pageCount={6}
+              onPageChange={handlePageChange}
+              containerClassName={"pagination"}
+              activeClassName={"active"}
+              previousLabel={"<- Prev"}
+              nextLabel={"Next ->"}
+              onPagePrev={Previous}
+              onPageNext={Next}
+            />
           </section>
         </div>
       </div>
