@@ -38,6 +38,7 @@ function errorLogger() {
   });
   return logger;
 }
+
 const logger = {
   accessLogger,
   errorLogger,
