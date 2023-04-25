@@ -304,3 +304,40 @@ nav ul,nav li {
   align-items: center;
   justify-content: center;
 }
+
+.Mysettings {
+  width: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: row;
+}
+
+.Mysettings-form {
+  width: 33rem;
+  height: 26rem;
+  background-color: #f7f7f7;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Mysettings-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 78%;
+}
+
+.Mysettings-form  p {
+  font-size: 1.7rem;
+  width: 78%;
+}
+
+.Mysettings-form input, button {
+  border-radius: 1rem solid #000;
+}
