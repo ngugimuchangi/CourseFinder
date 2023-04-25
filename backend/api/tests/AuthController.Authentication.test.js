@@ -7,7 +7,6 @@ import User from '../../models/user';
 import app from '../server';
 
 dotenv.config();
-
 chai.use(chaiHttp);
 const { expect, request } = chai;
 
