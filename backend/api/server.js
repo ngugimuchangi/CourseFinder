@@ -13,13 +13,14 @@ import Logger from './middleware/logger';
 dotenv.config();
 
 const app = express();
-const port = process.env.API_PORT;
+const port = process.env.API_PORT || 1245;
+const corsOptions = process.env.CORS || '*';
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(expressWinston.logger({
-  winstonInstance: Logger.requestLogger(),
+  winstonInstance: Logger.accessLogger(),
   statusLevels: true,
 }));
 app.use(Validator.authTokenValidator);
