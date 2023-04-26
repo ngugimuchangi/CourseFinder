@@ -5,9 +5,9 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { createClient } from 'redis';
 import { randomBytes } from 'crypto';
-import User from '../../models/user';
-import Token from '../../models/token';
-import EmailJobs from '../jobs/emailJobs';
+import User from '../models/user';
+import Token from '../models/token';
+import emailJobs from '../jobs/emailJobs';
 import app from '../server';
 
 dotenv.config();
@@ -28,7 +28,7 @@ describe('Verification endpoints tests', () => {
 
   before(async () => {
     // Stub to prevent emil jobs creation
-    emailStub = sinon.stub(EmailJobs, 'addEmailJob').callsFake(() => console.log('Email sent'));
+    emailStub = sinon.stub(emailJobs, 'addEmailJob').callsFake(() => console.log('Email sent'));
 
     // Redis and DB connection
     redis = createClient({ url: process.env.REDIS_TEST_URI });

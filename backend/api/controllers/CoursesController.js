@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
-import Course from '../../models/course';
-import Format from '../utils/format';
+import Course from '../models/course';
+import formats from '../utils/format';
 
 class CourseController {
   /**
@@ -36,7 +36,7 @@ class CourseController {
     ];
     try {
       courses = (await Course.aggregate(pipeline))
-        .map((course) => Format.formatCourse(course));
+        .map((course) => formats.formatCourse(course));
     } catch (error) {
       return next(error);
     }
@@ -61,7 +61,7 @@ class CourseController {
       return next(error);
     }
     if (!course) return res.status(404).json({ error: 'Not found' });
-    return res.status(200).json(Format.formatCourse(course));
+    return res.status(200).json(formats.formatCourse(course));
   }
 }
 

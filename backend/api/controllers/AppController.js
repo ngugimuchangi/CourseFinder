@@ -1,8 +1,8 @@
-import DBClient from '../../shared/db';
-import redisClient from '../../shared/redis';
-import Category from '../../models/category';
-import Subcategory from '../../models/subcategory';
-import Course from '../../models/course';
+import db from '../utils/db';
+import redisClient from '../utils/redis';
+import Category from '../models/category';
+import Subcategory from '../models/subcategory';
+import Course from '../models/course';
 
 // Application controller class
 class AppController {
@@ -17,9 +17,9 @@ class AppController {
    */
   static async getStatus(_req, res, next) {
     try {
-      const db = DBClient.isReady();
+      const dbStatus = db.isReady();
       const redis = redisClient.isReady();
-      res.status(200).json({ db, redis });
+      res.status(200).json({ db: dbStatus, redis });
     } catch (error) {
       next(error);
     }

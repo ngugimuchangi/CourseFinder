@@ -1,25 +1,25 @@
-import CourseScraper from './scrapper';
-import CourseUtil from './utils/courseUtilities';
+import scraper from './scraper';
+import { addCourse } from './utils/courseUtilities';
 import { infoLogger } from './utils/logger';
 
 /* eslint no-await-in-loop: 0 */ // --> OFF
 /* necessary due to minimize browser resource consumption */
 
 /**
-   * Retrieves course data from pages
-   * @param {object} browser - chromium browser instance
-   * @param {object} page - page object
-   * @param {string} courseLinkSelector - selector for course link
-   */
+ * Retrieves course data from pages
+ * @param {object} browser - chromium browser instance
+ * @param {object} page - page object
+ * @param {string} courseLinkSelector - selector for course link
+ */
 async function getData(browser, page, courseLinkSelector) {
-  const courseLinks = await CourseScraper.getCourseLinks(
+  const courseLinks = await scraper.getCourseLinks(
     page,
     courseLinkSelector,
   );
   const courseDataPromises = [];
   for (const link of courseLinks) {
-    const coursePage = await CourseScraper.goToPage(browser, link);
-    courseDataPromises.push(CourseScraper.getCourseData(coursePage));
+    const coursePage = await scraper.goToPage(browser, link);
+    courseDataPromises.push(scraper.getCourseData(coursePage));
   }
   const courseData = await Promise.all(courseDataPromises);
   return courseData;
@@ -34,7 +34,7 @@ async function saveData(courseData, provider) {
   const addCoursePromises = [];
   try {
     for (const data of courseData) {
-      addCoursePromises.push(CourseUtil.addCourse(data, provider));
+      addCoursePromises.push(addCourse(data, provider));
     }
     await Promise.all(addCoursePromises);
   } catch (error) {
@@ -73,7 +73,7 @@ class ScraperController {
    * Scraping controller
    */
   async scraper() {
-    const page = await CourseScraper.goToPage(this.browser, this.url, this.courseSectionSelector);
+    const page = await scraper.goToPage(this.browser, this.url, this.courseSectionSelector);
     let next = true;
     while (next) {
       const courseData = await getData(
@@ -84,7 +84,7 @@ class ScraperController {
       await saveData(courseData, this.provider);
       if (this.nextSelector) {
         try {
-          await CourseScraper.goToNext(page, this.nextSelector);
+          await scraper.goToNext(page, this.nextSelector);
         } catch (error) {
           next = false;
         }

@@ -1,5 +1,5 @@
-import redisClient from '../../shared/redis';
-import User from '../../models/user';
+import redisClient from '../utils/redis';
+import User from '../models/user';
 /**
  * Validates login token
  * @typedef {import('express').Request} Request

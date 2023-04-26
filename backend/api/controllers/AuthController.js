@@ -1,9 +1,9 @@
 import { randomBytes } from 'node:crypto';
 import { Types } from 'mongoose';
-import redisClient from '../../shared/redis';
-import User from '../../models/user';
-import Token from '../../models/token';
-import EmailJobs from '../jobs/emailJobs';
+import redisClient from '../utils/redis';
+import User from '../models/user';
+import Token from '../models/token';
+import emailJobs from '../jobs/emailJobs';
 
 // Authentication controller class
 class AuthController {
@@ -66,7 +66,7 @@ class AuthController {
     });
     try {
       await token.save();
-      await EmailJobs.addEmailJob(user, 'verify', token.token);
+      await emailJobs.addEmailJob(user, 'verify', token.token);
     } catch (error) {
       return next(error);
     }
@@ -129,7 +129,7 @@ class AuthController {
     } catch (error) {
       return next(error);
     }
-    EmailJobs.addEmailJob(user, 'reset', token.token);
+    emailJobs.addEmailJob(user, 'reset', token.token);
     return res.status(204).json();
   }
 

@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
-import Browser from './browser';
-import DBClient from '../shared/db';
+import browser from './browser';
+import db from './utils/db';
 import ScraperController from './controller';
 import { infoLogger, errorLogger } from './utils/logger';
 
@@ -41,9 +41,9 @@ async function main() {
   let udemyScrapper;
   try {
     infoLogger.info(`Scrapping session #${session} started`);
-    await DBClient.connect();
+    await db.connect();
     courseraScrapper = new ScraperController(
-      await Browser.launchBrowser(),
+      await browser.launchBrowser(),
       COURSERA_ENV.url,
       COURSERA_ENV.provider,
       COURSERA_ENV.courseSectionSelector,
@@ -51,7 +51,7 @@ async function main() {
       COURSERA_ENV.nextSelector,
     );
     udacityScrapper = new ScraperController(
-      await Browser.launchBrowser(),
+      await browser.launchBrowser(),
       UDACITY_ENV.url,
       UDACITY_ENV.provider,
       UDACITY_ENV.courseSectionSelector,
@@ -59,7 +59,7 @@ async function main() {
       UDACITY_ENV.nextSelector,
     );
     udemyScrapper = new ScraperController(
-      await Browser.launchBrowser(),
+      await browser.launchBrowser(),
       UDEMY_ENV.url,
       UDEMY_ENV.provider,
       UDEMY_ENV.courseSectionSelector,
@@ -71,7 +71,7 @@ async function main() {
       udacityScrapper.scraper(),
       udemyScrapper.scraper(),
     ]);
-    await DBClient.close();
+    await db.close();
   } catch (error) {
     errorLogger.error(`Scrapping session #${session}: ${error.message}\n${error.stack}`);
   }

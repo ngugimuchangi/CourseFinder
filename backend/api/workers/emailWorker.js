@@ -1,6 +1,6 @@
 import Queue from 'bull';
 import dotenv from 'dotenv';
-import Email from '../utils/email';
+import sendEmail from '../utils/email';
 
 dotenv.config();
 
@@ -10,7 +10,7 @@ const EmailWorker = new Queue('Send email');
 EmailWorker.process((job) => {
   const { email, subject, body } = job.data;
   try {
-    Email.sendEmail(email, subject, body);
+    sendEmail(email, subject, body);
   } catch (error) {
     console.error(`Processing email job #${job.id} failed:\n\t${error.message}`);
   }
