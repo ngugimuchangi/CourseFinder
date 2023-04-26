@@ -2,7 +2,6 @@ import "./Dashboard.css";
 import NavBar from "./Nav";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 function Settings() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -13,7 +12,7 @@ function Settings() {
 
   // Add useEffect hook to check for isLoggedIn value on mount
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const isLoggedIn = localStorage.getItem("user");
     if (isLoggedIn === "true") {
       setIsLoggedIn(true);
     }
@@ -22,7 +21,7 @@ function Settings() {
       baseURL: 'http://127.0.0.1:1245',
       headers: {
         'Content-Type': 'application/json',
-        'X-Token': Cookies.get('session')
+        'X-Token': localStorage.getItem('user')
       }
     })
     api.get('/users/me')
@@ -40,7 +39,7 @@ function Settings() {
       baseURL: 'http://127.0.0.1:1245',
       headers: {
         'Content-Type': 'application/json',
-        'X-Token': Cookies.get('session')
+        'X-Token': localStorage.getItem('user')
       }
     })
     const email = { 
@@ -67,11 +66,7 @@ function Settings() {
         console.log(error);
       });
   };
-
-  if (!isLoggedIn) {
-    window.location.href = "/";
-  } else {
-    return (
+return isLoggedIn ? (
       <div className="DashBoard" id="settings">
         <NavBar />
         <div className="Mysettings">
@@ -91,8 +86,7 @@ function Settings() {
           </div>
         </div>
       </div>
-    );
-  }
+    ) : (window.location.href="/login")
 }
 
 

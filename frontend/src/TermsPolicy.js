@@ -1,10 +1,11 @@
 import "./Terms.css";
+import Button from "react-bootstrap/esm/Button";
 
 function Terms() {
 
   return (
         <div className="Container_Privacy" id="terms">
-                <a href="/"> Click her to go back to home</a>
+                <h1>Terms & Policy</h1>
                 <br></br>
                 Welcome to our online platform! By accessing or using<br></br> 
                 our website, you agree to the following terms and conditions:
@@ -24,6 +25,8 @@ function Terms() {
                 license to use, modify, reproduce, distribute, and display the content in connection 
                 <br></br>with our website and our business. You represent and warrant that you have 
                 <br></br>all necessary rights and permissions to grant us this license.
+
+                <Button onClick={() => window.location.href = "/"}>Go to home page</Button>
         </div>
   );
 }

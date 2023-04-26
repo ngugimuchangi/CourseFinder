@@ -1,10 +1,11 @@
 import "./Terms.css";
+import Button from "react-bootstrap/esm/Button";
 
 function PrivacyPopup() {
 
   return (
         <div className="Container_Privacy" id="privacy">
-                <a href="/"> Click her to go back to home</a>
+                <h1>Privacy Policy</h1>
                 <p>
                         In 2023, online privacy standards have become more important than
                         ever. <br></br>With the rise of data breaches and cyber attacks, it's
@@ -31,6 +32,8 @@ function PrivacyPopup() {
                 By following these best practices, you can help ensure that your
                 personal information remains secure online.
                 </p>
+
+                <Button onClick={() => window.location.href = "/"}>Go to home page</Button>
           </div>
   );
 }

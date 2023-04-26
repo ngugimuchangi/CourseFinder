@@ -1,31 +1,44 @@
 import { useState } from 'react';
-import axios from 'axios';
+import AuthService from '../api/authService';
 import "./Container.css";
-import Cookies from 'js-cookie';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isNotSuccess, setisNotSuccess] = useState(false);
+  const authService = new AuthService();
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
     try {
-      const response = await axios.post('http://127.0.0.1:1245/auth/login', {
-        email: email,
-        password: password,
-      });
-
-      const token = response.data.token;
-
-      Cookies.set('session', token, { expires: 1, path: '/' });
-      window.location.href = "/dashboard";
+      const response = await authService.login(email, password);
+      if (response.status === 200) {
+        localStorage.setItem("user", JSON.stringify(response.token));
+      } else {
+        console.error(response.message);
+      }
     } catch (error) {
       console.error(error);
+      setisNotSuccess(true)
     }
+
   }
 
   return (
+    <>
+    {isNotSuccess && (
+      <div className="alert alert-danger d-flex align-items-center" role="alert">
+        <svg
+          className="bi flex-shrink-0 me-2"
+          width="24"
+          height="24"
+          role="img"
+          aria-label="Success:"
+        >
+        </svg>
+        <div>Incorrect Email or Password please try again</div>
+      </div>
+    )}
     <form onSubmit={handleLogin}>
       <div className="User_forms">
         <div className="User_forms-User_forms">
@@ -62,6 +75,7 @@ function Login() {
         </div>
       </div>
     </form>
+    </>
   );
 }
 
