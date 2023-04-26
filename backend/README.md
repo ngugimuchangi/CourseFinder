@@ -26,7 +26,7 @@ npm run start-scraper
 ```
 
 #### API
-Run setup scripts
+Run setup script
 ```
 cd api
 ./setup.sh
