@@ -1,43 +1,51 @@
-# Getting Started with Create React App
+<img src="https://github.com/ngugimuchangi/CourseFinder/blob/main/frontend/src/LandingPage/Images/Logos/logo.png" />
+<hr>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple yet powerful web application designed to help users discover, compare, keep track of and share free courses online.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Browse courses by category
+- Search for courses by title or provider
+- View detailed information about each course
+- Register and login to save favorite courses
+- Add new courses as an admin user
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To get started with Course Finder, follow these steps:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Clone the repository to your local machine.
+```
+git clone https://github.com/ngugimuchangi/CourseFinder.git
+```
+2. Navigate to the `client` directory
+```
+cd frontend
+npm install
+```
 
-### `npm test`
+Start the application.
+```
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Architecture
 
-### `npm run build`
+Course Finder is built using a client-server architecture. The front-end is built with React and communicates with the back-end server using REST APIs. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Technologies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- React
+- Node.js
+- Axios
+- React Bootstrap
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Contributors
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- [Duncan Ngugi](https://github.com/ngugimuchangi)    
+- [Marving Buge](https://github.com/bugemarvin)   
+- [Samuel Ekati](https://github.com/Samuthe)  
 
 ## Learn More
 
