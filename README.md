@@ -27,14 +27,18 @@ Clone the repository to your local machine.
 ```
 git clone https://github.com/ngugimuchangi/CourseFinder.git
 ```
-
-#### Backend 
-Run setup script
+Run setup scripts
+* API setup
 ```
-cd CourseFinder/backend/
+cd CourseFinder/backend/api
 ./set-up.sh
 ```
-
+* Scraper setup
+```
+cd CourseFinder/backend/scraper
+./setup.sh
+```
+#### Backend 
 Start scraper
 ```
 npm run start-scraper
