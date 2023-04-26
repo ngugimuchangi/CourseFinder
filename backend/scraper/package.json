@@ -1,0 +1,50 @@
+{
+  "name": "web-scraper",
+  "version": "1.0.0",
+  "description": "Course Finder web scraper.",
+  "main": "index.js",
+  "scripts": {
+    "check-lint": "eslint",
+    "fix-lint": "eslint --fix",
+    "dev": "nodemon --exec babel-node --presets @babel/preset-env",
+    "load-data": "babel-node --presets @babel/preset-env utils/data.js",
+    "train-classifier": "babel-node --presets @babel/preset-env utils/train.js",
+    "start-scraper": "nodemon --exec babel-node --presets @babel/preset-env index.js",
+    "test": "mocha --require @babel/register --exit"
+  },
+  "keywords": [
+    "courses",
+    "online courses",
+    "web scrapper"
+  ],
+  "author": "Duncan Ngugi",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "mongoose": "^7.0.3",
+    "natural": "^6.2.0",
+    "puppeteer": "^19.9.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.21.4",
+    "@babel/register": "^7.21.0",
+    "chai": "^4.3.7",
+    "eslint": "^8.38.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22",
+    "sinon": "^15.0.3"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "course_classifier.json"
+    ]
+  }
+}

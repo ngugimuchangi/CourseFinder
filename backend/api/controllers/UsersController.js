@@ -1,10 +1,10 @@
 import { randomBytes } from 'node:crypto';
 import { Types } from 'mongoose';
-import User from '../../models/user';
-import Course from '../../models/course';
 import Format from '../utils/format';
-import Token from '../../models/token';
-import EmailJobs from '../jobs/emailJobs';
+import User from '../models/user';
+import Course from '../models/course';
+import Token from '../models/token';
+import emailJobs from '../jobs/emailJobs';
 
 // User controller class
 class UserController {
@@ -42,7 +42,7 @@ class UserController {
       role: 'verify',
     });
     await token.save();
-    EmailJobs.addEmailJob(user, 'welcome', token.token);
+    emailJobs.addEmailJob(user, 'welcome', token.token);
     return res.status(201).json(Format.formatUser(user));
   }
 
@@ -94,7 +94,7 @@ class UserController {
         role: 'verify',
         token: randomBytes(32).toString('hex'),
       });
-      EmailJobs.addEmailJob(user, 'verify', token.token);
+      emailJobs.addEmailJob(user, 'verify', token.token);
     } catch (error) {
       return next(error);
     }

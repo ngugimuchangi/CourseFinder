@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
-import Category from '../../models/category';
-import Subcategory from '../../models/subcategory';
-import Format from '../utils/format';
+import Category from '../models/category';
+import Subcategory from '../models/subcategory';
+import formats from '../utils/format';
 
 // Categories class controller
 class CategoriesController {
@@ -18,7 +18,7 @@ class CategoriesController {
     let categories;
     try {
       categories = (await Category.find({}))
-        .map((category) => Format.formatCategory(category));
+        .map((category) => formats.formatCategory(category));
     } catch (error) {
       next(error);
       return;
@@ -44,7 +44,7 @@ class CategoriesController {
       return next(error);
     }
     if (!category) return res.status(404).json({ error: 'Not found' });
-    return res.status(200).json(Format.formatCategory(category));
+    return res.status(200).json(formats.formatCategory(category));
   }
 
   /**
@@ -61,7 +61,7 @@ class CategoriesController {
     }
     try {
       subcategories = (await Subcategory.find({ category: id }))
-        .map((subcategory) => Format.formatSubcategory(subcategory));
+        .map((subcategory) => formats.formatSubcategory(subcategory));
     } catch (error) {
       return next(error);
     }
@@ -78,7 +78,7 @@ class CategoriesController {
     let subcategories;
     try {
       subcategories = (await Subcategory.find({}))
-        .map((subcategory) => Format.formatSubcategory(subcategory));
+        .map((subcategory) => formats.formatSubcategory(subcategory));
     } catch (error) {
       return next(error);
     }
@@ -103,7 +103,7 @@ class CategoriesController {
       return next(error);
     }
     if (!subcategory) return res.status(404).json({ error: 'Not found' });
-    return res.status(200).json(Format.formatSubcategory(subcategory));
+    return res.status(200).json(formats.formatSubcategory(subcategory));
   }
 }
 

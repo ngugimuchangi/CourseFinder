@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { createClient } from 'redis';
-import User from '../../models/user';
+import User from '../models/user';
 import app from '../server';
 
 dotenv.config();

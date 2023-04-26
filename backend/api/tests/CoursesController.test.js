@@ -3,9 +3,9 @@ import chaiHttp from 'chai-http';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import { randomBytes } from 'crypto';
-import Category from '../../models/category';
-import Subcategory from '../../models/subcategory';
-import Course from '../../models/course';
+import Category from '../models/category';
+import Subcategory from '../models/subcategory';
+import Course from '../models/course';
 import app from '../server';
 
 dotenv.config();
