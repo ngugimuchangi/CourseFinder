@@ -53,7 +53,7 @@ npm run start-server
 *For more details in regards to backend installation visit [backend](./backend/) directory*
 
 #### Frontend
-Install the necessary dependencies using the command.
+Install the necessary dependencies.
 ```
 cd frontend
 npm install
