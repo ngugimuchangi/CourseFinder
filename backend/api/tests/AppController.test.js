@@ -1,14 +1,15 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import { randomBytes } from 'crypto';
-import Category from '../../models/category';
-import Subcategory from '../../models/subcategory';
-import Course from '../../models/course';
+import Category from '../models/category';
+import Subcategory from '../models/subcategory';
+import Course from '../models/course';
 import app from '../server';
 
+dotenv.config();
 chai.use(chaiHttp);
-
 const { expect, request } = chai;
 
 describe('Status and stats endpoints tests', () => {
@@ -19,7 +20,11 @@ describe('Status and stats endpoints tests', () => {
     const categoriesCreationPromises = [];
     const subcategoriesCreationPromises = [];
     const coursesCreationPromises = [];
+
+    // DB connection
     db = await mongoose.connect(process.env.DB_TEST_URI);
+
+    // Categories, subcategories and courses test data
     for (let i = 0; i < 10; i += 1) {
       const category = new Category({ title: randomString() });
       const subcategory = new Subcategory({

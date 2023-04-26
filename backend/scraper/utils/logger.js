@@ -20,3 +20,6 @@ const infoLogFile = process.env.SCRAPER_INFO_LOGS || './logs/scraper/info.log';
 const errorLogFile = process.env.SCRAPER_ERROR_LOGS || './logs/scraper/error.log';
 export const infoLogger = scraperLogger('info', infoLogFile);
 export const errorLogger = scraperLogger('error', errorLogFile);
+
+const logger = { infoLogger, errorLogger };
+export default logger;

@@ -1,10 +1,10 @@
 import { randomBytes } from 'node:crypto';
 import { Types } from 'mongoose';
-import User from '../../models/user';
-import Course from '../../models/course';
 import Format from '../utils/format';
-import Token from '../../models/token';
-import EmailJobs from '../jobs/emailJobs';
+import User from '../models/user';
+import Course from '../models/course';
+import Token from '../models/token';
+import emailJobs from '../jobs/emailJobs';
 
 // User controller class
 class UserController {
@@ -42,7 +42,7 @@ class UserController {
       role: 'verify',
     });
     await token.save();
-    EmailJobs.addEmailJob(user, 'welcome', token.token);
+    emailJobs.addEmailJob(user, 'welcome', token.token);
     return res.status(201).json(Format.formatUser(user));
   }
 
@@ -94,7 +94,7 @@ class UserController {
         role: 'verify',
         token: randomBytes(32).toString('hex'),
       });
-      EmailJobs.addEmailJob(user, 'verify', token.token);
+      emailJobs.addEmailJob(user, 'verify', token.token);
     } catch (error) {
       return next(error);
     }
@@ -121,17 +121,6 @@ class UserController {
       return next(error);
     }
     return res.status(204).json();
-  }
-
-  /**
-   * Gets list of all user's bookmarks
-   * @param {Request} req - request object
-   * @param {Response} res - response object
-   */
-  static async getBookmarks(req, res) {
-    const { user } = req;
-    const bookmarks = user.bookmarks.map((bookmark) => Format.formatCourse(bookmark));
-    res.status(200).json({ count: bookmarks.length, bookmarks });
   }
 
   /**
@@ -164,6 +153,17 @@ class UserController {
   }
 
   /**
+   * Gets list of all user's bookmarks
+   * @param {Request} req - request object
+   * @param {Response} res - response object
+   */
+  static async getBookmarks(req, res) {
+    const { user } = req;
+    const bookmarks = user.bookmarks.map((bookmark) => Format.formatCourse(bookmark));
+    res.status(200).json({ count: bookmarks.length, bookmarks });
+  }
+
+  /**
    * Add and delete users' bookmarks
    * @param {Request} req - request object
    * @param {Response} res - response object
@@ -175,7 +175,7 @@ class UserController {
     const { action } = req.query;
     if (!courseId) return res.status(400).json({ error: 'Missing course id' });
     if (!Types.ObjectId.isValid(courseId)) {
-      return res.status(400).json({ error: 'Invalid course id' });
+      return res.status(404).json({ error: 'Not found' });
     }
     if (!action) return res.status(400).json({ error: 'Missing action parameter' });
     if (action !== 'add' && action !== 'del') {

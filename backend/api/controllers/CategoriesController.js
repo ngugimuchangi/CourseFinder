@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
-import Category from '../../models/category';
-import Subcategory from '../../models/subcategory';
-import Format from '../utils/format';
+import Category from '../models/category';
+import Subcategory from '../models/subcategory';
+import formats from '../utils/format';
 
 // Categories class controller
 class CategoriesController {
@@ -18,7 +18,7 @@ class CategoriesController {
     let categories;
     try {
       categories = (await Category.find({}))
-        .map((category) => Format.formatCategory(category));
+        .map((category) => formats.formatCategory(category));
     } catch (error) {
       next(error);
       return;
@@ -35,14 +35,16 @@ class CategoriesController {
   static async getCategoriesById(req, res, next) {
     const { id } = req.params;
     let category;
+    if (!Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: 'Not found' });
+    }
     try {
       category = await Category.findById(id);
     } catch (error) {
-      next(error);
-      return;
+      return next(error);
     }
-    if (!category) res.status(404).json({ error: 'Not found' });
-    else res.status(200).json(Format.formatCategory(category));
+    if (!category) return res.status(404).json({ error: 'Not found' });
+    return res.status(200).json(formats.formatCategory(category));
   }
 
   /**
@@ -53,17 +55,17 @@ class CategoriesController {
    */
   static async getSubcategoriesByCategory(req, res, next) {
     let subcategories;
-    const categoryId = Types.ObjectId.isValid(req.params.id)
-      ? new Types.ObjectId(req.params.id)
-      : req.params.id;
-    try {
-      subcategories = (await Subcategory.find({ category: categoryId }))
-        .map((subcategory) => Format.formatSubcategory(subcategory));
-    } catch (error) {
-      next(error);
-      return;
+    const { id } = req.params;
+    if (!Types.ObjectId.isValid(id)) {
+      return res.status(200).json({ count: 0, subcategories: [] });
     }
-    res.status(200).json({ count: subcategories.length, subcategories });
+    try {
+      subcategories = (await Subcategory.find({ category: id }))
+        .map((subcategory) => formats.formatSubcategory(subcategory));
+    } catch (error) {
+      return next(error);
+    }
+    return res.status(200).json({ count: subcategories.length, subcategories });
   }
 
   /**
@@ -76,7 +78,7 @@ class CategoriesController {
     let subcategories;
     try {
       subcategories = (await Subcategory.find({}))
-        .map((subcategory) => Format.formatSubcategory(subcategory));
+        .map((subcategory) => formats.formatSubcategory(subcategory));
     } catch (error) {
       return next(error);
     }
@@ -91,6 +93,9 @@ class CategoriesController {
    */
   static async getSubcategoriesById(req, res, next) {
     const { id } = req.params;
+    if (!Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: 'Not found' });
+    }
     let subcategory;
     try {
       subcategory = await Subcategory.findById(id);
@@ -98,7 +103,7 @@ class CategoriesController {
       return next(error);
     }
     if (!subcategory) return res.status(404).json({ error: 'Not found' });
-    return res.status(200).json(Format.formatSubcategory(subcategory));
+    return res.status(200).json(formats.formatSubcategory(subcategory));
   }
 }
 

@@ -3,12 +3,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import expressWinston from 'express-winston';
 import router from './routes';
-import DBClient from '../shared/db';
-import redisClient from '../shared/redis';
+import DBClient from './utils/db';
+import redisClient from './utils/redis';
 import errorHandler from './middleware/error';
-import Validator from './middleware/validator';
+import authTokenValidator from './middleware/validator';
 import unmatchedRoutes from './middleware/unmatched';
-import Logger from './middleware/logger';
+import logger from './middleware/logger';
 
 dotenv.config();
 
@@ -20,14 +20,14 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(expressWinston.logger({
-  winstonInstance: Logger.accessLogger(),
+  winstonInstance: logger.accessLogger(),
   statusLevels: true,
 }));
-app.use(Validator.authTokenValidator);
+app.use(authTokenValidator);
 app.use(router);
 app.use(unmatchedRoutes);
 app.use(expressWinston.errorLogger({
-  winstonInstance: Logger.errorLogger(),
+  winstonInstance: logger.errorLogger(),
 }));
 app.use(errorHandler);
 

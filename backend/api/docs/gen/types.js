@@ -63,15 +63,6 @@
  * }
  */
 
-/**
- * @apiDefine InvalidCourseId
- * @apiError (Error 400) InvalidCourseId Course id is in wrong format
- * @apiErrorExample InvalidCourseId
- * HTTP/1.1 400 Bad Request
- * {
- *   "error": "Invalid course id"
- * }
- */
 
 /**
  * @apiDefine MissingTopic

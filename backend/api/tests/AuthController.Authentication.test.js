@@ -3,11 +3,10 @@ import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { createClient } from 'redis';
-import User from '../../models/user';
+import User from '../models/user';
 import app from '../server';
 
 dotenv.config();
-
 chai.use(chaiHttp);
 const { expect, request } = chai;
 
@@ -18,9 +17,12 @@ describe('Authentication endpoints tests', () => {
   let token;
 
   before(async () => {
+    // Redis and DB connection
     redis = createClient({ url: process.env.REDIS_TEST_URI });
     await redis.connect();
     db = await mongoose.connect(process.env.DB_TEST_URI);
+
+    // User test data
     user = new User({ email: 'user@mail.com', password: 'supersecret' });
     user.hashPassword();
     await user.save();

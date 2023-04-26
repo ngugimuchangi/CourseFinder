@@ -1,10 +1,10 @@
-import ClassifyCourse from './classify';
-import DBClient from '../../shared/db';
+import { trainClassifier } from './classify';
+import db from './db';
 
-// Train classifier
+/** Train classifier */
 async function train() {
-  await DBClient.connect();
-  await ClassifyCourse.trainClassifier();
+  await db.connect();
+  await trainClassifier();
   console.log('Classification training completed');
 }
 train().then(() => setTimeout(() => process.exit(), 5000));

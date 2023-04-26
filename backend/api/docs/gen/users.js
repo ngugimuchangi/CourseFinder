@@ -98,7 +98,7 @@
  * belonging to a user
  * @apiUse XToken
  * @apiUse MissingCourseId
- * @apiUse InvalidCourseId
+ * @apiUse NotFound
  * @apiUse Unauthorized
  * @apiUse UserSuccessParams
  * @apiQuery {String='add','del'} action Action to perform on bookmark. `add` initiates bookmark
