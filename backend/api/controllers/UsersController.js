@@ -124,17 +124,6 @@ class UserController {
   }
 
   /**
-   * Gets list of all user's bookmarks
-   * @param {Request} req - request object
-   * @param {Response} res - response object
-   */
-  static async getBookmarks(req, res) {
-    const { user } = req;
-    const bookmarks = user.bookmarks.map((bookmark) => Format.formatCourse(bookmark));
-    res.status(200).json({ count: bookmarks.length, bookmarks });
-  }
-
-  /**
    * Add or remove topic to the list of topics belonging to a user
    * @param {Request} req - request object
    * @param {Response} res - response object
@@ -164,6 +153,17 @@ class UserController {
   }
 
   /**
+   * Gets list of all user's bookmarks
+   * @param {Request} req - request object
+   * @param {Response} res - response object
+   */
+  static async getBookmarks(req, res) {
+    const { user } = req;
+    const bookmarks = user.bookmarks.map((bookmark) => Format.formatCourse(bookmark));
+    res.status(200).json({ count: bookmarks.length, bookmarks });
+  }
+
+  /**
    * Add and delete users' bookmarks
    * @param {Request} req - request object
    * @param {Response} res - response object
@@ -175,7 +175,7 @@ class UserController {
     const { action } = req.query;
     if (!courseId) return res.status(400).json({ error: 'Missing course id' });
     if (!Types.ObjectId.isValid(courseId)) {
-      return res.status(400).json({ error: 'Invalid course id' });
+      return res.status(404).json({ error: 'Not found' });
     }
     if (!action) return res.status(400).json({ error: 'Missing action parameter' });
     if (action !== 'add' && action !== 'del') {
