@@ -17,7 +17,7 @@ function Landing() {
       } else {
         clearInterval(intervalId1);
       }
-    }, 100); // adjust the interval time to control the speed of animation
+    }, 210); // adjust the interval time to control the speed of animation
 
     let counter2 = 0;
     const intervalId2 = setInterval(() => {
@@ -27,7 +27,7 @@ function Landing() {
       } else {
         clearInterval(intervalId2);
       }
-    }, 200);
+    }, 100);
   }, []);
 
   return (
