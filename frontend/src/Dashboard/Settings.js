@@ -66,7 +66,7 @@ function Settings() {
         console.log(error);
       });
   };
-return isLoggedIn ? (
+return isLoggedIn && (
       <div className="DashBoard" id="settings">
         <NavBar />
         <div className="Mysettings">
@@ -86,7 +86,7 @@ return isLoggedIn ? (
           </div>
         </div>
       </div>
-    ) : (window.location.href="/login")
+    )
 }
 
 
