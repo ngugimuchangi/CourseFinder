@@ -1,6 +1,6 @@
 import "./Dashboard.css";
 import NavBar from "./Nav";
-import { useState, useEffect, Navigate } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
@@ -125,7 +125,7 @@ export default function Dashboard() {
   const Next = () => setCurrentPage(currentPage + 1)
 
   window.addEventListener("scroll", scrollFixed);
-return isLoggedIn ? (
+return isLoggedIn && (
       <div className="DashBoard" id="dashboard">
           {!isVerified && ( 
           <p className={fix ? "verified verified_hidden": "verified"}>Please  Verify your Email waiting... </p>
@@ -205,5 +205,5 @@ return isLoggedIn ? (
           </section>
         </div>
       </div>
-    ) : (<Navigate to="/" />)
+    )
 }

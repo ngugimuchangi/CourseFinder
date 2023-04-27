@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import AuthService from '../api/authService';
 import "./Container.css";
+import Cookies from 'js-cookie';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ function Login() {
     try {
       const response = await authService.login(email, password);
       if (response.status === 200) {
-        localStorage.setItem("user", JSON.stringify(response.token));
+        console.log(response.token)
       } else {
         console.error(response.message);
       }
