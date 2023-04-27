@@ -14,8 +14,7 @@ async function authTokenValidator(req, res, next) {
   const authPaths = /^\/auth\/(logout|verify-email)\/?$/;
 
   if (!userPaths.test(req.path) && !authPaths.test(req.path)) {
-    next();
-    return;
+    return next();
   }
   let user;
   const token = req.get('X-Token');
