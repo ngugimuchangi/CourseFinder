@@ -72,7 +72,7 @@ class ScraperController {
   /**
    * Scraping controller
    */
-  async scraper() {
+  async scrape() {
     const page = await scraper.goToPage(this.browser, this.url, this.courseSectionSelector);
     let next = true;
     while (next) {

@@ -67,9 +67,9 @@ async function main() {
       UDEMY_ENV.nextSelector,
     );
     await Promise.all([
-      courseraScrapper.scraper(),
-      udacityScrapper.scraper(),
-      udemyScrapper.scraper(),
+      courseraScrapper.scrape(),
+      udacityScrapper.scrape(),
+      udemyScrapper.scrape(),
     ]);
     await db.close();
   } catch (error) {
