@@ -15,7 +15,7 @@ function EmailVerification() {
                     baseURL: 'http://127.0.0.1:1245',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Token': Cookies.get('session')
+                        'X-Token': Cookies.get('user')
                     }
                 });
                 let url = `/auth/verify-email`;
