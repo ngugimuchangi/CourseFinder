@@ -86,6 +86,9 @@ class UserController {
       return res.status(400).json({ error: 'Missing email' });
     }
     try {
+      if (await User.findOne({ email })) {
+        return res.status(409).json({ error: 'An account with this email already exists' });
+      }
       user.email = email;
       user.verified = false;
       await user.save();
