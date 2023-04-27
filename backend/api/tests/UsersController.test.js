@@ -161,6 +161,18 @@ describe('Users endpoints tests', () => {
           done();
         });
     });
+    it('should return 409 error for email with existing user', (done) => {
+      request(app)
+        .put('/users/me/email')
+        .set('X-Token', authToken)
+        .send({ email: 'another_email@mail.com' })
+        .end((error, res) => {
+          expect(error).to.be.null;
+          expect(res).to.have.status(409);
+          expect(res.body.error).to.equal('An account with this email already exists');
+          done();
+        });
+    });
     it('should return 401 error for unauthorized user', (done) => {
       request(app)
         .put('/users/me/email')
