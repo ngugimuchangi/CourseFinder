@@ -43,9 +43,6 @@ export default function Dashboard() {
         const response = await api.get(user)
         if (response.data.verified) {
           setIsVerified(true)
-          setTimeout(() => {
-            window.location.href = "/bookmarks";
-          }, 5000);
         } else {
           setIsVerified(false)
         }
@@ -124,9 +121,9 @@ export default function Dashboard() {
     }
   }
   window.addEventListener("scroll", scrollFixed);
-return isLoggedIn ? (
+return isLoggedIn && (
       <div className="DashBoard" id="bookmarks">
-        {isVerified ? ( 
+        {!isVerified && ( 
           <p className={fix ? "verified verified_hidden": "verified"}>Please  Verify your Email waiting... </p>
           ) : (
             <div className="confirmed"></div>
@@ -212,5 +209,5 @@ return isLoggedIn ? (
           </section>
         </div>
       </div>
-    ) : (window.location.href = "/")
+    )
 }
