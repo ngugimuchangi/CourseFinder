@@ -48,3 +48,23 @@
         gap: 3rem 0;
         justify-content: center;
 }
+
+Button .tooltiptext {
+        visibility: hidden;
+        background-color: rgb(65, 61, 61);
+        color: #fff;
+        text-align: center;
+        border-radius: 1px;
+        width: 10.4rem;
+        position: absolute;
+        padding: 2px;
+        font-size: 3px;
+        z-index: 1;
+        transform: rotate(-38deg);
+        top: -8%;
+        right: 0%;
+        margin-right: 5px;
+      }
+Button:hover .tooltiptext {
+        visibility: visible;
+}

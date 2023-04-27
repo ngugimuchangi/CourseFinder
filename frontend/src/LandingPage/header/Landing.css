@@ -73,3 +73,29 @@
         background-color: #442588;
         color: #ffffff !important;
 }
+
+.Landing-containers-h1 {
+        animation: slide-in-right 1s forwards;
+}
+
+.Landing-containers-h3 {
+        animation: slide-in-left 1s forwards;
+}
+
+@keyframes slide-in-right {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+      
+      @keyframes slide-in-left {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+}

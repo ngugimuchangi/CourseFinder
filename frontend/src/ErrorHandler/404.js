@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import './404.css';
+import Button from 'react-bootstrap/esm/Button';
 
-const CHECK_ROUTE_TIMEOUT = 30000;
+const CHECK_ROUTE_TIMEOUT = 5000;
 
 function NotFound() {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,7 +13,7 @@ function NotFound() {
       baseURL: 'http://127.0.0.1:1245',
       headers: {
         'Content-Type': 'application/json',
-        'X-Token': Cookies.get('session'),
+        'X-Token': localStorage.getItem('user'),
       },
     });
 
@@ -48,8 +48,8 @@ function NotFound() {
   return (
     <div className="Error-container">
       <h1>404 Not Found</h1>
-      <p>The page you're looking for does not exist.</p>
-      <button onClick={() => window.location.href = "/"}>Go to home page</button>
+      <p>The page/resource you're looking for does not exist.</p>
+      <Button onClick={() => window.location.href = "/"}>Go to home page</Button>
     </div>
   );
 }

@@ -15,8 +15,12 @@ import BookMarks from "./Dashboard/Bookmarks";
 import Settings from "./Dashboard/Settings";
 import PrivacyPopup from "./OnlinePrivacy";
 import Terms from "./TermsPolicy";
+import AuthService from './api/authService';
+
 
 const App = () => {
+  const authService = new AuthService();
+  const isLoggedIn = authService.isLogedIn();
   return (
     <Routes>
       <Route exact path="/" element={<Home />} />
@@ -25,9 +29,14 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/reset" element={<Reset />} />
       <Route path="/confirmEmail/:Id/:verificationToken" element={<EmailVerification />} />
+      {isLoggedIn ? (
+      <>
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/bookmarks" element={<BookMarks />} />
       <Route path="/settings" element={<Settings />} />
+      </>
+      ) : (<><Route exact path="/" element={<Home />} /></>)
+    }
       <Route path="/privacy" element={<PrivacyPopup />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="*" element={<NotFound />} />

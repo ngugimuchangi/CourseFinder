@@ -1,28 +1,16 @@
-import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import AuthService from '../api/authService';
+import Button from "react-bootstrap/esm/Button";
 
 export default function NavBar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const authService = new AuthService();
+  const userLoggedIn = authService.isLogedIn();
   const location = useLocation();
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem("isLoggedIn");
-    window.location.href = "/";
-  };
-
-  // Add useEffect hook to check for isLoggedIn value on mount
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn === "false") {
-      setIsLoggedIn(false);
-    }
-  }, []);
-
-  if (!isLoggedIn) {
-    window.location.href = "/";
-  } else {
-    return (
+  async function handleLogout() {
+      await authService.logout();
+  }
+return userLoggedIn ? (
       <div className="menu_container">
         <nav className="main-menu">
           <ul>
@@ -52,15 +40,14 @@ export default function NavBar() {
           </ul>
 
           <ul className="logout">
-            <li>
-              <a href="/" onClick={handleLogout}>
+            <li >
+              <Button className="Button" onClick={handleLogout} >
                 <i className="fa fa-power-off fa-2x"></i>
                 <span className="nav-text">Logout</span>
-              </a>
+              </Button>
             </li>
           </ul>
         </nav>
       </div>
-    );
-  }
+    ) : (window.location.hreg="/")
 }
