@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import AuthService from '../api/authService';
 import "./Container.css";
-import Cookies from 'js-cookie';
 
 function Login() {
   const [email, setEmail] = useState("");
