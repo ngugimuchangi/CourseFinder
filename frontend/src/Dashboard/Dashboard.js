@@ -129,8 +129,6 @@ return isLoggedIn ? (
       <div className="DashBoard" id="dashboard">
           {!isVerified && ( 
           <p className={fix ? "verified verified_hidden": "verified"}>Please  Verify your Email waiting... </p>
-          ) : (
-            <div className="confirmed"></div>
           )
           }
           {isBookmarked && (
