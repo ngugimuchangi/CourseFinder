@@ -7,7 +7,7 @@
     "check-lint": "eslint",
     "fix-lint": "eslint --fix",
     "dev": "nodemon --exec babel-node --presets @babel/preset-env",
-    "load-data": "babel-node --presets @babel/preset-env shared/data.js",
+    "load-data": "babel-node --presets @babel/preset-env utils/data.js",
     "start-workers": "nodemon --exec babel-node --presets @babel/preset-env workers/emailWorker.js",
     "start-server": "nodemon --exec babel-node --presets @babel/preset-env server.js",
     "test": "mocha --require @babel/register --exit",

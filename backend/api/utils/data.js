@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import dotenv from 'dotenv';
-import DBClient from './db';
+import db from './db';
 import Category from '../models/category';
 import Subcategory from '../models/subcategory';
 
@@ -19,8 +19,10 @@ async function addCategories(file) {
   const data = fs.readFileSync(file).toString('utf-8');
   const categories = data.split('\n');
   for (const category of categories.slice(1, categories.length - 1)) {
-    const newCategory = new Category({ title: category });
-    saveDocuments.push(newCategory.save());
+    if (!await Category.findOne({ title: category })) {
+      const newCategory = new Category({ title: category });
+      saveDocuments.push(newCategory.save());
+    }
   }
   await Promise.all(saveDocuments);
 }
@@ -41,7 +43,8 @@ async function addSubcategories(file) {
     const [title, categoryTitle, keywords] = subcategory.split(',');
     // eslint-disable-next-line no-await-in-loop
     const category = await Category.findOne({ title: categoryTitle });
-    if (category) {
+    const subcategoryCheck = await Subcategory.findOne({ title });
+    if (category && !subcategoryCheck) {
       const newSubcategory = new Subcategory({
         title,
         category,
@@ -57,12 +60,10 @@ async function addSubcategories(file) {
  * Populates database with categories and subcategories from csv files
  */
 async function loadCategories() {
-  const categoriesFile = './shared/course_categories.csv';
-  const subCategoriesFile = './shared/course_subcategories.csv';
+  const categoriesFile = 'utils/course_categories.csv';
+  const subCategoriesFile = 'utils/course_subcategories.csv';
   try {
-    await DBClient.connect();
-    await Category.deleteMany({});
-    await Subcategory.deleteMany({});
+    await db.connect();
     await addCategories(categoriesFile);
     await addSubcategories(subCategoriesFile);
   } catch (error) {

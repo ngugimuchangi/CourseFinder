@@ -14,7 +14,10 @@ async function launchBrowser() {
   const browserOptions = {
     headless: true,
     executablePath: executablePath(),
-    args: [`--proxy-server=${PROXY_URL}`],
+    args: [
+      '--no-sandbox',
+      `--proxy-server=${PROXY_URL}`,
+    ],
     ignoreHTTPSErrors: true,
     defaultViewport: null,
   };
