@@ -3,5 +3,4 @@
 # 1. Installing depencies
 # 2. Loading categories data
 
-npm install &&
-npm run load-data &&
+npm install && npm run load-data
