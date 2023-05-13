@@ -12,7 +12,7 @@ async function launchBrowser() {
   const { PROXY_URL } = process.env;
   let browser;
   const browserOptions = {
-    headless: true,
+    headless: 'new',
     executablePath: executablePath(),
     args: [
       '--no-sandbox',
