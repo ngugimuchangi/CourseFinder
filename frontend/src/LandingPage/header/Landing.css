@@ -38,7 +38,7 @@
 * Container Main Hero heading
 */
 .Landing-containers-h1 {
-        font-size: 11rem;
+        font-size: 9rem;
         font-weight: 600;
         letter-spacing: 3.1rem;
         text-transform: uppercase;
@@ -50,7 +50,7 @@
 .Landing-containers-h3 {
         font-size: 3rem;
         margin-bottom: 2.4rem;
-        letter-spacing: 1.6rem;
+        letter-spacing: 1.4rem;
         text-transform: uppercase;
         font-weight: 300;
 }
@@ -90,12 +90,77 @@
           transform: translateX(0);
         }
       }
-      
+
       @keyframes slide-in-left {
         from {
           transform: translateX(-100%);
         }
         to {
           transform: translateX(0);
+        }
+}
+
+/*phone = 600px*/
+@media only screen and (max-width: 37.5em) {
+        .Landing-containers-h1 {
+                font-size: 4.4rem;
+                letter-spacing: 1.6rem;
+        }
+        .Landing-containers-h3 {
+                font-size: 1.2rem;
+                letter-spacing: none;
+        }
+        .Landing-containers-btn_link {
+                padding: 1rem 2rem;
+                border-radius: 0.5rem;
+                font-size: 1.2rem;
+        }
+}
+/*tab-port = 900px*/
+@media only screen and (max-width: 56.25em) {
+        .Landing-containers-h1 {
+                font-size: 5rem;
+                letter-spacing: 1.8rem;
+        }
+        .Landing-containers-h3 {
+                font-size: 1.8rem;
+                letter-spacing: .8rem;
+        }
+        .Landing-containers-btn_link {
+                padding: 1.5rem 2.5rem;
+                border-radius: 0.6rem;
+                font-size: 1.8rem;
+        }
+}
+/*tab-landing = 1200px*/
+@media only screen and (max-width: 75em) {
+        .Landing-containers-h1 {
+                font-size: 7rem;
+                letter-spacing: 2rem;
+        }
+        .Landing-containers-h3 {
+                font-size: 2rem;
+                letter-spacing: 1rem;
+        }
+        .Landing-containers-btn_link {
+                padding: 2rem 3rem;
+                border-radius: 0.7rem;
+                font-size: 2.5rem;
+        }
+}
+/*big-desktop = 1800px*/
+@media only screen and (min-width: 112.5em) {
+        .Landing-containers-h1 {
+                font-size: 6rem;
+                letter-spacing: 2.5rem;
+        }
+        .Landing-containers-h3 {
+                font-size: 3rem;
+                letter-spacing: 1.4rem;
+        }
+        .Landing-containers-btn_link {
+                padding: 2.5rem 4rem;
+                border-radius: 0.8rem;
+                font-size: 3rem;
         }
 }

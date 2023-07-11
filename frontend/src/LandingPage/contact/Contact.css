@@ -41,4 +41,37 @@
 .Contact-info p {
         font-weight: 400;
         margin-bottom: 0.6rem;
+        text-align: center;
+}
+
+/*phone = 600px*/
+@media only screen and (max-width: 37.5em) {
+        .Contact {
+                font-size: 1.4rem;
+                gap: 0 4rem;
+        }
+}
+
+/*tab-port = 900px*/
+@media only screen and (max-width: 56.25em) {
+        .Contact {
+                font-size: 1.6rem;
+                gap: 0 7.6rem;
+        }
+}
+
+/*tab-landing = 1200px*/
+@media only screen and (max-width: 75em) {
+        .Contact {
+                font-size: 1.7rem;
+                gap: 0 9.6rem;
+        }
+}
+
+/*big-desktop = 1800px*/
+@media only screen and (min-width: 112.5em) {
+        .Contact {
+                font-size: 1.8rem;
+                gap: 0 12rem;
+        }
 }

@@ -18,6 +18,7 @@ function Programs() {
   const [isLoading, setIsLoading] = useState(false);
   const [fix, setFixed] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
+  const urls = process.env.REACT_APP_BACKEND_API;
 
 
   function scrollFixed() {
@@ -33,7 +34,7 @@ function Programs() {
     async function fetchData() {
       setIsLoading(true);
       const api = axios.create({
-        baseURL: 'http://127.0.0.1:1245',
+        baseURL: urls,
         headers: {
           'Content-Type': 'application/json',
           'X-Token': Cookies.get('session')
@@ -62,7 +63,7 @@ function Programs() {
     }
 
     fetchData();
-  }, [currentPage, searchQuery]);
+  }, [currentPage, searchQuery, urls]);
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);

@@ -68,3 +68,69 @@ a:hover,
         color: #442588 !important;
         font-weight: 500;
 }
+/*small-phone = 600px*/
+@media only screen and (max-width: 21.875em) {
+        .Heading {
+                display: none !important;
+        }
+        .Navigation-Container {
+                height: 100%;
+                justify-content: center !important;
+        }
+}
+
+/*phone = 600px*/
+@media only screen and (max-width: 37.5em) {
+        .Navigation-Container {
+                height: 100%;
+        }
+        .Heading {
+                display: block;
+                height: 2.2rem !important;
+        }
+        .Navigation-link a {
+                font-size: 1rem !important;
+        }
+        .Navigation-links {
+                gap: 0.2rem !important;
+        }
+}
+/*tab-port = 900px*/
+@media only screen and (max-width: 56.25em) {
+        .Navigation-Container {
+                width: 100% !important;
+        }
+        .Navigation-link {
+                padding-right: 0.8rem;
+                font-size: 0.9rem;
+        }
+        .Navigation-link a {
+                font-size: 1.4rem !important;
+        }
+}
+/*tab-landing = 1200px*/
+@media only screen and (max-width: 75em) {
+        .Navigation-Container {
+                width: 80% !important;
+        }
+        .Navigation-link {
+                padding-right: 0.6rem;
+                font-size: 0.8rem;
+        }
+        .Navigation-link a {
+                font-size: 1.6rem !important;
+        }
+}
+/*big-desktop = 1800px*/
+@media only screen and (min-width: 112.5em) {
+        .Navigation-Container {
+                width: 70% !important;
+        }
+        .Navigation-link {
+                padding-right: 0.4rem;
+                font-size: 0.7rem;
+        }
+        .Navigation-link a {
+                font-size: 1rem !important;
+        }
+}

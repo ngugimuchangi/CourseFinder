@@ -9,6 +9,7 @@ import Signup from "./Credentials/Signup";
 import Login from "./Credentials/Login";
 import Reset from "./Credentials/Reset";
 import EmailVerification from "./Credentials/verifyEmail";
+import ResetPassword from "./Credentials/resetPassword";
 import NotFound from "./ErrorHandler/404";
 import Dashboard from "./Dashboard/Dashboard";
 import BookMarks from "./Dashboard/Bookmarks";
@@ -17,18 +18,18 @@ import PrivacyPopup from "./OnlinePrivacy";
 import Terms from "./TermsPolicy";
 import AuthService from './api/authService';
 
-
 const App = () => {
   const authService = new AuthService();
   const isLoggedIn = authService.isLogedIn();
   return (
     <Routes>
       <Route exact path="/" element={<Home />} />
-      <Route exact path="/programs" element={<Programs />} />
+      <Route path="/programs" element={<Programs />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/reset" element={<Reset />} />
       <Route path="/confirmEmail/:Id/:verificationToken" element={<EmailVerification />} />
+      <Route path="/reset/:Id/:verificationToken" element={<ResetPassword />} />
       {isLoggedIn ? (
       <>
       <Route path="/dashboard" element={<Dashboard />} />

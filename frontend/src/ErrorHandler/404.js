@@ -7,10 +7,11 @@ const CHECK_ROUTE_TIMEOUT = 5000;
 
 function NotFound() {
   const [isLoading, setIsLoading] = useState(true);
+  const urls = process.env.REACT_APP_BACKEND_API;
 
   useEffect(() => {
     const api = axios.create({
-      baseURL: 'http://127.0.0.1:1245',
+      baseURL: urls,
       headers: {
         'Content-Type': 'application/json',
         'X-Token': localStorage.getItem('user'),
@@ -35,7 +36,7 @@ function NotFound() {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [urls]);
 
   if (isLoading) {
     return (

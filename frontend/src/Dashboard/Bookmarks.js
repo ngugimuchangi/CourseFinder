@@ -21,6 +21,7 @@ export default function Dashboard() {
   const [isVerified, setIsVerified] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [isBookmarked, setIsBookmaked] = useState(false);
+  const urls = process.env.REACT_APP_BACKEND_API;
 
   function scrollFixed() {
     if (window.scrollY >= 1) {
@@ -33,7 +34,7 @@ export default function Dashboard() {
   useEffect(() => {
     async function verification() {
       const api = axios.create({
-        baseURL: 'http://127.0.0.1:1245',
+        baseURL: urls,
         headers: {
           'Content-Type': 'application/json',
           'X-Token': localStorage.getItem("user"),
@@ -51,7 +52,7 @@ export default function Dashboard() {
     async function fetchData() {
       setIsLoading(true);
       const api = axios.create({
-        baseURL: 'http://127.0.0.1:1245',
+        baseURL: urls,
         headers: {
           'Content-Type': 'application/json',
           'X-Token': localStorage.getItem("user"),
@@ -88,7 +89,7 @@ export default function Dashboard() {
     } catch (error) {
       console.log(error)
     }
-  }, [currentPage, isLoggedIn, searchQuery]);
+  }, [currentPage, isLoggedIn, searchQuery, urls]);
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
