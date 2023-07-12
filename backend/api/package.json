@@ -7,12 +7,16 @@
     "check-lint": "eslint",
     "fix-lint": "eslint --fix",
     "dev": "nodemon --exec babel-node --presets @babel/preset-env",
-    "load-data": "babel-node --presets @babel/preset-env utils/data.js",
+    "load-data": "babel-node --presets @babel/preset-env shared/data.js",
+    "email-job": "node dist/workers/emailWorker.js",
+    "backend-api": "node dist/server.js",
     "start-workers": "nodemon --exec babel-node --presets @babel/preset-env workers/emailWorker.js",
     "start-server": "nodemon --exec babel-node --presets @babel/preset-env server.js",
     "test": "mocha --require @babel/register --exit",
+    "clean": "rm -rf dist",
     "test-all": "mocha --require @babel/register --exit tests/",
-    "build" : "concurrently \"npm run start-server\" \"npm run start-workers\""
+    "production": "concurrently \"npm run backend-api\" \"npm run email-job\"",
+    "build": "babel . --out-dir dist --ignore node_modules logs docs"
   },
   "keywords": [
     "courses",
@@ -35,10 +39,10 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.4",
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.21.8",
     "@babel/node": "^7.20.7",
-    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-env": "^7.21.5",
     "@babel/register": "^7.21.0",
     "apidoc": "^0.54.0",
     "chai": "^4.3.7",

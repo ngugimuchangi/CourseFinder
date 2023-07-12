@@ -8,6 +8,7 @@ function SignUp() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const url = process.env.REACT_APP_BACKEND_API;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +17,7 @@ function SignUp() {
       return;
     }
     axios.defaults.headers.post['Content-Type'] = 'application/json';
-    axios.defaults.baseURL = 'http://127.0.0.1:1245';
+    axios.defaults.baseURL = url;
 
     await axios.post('/users', {
       email: email,

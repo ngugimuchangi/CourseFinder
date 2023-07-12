@@ -9,6 +9,7 @@ function Settings() {
   const [emailFormVisible, setEmailFormVisible] = useState(false);
   const [newEmail, setNewEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const urls = process.env.REACT_APP_BACKEND_API;
 
   // Add useEffect hook to check for isLoggedIn value on mount
   useEffect(() => {
@@ -18,7 +19,7 @@ function Settings() {
     }
 
     const api = axios.create({
-      baseURL: 'http://127.0.0.1:1245',
+      baseURL: urls,
       headers: {
         'Content-Type': 'application/json',
         'X-Token': localStorage.getItem('user')
@@ -31,12 +32,12 @@ function Settings() {
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [urls]);
 
   const handleEmailFormSubmit = (e) => {
     e.preventDefault();
     const api = axios.create({
-      baseURL: 'http://127.0.0.1:1245',
+      baseURL: urls,
       headers: {
         'Content-Type': 'application/json',
         'X-Token': localStorage.getItem('user')

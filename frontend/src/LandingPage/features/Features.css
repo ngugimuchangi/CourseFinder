@@ -21,6 +21,35 @@
         font-size: 9rem;
 }
 
+/*small-phone = 600px*/
+@media only screen and (max-width: 21.875em) {
+        .service h1{
+                font-size: 6rem;
+        }
+        .Greatings-text {
+                font-size: 3.4rem !important;
+        }
+        .Greatings-btn_link {
+                padding: 1rem 2rem !important;
+                border-radius: 0.5rem !important;
+                font-size: 1.2rem !important;
+        }
+}
+
+@media only screen and (max-width: 768px) {
+        .Greatings-text{
+                font-size: 4rem !important;
+        }
+        .Greatings-Emoji{
+                height: 6vh !important;
+        }
+        .Greatings-btn_link {
+                padding: 1.3rem 2.6rem !important;
+                border-radius: 0.5rem !important;
+                font-size: 1.6rem !important;
+        }
+}
+
 .service p {
         width: 41%;
         text-align: center;
@@ -66,6 +95,7 @@
         font-size: 6rem;
         color: #000000;
         font-weight: 500;
+        text-align: center;
 }
 
 /**

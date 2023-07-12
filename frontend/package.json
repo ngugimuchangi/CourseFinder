@@ -35,7 +35,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "clean": "rm -rf build"
   },
   "eslintConfig": {
     "extends": [
@@ -73,7 +74,9 @@
   "devDependencies": {
     "babel-loader": "^9.1.2",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "cors-anywhere": "^0.4.4",
     "css-loader": "^6.7.3",
+    "dotenv-webpack": "^8.0.1",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "postcss-normalize": "^10.0.1",

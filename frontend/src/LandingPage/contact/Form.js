@@ -6,7 +6,8 @@ import axios from 'axios';
 
 
 function sendEmail(data) {
-        axios.post('http://127.0.0.1:1245', data)
+        const urls = process.env.REACT_APP_BACKEND_API;
+        axios.post(urls, data)
           .then(res => {
             console.log(res.data);
           })

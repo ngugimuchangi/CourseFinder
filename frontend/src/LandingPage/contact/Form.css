@@ -67,3 +67,62 @@
 .User_form-User_Submission input:hover {
         background-color: #442588;
 }
+
+
+/*phone = 600px*/
+@media only screen and (max-width: 37.5em) {
+        .User_form {
+                width: 100% !important;
+        }
+        .User_form-User_names {
+                flex-direction: column !important;
+                gap: 1rem !important;
+        }
+        .User_form-User_forms {
+                padding: 0.2rem !important;
+        }
+        .User_form-User_forms label {
+                font-size: 1.2rem !important;
+        }
+        .User_form-User_forms input {
+                padding: 0.4rem !important;
+        }
+}
+
+@media only screen and (max-width: 726px) {
+        .User_form {
+                width: 140%;
+        }
+}
+
+/*tab-port = 900px*/
+@media only screen and (max-width: 56.25em) {
+        .User_form-User_names {
+                flex-direction: column !important;
+                gap: 1rem !important;
+        }
+        .User_form-User_forms {
+                padding: 0.2rem !important;
+        }
+        .User_form-User_forms label {
+                font-size: 1.3rem !important;
+                width: 100% !important;
+        }
+        .User_form-User_forms input {
+                padding: 0.6rem !important;
+        }
+}
+
+/*tab-landing = 1200px*/
+@media only screen and (max-width: 75em) {
+        .User_form-User_names {
+                gap: 2rem !important;
+        }
+}
+
+/*big-desktop = 1800px*/
+@media only screen and (min-width: 112.5em) {
+        .User_form {
+                width: 76%;
+        }
+}
