@@ -5,16 +5,19 @@ import stealthPlugin from 'puppeteer-extra-plugin-stealth';
 puppeteerExtra.use(stealthPlugin());
 
 /**
-   * Creates a browser instance
-   * @returns {object} - chromium browser instance
-   */
+ * Creates a browser instance
+ * @returns {object} - chromium browser instance
+ */
 async function launchBrowser() {
   const { PROXY_URL } = process.env;
   let browser;
   const browserOptions = {
     headless: true,
     executablePath: executablePath(),
-    args: [`--proxy-server=${PROXY_URL}`],
+    args: [
+      '--no-sandbox',
+      `--proxy-server=${PROXY_URL}`,
+    ],
     ignoreHTTPSErrors: true,
     defaultViewport: null,
   };

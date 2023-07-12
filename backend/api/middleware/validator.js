@@ -14,24 +14,20 @@ async function authTokenValidator(req, res, next) {
   const authPaths = /^\/auth\/(logout|verify-email)\/?$/;
 
   if (!userPaths.test(req.path) && !authPaths.test(req.path)) {
-    next();
-    return;
+    return next();
   }
   let user;
   const token = req.get('X-Token');
   const userId = await redisClient.getUserId(token);
+  if (!userId) return res.status(401).json({ error: 'Unauthorized' });
   try {
     user = await User.findById(userId).populate('bookmarks');
   } catch (error) {
-    next(error);
-    return;
+    return next(error);
   }
-  if (!user) {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
+  if (!user) return res.status(401).json({ error: 'Unauthorized' });
   req.user = user;
-  next();
+  return next();
 }
 
 export default authTokenValidator;

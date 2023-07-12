@@ -2,9 +2,6 @@ import scraper from './scraper';
 import { addCourse } from './utils/courseUtilities';
 import { infoLogger } from './utils/logger';
 
-/* eslint no-await-in-loop: 0 */ // --> OFF
-/* necessary due to minimize browser resource consumption */
-
 /**
  * Retrieves course data from pages
  * @param {object} browser - chromium browser instance

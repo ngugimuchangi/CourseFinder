@@ -1,7 +1,9 @@
 import Queue from 'bull';
 import ejs from 'ejs';
 
-const EmailQueue = new Queue('Send email');
+const { REDIS_DEV_URI, REDIS_PROD_URI } = process.env;
+const redisUrl = process.env.ENV === 'prod' ? REDIS_PROD_URI : REDIS_DEV_URI;
+const EmailQueue = new Queue('Send email', redisUrl);
 
 /**
  * Creates an email job for new user welcome message,

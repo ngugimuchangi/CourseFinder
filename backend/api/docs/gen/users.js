@@ -9,7 +9,7 @@
  * @apiBody {String} email User email
  * @apiBody {String} password User password
  * @apiSuccess (Success 201) {String} id User id
- * @apiSuccess (Success 201) {String} email Useremail
+ * @apiSuccess (Success 201) {String} email User email
  * @apiSuccess (Success 201) {Boolean} user email verification status
  * @apiSuccess (Success 201) {Array} topics List of topics of interest to user
  * @apiSuccess (Success 201) {Array} bookmarks List of bookmarked courses
@@ -173,6 +173,12 @@
  * @apiUse MissingEmail
  * @apiUse Unauthorized
  * @apiUse UserSuccessParams
+ * @apiError (409) AccountExists New email already associated with a user account
+ * @apiErrorExample AccountExists
+ * HTTP/1.1 409 Conflict
+ * {
+ *   "error": "An account with this email already exists"
+ * }
  * @apiSuccessExample {json} Success-Response:
  * HTTP/1.1 200 OK
  * {
